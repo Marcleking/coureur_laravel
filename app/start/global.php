@@ -84,5 +84,5 @@ require app_path().'/filters.php';
 
 Auth::extend('coureur', function($app)
 {
-    return new Illuminate\Coureur\CoureurAuthProvider;
+    return new \Coureur\Connexion\CoureurAuthProvider;
 });
