@@ -101,7 +101,7 @@ Route::group(['before' => 'auth'], function() {
         '/gestion/compte',
         [
             'as'   => 'gestion.compte',
-            'uses' => 'CoureurController@gestionComptePost'
+            'uses' => 'CoureurController@gestionCompteSave'
         ]
     );
 

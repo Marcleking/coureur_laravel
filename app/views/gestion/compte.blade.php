@@ -19,11 +19,11 @@
 			<div class="row">
 				<div class="large-6 columns">
 					{{ Form::label('nom', 'Nom(*)') }}
-					{{ Form::text('nom') }}
+					{{ Form::text('nom', $info->nom) }}
 				</div>
 				<div class="large-6 columns">
 					{{ Form::label('prenom', 'Prenom(*)') }}
-					{{ Form::text('prenom') }}
+					{{ Form::text('prenom', $info->prenom) }}
 				</div>
 			</div>
 			<div class="row">
@@ -40,30 +40,29 @@
 		<div class="row">
 			<div class="large-6 columns">
 				{{ Form::label('numeroCiv', 'Numéro civique') }}
-				{{ Form::text('numeroCiv') }}
+				{{ Form::text('numeroCiv', $info->numeroCivique) }}
 			</div>
 			<div class="large-6 columns">
 				{{ Form::label('rue', 'Rue') }}
-				{{ Form::text('rue') }}
+				{{ Form::text('rue', $info->rue) }}
 			</div>
 		</div>
 		<div class="row">
 			<div class="large-6 columns">
 				{{ Form::label('ville', 'Ville') }}
-				{{ Form::text('ville') }}
+				{{ Form::text('ville', $info->ville) }}
 			</div>
 			<div class="large-6 columns">
 				{{ Form::label('codePostal', 'Code postal') }}
-				{{ Form::text('codePostal') }}
+				{{ Form::text('codePostal', $info->codePostal) }}
 			</div>
 		</div>
 
 		<div id="lesTels">
-			<?php 
-				if (isset($resteTel)) {
-					echo $resteTel;
-				}
-			?>
+				@if (isset($info->tel))
+					{{ $info->tel }}
+				@endif
+				
 
 			<div class"row" id="finTel">
 				<a class="button small" id="telPlus"><i class="fa fa-plus"></i></a>
@@ -71,8 +70,8 @@
 		</div>
 		<div class="row">
 			<div class="large-7 columns">
-				<input id="notifHoraire" type="checkbox" value="1" name="notifHoraire"><label for="notifHoraire">Notifications courriel pour les nouveaux horaires</label><br />
-				<input id="notifRemplacement" type="checkbox" value="1" name="notifRemplacement"><label for="notifRemplacement">Notifications pour tous les remplacements</label>
+				<input id="notifHoraire" type="checkbox" value="1" name="notifHoraire" {{ ($info->notifHoraire == 1) ? "checked" : "" }}><label for="notifHoraire">Notifications courriel pour les nouveaux horaires</label><br />
+				<input id="notifRemplacement" type="checkbox" value="1" name="notifRemplacement" {{ ($info->notifRemplacement == 1) ? "checked" : "" }}><label for="notifRemplacement">Notifications pour tous les remplacements</label>
 			</div>
 		</div>
 			<input type="submit" class="button"/>
