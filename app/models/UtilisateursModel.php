@@ -44,5 +44,18 @@ class UtilisateursModel extends Eloquent {
 		return DB::select('Call SupprimerTelephone(?)', array(Auth::User()->id));
 	}
 
+	public static function afficherUtilisateurs()
+	{
+		$rows = DB::select('Call Utilisateurs()');
+
+		foreach ($rows as $row) {
+			if ($row->courriel != Auth::User()->id) {
+				$results[] = $row;
+			}
+		}
+		
+
+		return $results;
+	}
 
 }

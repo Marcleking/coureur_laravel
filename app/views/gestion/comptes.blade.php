@@ -20,8 +20,7 @@
 					</div> 
 				@endif
 				
-
-				{{-- <?=$lstEmploye?> --}}
+				{{ $info }}
 			</div>	      
 		</div>
   	</div>

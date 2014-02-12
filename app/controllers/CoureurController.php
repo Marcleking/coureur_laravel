@@ -18,7 +18,8 @@ class CoureurController extends BaseController {
 		return View::make('dispo');
 	}
 
-	public function gestionCompte() {
+	public function gestionCompte() 
+	{
         $user = UtilisateursModel::afficherUtilisateur(Auth::User()->id);
         $tels = UtilisateursModel::afficherTelehpone(Auth::User()->id);
 
@@ -80,6 +81,7 @@ class CoureurController extends BaseController {
 
 	public function gestionCompteSave()
 	{
+
 		$info = Input::all();
 
 		$notifHoraire = 1;
@@ -134,27 +136,87 @@ class CoureurController extends BaseController {
                 $success = true;
             }
         }
-        return Redirect::route('gestion.compte'); 
-        /*
+        
+        
         $valCritique = false;
         $i = 0;
 
-        $this->modif->supprimerTelephone();
+        UtilisateursModel::supprimerTelephone();
 
         while (!$valCritique) {
-            if (!isset($info->tel$i])) {
+            if (!isset($info['tel'.$i])) {
                 $valCritique = true;
             } else {
-                $this->modif->ajoutTelephone($info->typeTel$i], $info->tel$i]);
+                UtilisateursModel::ajoutTelephone($info['typeTel'.$i], $info['tel'.$i]);
             }
             $i++;
         }
-        */
+        return Redirect::route('gestion.compte'); 
 	}
 
 	public function gestionComptes() 
 	{
-		return View::make('gestion.comptes');
+		if (Auth::User()->type == "Gestionnaire") {
+
+	        $listEmploye = UtilisateursModel::afficherUtilisateurs();
+	        $listHtml = '<dl class="accordion" data-accordion> ';
+	        foreach ($listEmploye as $employe) {
+	            $listHtml .= '<hr><dd><a href="#panel' .
+	                        strtr($employe->courriel, array("." => "", "@" => "")) .'">';
+	            $listHtml .=  $employe->prenom ." ". $employe->nom;
+
+	            if ($employe->possesseurCle == 1) {
+	                $listHtml = $listHtml . '<i class="fa fa-key right"> </i>';
+	            }
+	            if ($employe->respHoraireConflit == 1) {
+	                $listHtml = $listHtml . '<i class="fa fa-clock-o right"/> </i>';
+	            }
+
+	            $listHtml .= '</a>';
+	            $listHtml .= '<div id="panel'.strtr($employe->courriel, array("." => "", "@" => "")) .'" class="content">';
+	            $listHtml .= '<div class="left"> Nom: '. $employe->prenom ." ". $employe->nom. '</div>';
+	            $listHtml .= '<div class="right"> Adresse: '. $employe->numeroCivique .", ". $employe->rue;
+	            $listHtml .= '<br />'.$employe->ville. ' '. $employe->codePostal .'</div>';
+	            $listHtml .= '<br />Courriel: '.$employe->courriel;
+	            $listHtml .= '<br />Type Employé: '. $employe->typeEmploye;
+
+	            if ($employe->formationChaussure == 1) {
+	                $listHtml .= '<br />Formation Chaussure: Oui';
+	            } else {
+	                $listHtml .= '<br />Formation Chaussure: Non';
+	            }
+
+	            if ($employe->formationVetement == 1) {
+	                $listHtml = $listHtml . '<br />Formation Vêtement: Oui';
+	            } else {
+	                $listHtml = $listHtml . '<br />Formation Vêtement: Non';
+	            }
+
+	            if ($employe->formationCaissier == 1) {
+	                $listHtml = $listHtml . '<br />Formation Caissier: Oui';
+	            } else {
+	                $listHtml = $listHtml . '<br />Formation Caissier: Non';
+	            }
+	            // '.url.'/modificationsAdmin?courriel='. $employe->courriel .'
+	            // '.url.'/gestionComptes?suppId='. $employe->courriel .'
+	            $listHtml .= '<br /><div class="right"><a href="'.Route('gestion.user.edit', $employe->courriel).'"  class="button tiny">Modifier</a> <a href="'.Route('gestion.user.delete', $employe->courriel).'" class="button alert tiny">Supprimer</a></div><br /></div></dd>';
+	        }
+
+	        return View::make('gestion.comptes')->withInfo($listHtml);
+
+	    }
+		
+	}
+
+	public function gestionUser($user)
+	{
+		$info = UtilisateursModel::afficherUtilisateur($user);
+		return View::make('gestion.compteEdit')->withInfo($info);
+	}
+
+	public function deleteUser($user)
+	{
+		return $user;
 	}
 
 	public function ressource() {

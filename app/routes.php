@@ -106,6 +106,22 @@ Route::group(['before' => 'auth'], function() {
     );
 
     Route::get(
+        '/gestion/compte/{user}',
+        [
+            'as'   => 'gestion.user.edit',
+            'uses' => 'CoureurController@gestionUser'
+        ]
+    );
+
+    Route::get(
+        '/gestion/compte/{user}/delete',
+        [
+            'as'   => 'gestion.user.delete',
+            'uses' => 'CoureurController@deleteUser'
+        ]
+    );
+
+    Route::get(
         '/gestion/comptes',
         [
             'as'   => 'gestion.comptes',
