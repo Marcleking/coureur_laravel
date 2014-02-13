@@ -43,8 +43,7 @@
 				jsonForm.horaire = serializeSchedule(sender.id);
 				console.log(jsonForm);
 				$.ajax({
-					//TOCHANGE
-					url:"../../tinymvc/myapp/models/push_dispos.php",
+					url:"{{ URL::asset('ajax/push_dispos.php') }}",
 					type:"POST",
 					data:jsonForm,
 					dataType:"text",
@@ -214,13 +213,12 @@
 				
 				$.ajax({
 					type: "POST",
-					//TOCHANGE
-					url: "../../tinymvc/myapp/models/fetch_dispos.php",
-					data:{'date': date.options[date.selectedIndex].value},
+					url: "{{ URL::asset('ajax/fetch_dispos.php') }}",
+                    data: {['date':  date.options[date.selectedIndex].value,
+                            'User': Auth::User()->id]},
 					dataType:"json",
 					error: function(){alert('Erreur');},
-					success:function(test){
-					
+					success: function(test) {
 						deleteTableau();
 						
 						for(var i = 0; i< test.length; i++)
@@ -228,30 +226,30 @@
 							var ligneselect;
 							switch(test[i]['jour'])
 							{
-							case 'dimanche':
-							  ligneselect = document.getElementById('selectable0');
-							  break;
-							case 'lundi':
-							  ligneselect = document.getElementById('selectable1');
-							  break;
-							case 'mardi':
-							  ligneselect = document.getElementById('selectable2');
-							  break;
-							case 'mercredi':
-							  ligneselect = document.getElementById('selectable3');
-							  break;
-							case 'jeudi':
-							  ligneselect = document.getElementById('selectable4');
-							  break;
-							case 'vendredi':
-							  ligneselect = document.getElementById('selectable5');
-							  break;
-							case 'samedi':
-							  ligneselect = document.getElementById('selectable6');
-							  break;
-							default:
-							  alert("erreur");
-							 }
+								case 'dimanche':
+								  ligneselect = document.getElementById('selectable0');
+								  break;
+								case 'lundi':
+								  ligneselect = document.getElementById('selectable1');
+								  break;
+								case 'mardi':
+								  ligneselect = document.getElementById('selectable2');
+								  break;
+								case 'mercredi':
+								  ligneselect = document.getElementById('selectable3');
+								  break;
+								case 'jeudi':
+								  ligneselect = document.getElementById('selectable4');
+								  break;
+								case 'vendredi':
+								  ligneselect = document.getElementById('selectable5');
+								  break;
+								case 'samedi':
+								  ligneselect = document.getElementById('selectable6');
+								  break;
+								default:
+								  alert("erreur");
+							}
 							
 							var split = test[i]['debut'].split(":");
 							var heure = (split[0] - 9) * 2 + 1;

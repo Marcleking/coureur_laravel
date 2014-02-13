@@ -42,6 +42,14 @@ Route::group(['before' => 'auth'], function() {
     );
 
     Route::get(
+        '/message/{id}/del',
+        [
+            'as'   => 'message.delete',
+            'uses' => 'MessageController@delMessage'
+        ]
+    );
+
+    Route::get(
         '/message/send',
         [
             'as'   => 'message.send',
@@ -93,7 +101,7 @@ Route::group(['before' => 'auth'], function() {
         '/gestion/compte',
         [
             'as'   => 'gestion.compte',
-            'uses' => 'CoureurController@gestionCompte'
+            'uses' => 'UserController@gestionCompte'
         ]
     );
 
@@ -101,7 +109,7 @@ Route::group(['before' => 'auth'], function() {
         '/gestion/compte',
         [
             'as'   => 'gestion.compte',
-            'uses' => 'CoureurController@gestionCompteSave'
+            'uses' => 'UserController@gestionCompteSave'
         ]
     );
 
@@ -109,7 +117,7 @@ Route::group(['before' => 'auth'], function() {
         '/gestion/compte/{user}',
         [
             'as'   => 'gestion.user.edit',
-            'uses' => 'CoureurController@gestionUser'
+            'uses' => 'UserController@gestionUser'
         ]
     );
 
@@ -117,7 +125,7 @@ Route::group(['before' => 'auth'], function() {
         '/gestion/compte/{user}/delete',
         [
             'as'   => 'gestion.user.delete',
-            'uses' => 'CoureurController@deleteUser'
+            'uses' => 'UserController@deleteUser'
         ]
     );
 
@@ -125,7 +133,23 @@ Route::group(['before' => 'auth'], function() {
         '/gestion/comptes',
         [
             'as'   => 'gestion.comptes',
-            'uses' => 'CoureurController@gestionComptes'
+            'uses' => 'UserController@gestionComptes'
+        ]
+    );
+
+    Route::get(
+        '/gestion/comptes/{user}',
+        [
+            'as'   => 'gestion.user.edit.admin',
+            'uses' => 'UserController@gestionUserAdmin'
+        ]
+    );
+
+    Route::post(
+        '/gestion/comptes',
+        [
+            'as'   => 'gestion.user.edit.admin.save',
+            'uses' => 'UserController@gestionCompteSaveAdmin'
         ]
     );
 
@@ -133,7 +157,7 @@ Route::group(['before' => 'auth'], function() {
         'user/add',
         [
             'as'   => 'user.add',
-            'uses' => 'UserController@index'
+            'uses' => 'UserController@ajoutUtilisateur'
         ]
     );
 
@@ -141,7 +165,7 @@ Route::group(['before' => 'auth'], function() {
         'user/add',
         [
             'as'   => 'user.add',
-            'uses' => 'UserController@add'
+            'uses' => 'UserController@ajoutUtilisateurSave'
         ]
     );
 });
