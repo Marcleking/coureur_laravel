@@ -44,6 +44,8 @@
 				{
 					jsonForm.repetition = 0;
 				}
+
+				jsonForm.user = "{{Auth::User()->id}}";
 				
 				jsonForm.horaire = serializeSchedule(sender.id);
 				console.log(jsonForm);
@@ -317,10 +319,13 @@
 					
 					var ligneselect  = document.getElementById('selectable' + i.toString());
 				
-					
-						for(var j = 1; j <= ligneselect.childNodes.length; j ++)
-						{
-							$(ligneselect.childNodes[j]).removeClass('ui-selected');
+
+						if(ligneselect != null){
+
+							for(var j = 1; j <= ligneselect.childNodes.length; j ++)
+							{
+								$(ligneselect.childNodes[j]).removeClass('ui-selected');
+							}
 						}
 					}
 			}

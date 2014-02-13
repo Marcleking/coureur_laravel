@@ -38,7 +38,7 @@
 				$noDispoSemaine = $_POST['horaire']['noSemaine'];
 				$annee = $_POST['horaire']['annee'];
 				$nbHeureSouhaite = $_POST['nbDesire'];
-				$courriel = $_POST['User'];
+				$courriel = $_POST['user'];
 				
 				$req = $bdd->prepare("Call ajoutModifDisposSemaine(?,?,?,?)");
 				$req->bindParam(1,$noDispoSemaine);
