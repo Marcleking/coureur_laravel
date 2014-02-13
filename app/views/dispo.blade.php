@@ -17,13 +17,18 @@
 						}).selectable({	filter: ":not(.en-tete)"});
 				}
 				
-				recuperationDisponibilite();
+				
 			});
 		</script>
 
 		<script type="text/javascript">
 		
+			window.addEventListener('load',init,false);
+
+			function init(){}
+
 			window.addEventListener('submit',sendFormByJSON,false);
+
 			
 			function sendFormByJSON(event){
 				event.preventDefault();
@@ -214,8 +219,8 @@
 				$.ajax({
 					type: "POST",
 					url: "{{ URL::asset('ajax/fetch_dispos.php') }}",
-                    data: {['date':  date.options[date.selectedIndex].value,
-                            'User': Auth::User()->id]},
+                    data: {"date":  date.options[date.selectedIndex].value,
+                            "User": "{{ Auth::User()->id }}"},
 					dataType:"json",
 					error: function(){alert('Erreur');},
 					success: function(test) {
@@ -479,7 +484,8 @@
 				document.getElementById("formDispo").appendChild(input3);
 			}
 			
-			genererForm();	
+			genererForm();
+			recuperationDisponibilite();
 		</script>
 	</div>
 @stop

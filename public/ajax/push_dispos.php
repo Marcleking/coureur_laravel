@@ -1,6 +1,6 @@
 <?php 
 	header('Content-Type: application/json');
-	include 'user.php';
+	//include 'user.php';
 	session_start();
 	
 	// Retourne du contenu en format JSON.
