@@ -60,7 +60,7 @@
     <body>
         <div class="row off-canvas-wrap">
                 @section('header')
-                    Entête
+                    <h1><img src="{{ URL::asset('image/logo.png') }}" alt="le coureur nordique"/></h1>
                 @show
                   <div class="inner-wrap">
 

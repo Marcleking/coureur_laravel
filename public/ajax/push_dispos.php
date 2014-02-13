@@ -1,7 +1,5 @@
 <?php 
 	header('Content-Type: application/json');
-	include 'user.php';
-	session_start();
 	
 	// Retourne du contenu en format JSON.
 	header("Content-type: text/html; charset=utf-8");
@@ -40,7 +38,7 @@
 				$noDispoSemaine = $_POST['horaire']['noSemaine'];
 				$annee = $_POST['horaire']['annee'];
 				$nbHeureSouhaite = $_POST['nbDesire'];
-				$courriel = $_SESSION['user']->getNom();
+				$courriel = $_POST['User'];
 				
 				$req = $bdd->prepare("Call ajoutModifDisposSemaine(?,?,?,?)");
 				$req->bindParam(1,$noDispoSemaine);
