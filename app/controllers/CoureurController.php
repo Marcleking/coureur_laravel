@@ -3,7 +3,8 @@
 class CoureurController extends BaseController {
 
 	public function index() {
-		return View::make('index');
+		$result = MessagesModel::afficherMessages();
+		return View::make('index')->withMessages($result);
 	}
 
 	public function document() {

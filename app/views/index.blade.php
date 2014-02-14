@@ -5,12 +5,33 @@
 		<h3>Messages</h3>
 		
 		<div class="panel">
-			@if (isset($listMessage))
-				{{-- <?=$listMessage?> --}}
-			@endif
-			
-			@if (!isset($aucunMessage))
-					Il n'y a pas de message!
+			@if (isset($messages))
+				<dl class="accordion" data-accordion>
+		            @foreach ($messages as $message)
+		            	<dd>
+		            		<a href="#panel{{ $message->idMessage }}"><b>{{ $message->titre }}</b>
+			            		<span style="float:right">
+			            			{{ $message->courriel }}
+			            		</span>
+		            		</a>
+		            		<div id="panel{{ $message->idMessage }}" class="content">
+			            		@if (Auth::User()->type == "Gestionnaire")
+			            			<a href="{{route('message.delete', $message->idMessage) }}" class="button tiny radius left"> Supprimer </a>
+			            		@endif
+			            		<span style="float:right">
+			            			{{ $message->date }}
+			            		</span>
+			            		<hr />
+
+			            		{{ $message->message }}
+			            	</div>
+			            </dd>
+		            @endforeach
+
+		        </dl>
+		        {{ $messages->links() }}
+			@else
+				Il n'y a pas de message!
 			@endif
 		</div>
 	</div>

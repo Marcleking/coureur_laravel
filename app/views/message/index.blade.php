@@ -5,14 +5,14 @@
 		<h3>Messages</h3>
 
 		<div class="panel">
-			@if (isset($success))
+			@if (Session::has('success'))
 				<div data-alert id="fade" class="alert-box success radius">
-					 Le message a été supprimé
+					 {{ Session::get('success') }}
 					 <a href="#" class="close">&times;</a>
 				</div>
-			@elseif (isset($fail))
+			@elseif (Session::has('fail'))
 				<div data-alert id="fade" class="alert-box warning radius">
-					Une erreur s'est produit lors de la suppression.
+					{{ Session::get('fail') }}
 					<a href="#" class="close">&times;</a>
 				</div> 
 			@endif
