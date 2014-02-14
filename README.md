@@ -9,7 +9,6 @@
 1. Cloner le projet dans C:\wamp\www
 1. Rajouter sont hostname dans l'array local de bootstrap/start.php
 1. Mettre à jour composer en faisant "composer udpate" sur le répertoire à partir de la console
-1. Mettre à jout le composer du driver de connexion en faisant composer update dans workbench/coureur/connexion
 1. Voila !
 
 ##Configuration git
