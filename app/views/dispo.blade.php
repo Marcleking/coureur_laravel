@@ -17,13 +17,18 @@
 						}).selectable({	filter: ":not(.en-tete)"});
 				}
 				
-				recuperationDisponibilite();
+				
 			});
 		</script>
 
 		<script type="text/javascript">
 		
+			window.addEventListener('load',init,false);
+
+			function init(){}
+
 			window.addEventListener('submit',sendFormByJSON,false);
+
 			
 			function sendFormByJSON(event){
 				event.preventDefault();
@@ -39,6 +44,8 @@
 				{
 					jsonForm.repetition = 0;
 				}
+
+				jsonForm.user = "{{Auth::User()->id}}";
 				
 				jsonForm.horaire = serializeSchedule(sender.id);
 				console.log(jsonForm);
@@ -214,8 +221,8 @@
 				$.ajax({
 					type: "POST",
 					url: "{{ URL::asset('ajax/fetch_dispos.php') }}",
-                    data: {['date':  date.options[date.selectedIndex].value,
-                            'User': Auth::User()->id]},
+                    data: {"date":  date.options[date.selectedIndex].value,
+                            "User": "{{ Auth::User()->id }}"},
 					dataType:"json",
 					error: function(){alert('Erreur');},
 					success: function(test) {
@@ -312,10 +319,13 @@
 					
 					var ligneselect  = document.getElementById('selectable' + i.toString());
 				
-					
-						for(var j = 1; j <= ligneselect.childNodes.length; j ++)
-						{
-							$(ligneselect.childNodes[j]).removeClass('ui-selected');
+
+						if(ligneselect != null){
+
+							for(var j = 1; j <= ligneselect.childNodes.length; j ++)
+							{
+								$(ligneselect.childNodes[j]).removeClass('ui-selected');
+							}
 						}
 					}
 			}
@@ -479,7 +489,8 @@
 				document.getElementById("formDispo").appendChild(input3);
 			}
 			
-			genererForm();	
+			genererForm();
+			recuperationDisponibilite();
 		</script>
 	</div>
 @stop

@@ -1,4 +1,5 @@
-<?php namespace Coureur\Connexion;
+<?php 
+namespace Coureur\Connexion;
 
 use Illuminate\Support\ServiceProvider;
 
