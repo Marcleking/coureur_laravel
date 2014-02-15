@@ -206,23 +206,6 @@
 	(128, 'vendredi', '09:30:00', '17:30:00', 24);
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
     --
     -- Structure de la table `disponibilitesemaine`
     --
@@ -264,16 +247,6 @@
 	(23, 8, 2014, 31, -1, 'suzie.stpierre@gmail.com'),
 	(24, 9, 2014, 38, -1, 'suzie.stpierre@gmail.com');
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
     -- --------------------------------------------------------
 
     --
@@ -1098,3 +1071,19 @@ CREATE PROCEDURE getUsedMere ()
     BEGIN
         Select * from ressourceMere where used = true;
     END
+
+$$
+
+DROP PROCEDURE IF EXISTS getSchedules $$
+CREATE PROCEDURE getSchedules
+BEGIN
+    Select * From plagedetravail;
+END
+
+$$
+
+DROP PROCEDURE IF EXISTS getSchedulesByUser $$
+CREATE PROCEDURE getSchedulesByUser(in p_courriel varchar(60))
+BEGIN
+    Select * From plagedetravail Where courriel = p_courriel;
+END
