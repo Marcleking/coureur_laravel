@@ -1075,7 +1075,7 @@ CREATE PROCEDURE getUsedMere ()
 $$
 
 DROP PROCEDURE IF EXISTS getSchedules $$
-CREATE PROCEDURE getSchedules
+CREATE PROCEDURE getSchedules ()
 BEGIN
     Select * From plagedetravail;
 END
@@ -1083,7 +1083,7 @@ END
 $$
 
 DROP PROCEDURE IF EXISTS getSchedulesByUser $$
-CREATE PROCEDURE getSchedulesByUser(in p_courriel varchar(60))
+CREATE PROCEDURE getSchedulesByUser (in p_courriel varchar(60))
 BEGIN
     Select * From plagedetravail Where courriel = p_courriel;
 END
