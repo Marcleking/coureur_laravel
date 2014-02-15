@@ -422,6 +422,12 @@
         PRIMARY KEY (`idBlocRessource`)
     ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
+    --
+    -- Contenu de la table `ressourceMere`
+    --
+
+    INSERT INTO `ressourcemere` (`idBlocRessource`, `nomBloc`, `description`, `used`) VALUES
+    (13, 'Disponibilités principales', '', 0);
 
     CREATE TABLE IF NOT EXISTS `ressource` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -439,6 +445,21 @@
     -- Contenu de la table `ressource`
     --
 
+    INSERT INTO `ressource` (`id`, `noBlocRessource`, `jour`, `heureDebut`, `heureFin`, `nbEmpChaussures`, `nbEmpVetements`, `nbEmpCaissier`) VALUES
+    (13, 13, 0, '09:00:00', '13:00:00', 1, 1, 1),
+    (14, 13, 0, '13:00:00', '18:00:00', 2, 2, 2),
+    (15, 13, 1, '09:00:00', '13:00:00', 1, 1, 1),
+    (16, 13, 1, '13:00:00', '18:00:00', 2, 2, 2),
+    (17, 13, 2, '09:00:00', '13:00:00', 1, 1, 1),
+    (18, 13, 3, '09:00:00', '13:00:00', 1, 1, 1),
+    (19, 13, 4, '09:00:00', '13:00:00', 1, 1, 1),
+    (20, 13, 6, '09:00:00', '13:00:00', 2, 2, 2),
+    (21, 13, 5, '09:00:00', '13:00:00', 2, 2, 2),
+    (22, 13, 2, '13:00:00', '18:00:00', 2, 2, 2),
+    (23, 13, 3, '13:00:00', '18:00:00', 2, 2, 2),
+    (24, 13, 4, '13:00:00', '21:00:00', 3, 3, 3),
+    (25, 13, 5, '13:00:00', '21:00:00', 3, 3, 3),
+    (26, 13, 6, '13:00:00', '21:00:00', 3, 3, 3);
 
 
     -- --------------------------------------------------------
