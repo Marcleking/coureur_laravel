@@ -2,6 +2,15 @@
 
 class MessagesModel extends Eloquent {
 
+	public static $rules = [
+		'titre' => 'required',
+		'message' => 'required',
+	];
+
+	public static $messages = [
+		'required' => 'Vous devez mettre un :attribute',
+	];
+
 	public static function afficherMessages()
 	{
 		return DB::table('message')->paginate(10);

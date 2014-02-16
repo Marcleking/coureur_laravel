@@ -2,16 +2,12 @@
 
 @section('content')
 	<div class="panel medium-12 columns">
-		@if (isset($success))
-			<div data-alert id="fade" class="alert-box success radius">
-			  Modifications appliqué
-			  <a href="#" class="close">&times;</a>
-			</div>
-		@elseif (isset($fail))
-			<div data-alert id="fade" class="alert-box warning radius">
-			  Remplir les champs obligatoires
-			  <a href="#" class="close">&times;</a>
-			</div> 
+		@if (Session::has('errors'))
+			<ul data-alert class="alert-box warning radius">
+				@foreach (Session::get('errors')->all() as $message)
+					<li>{{ $message }}</li>
+				@endforeach
+			</ul>
 		@endif
 
 		<h3>Gestion du compte</h3>
