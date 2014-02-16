@@ -393,6 +393,7 @@
 
     CREATE TABLE IF NOT EXISTS `plagedetravail` (
         `idQuartTravail` int(11) NOT NULL AUTO_INCREMENT,
+		`jour` int(2) NOT NULL,
         `typeTravail` enum('Chaussure','Vetement','Caissier','') NOT NULL,
         `heureDebut` datetime NOT NULL,
         `heureFin` datetime NOT NULL,

@@ -168,4 +168,12 @@ Route::group(['before' => 'auth'], function() {
             'uses' => 'UserController@ajoutUtilisateurSave'
         ]
     );
+
+    Route::get(
+        'generate',
+        [
+            'as'   => 'genere.horaire',
+            'uses' => 'HoraireController@genere'
+        ]
+    );
 });
