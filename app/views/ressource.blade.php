@@ -106,7 +106,7 @@
 				
 				if (i != 0) {
 					
-					for (var j = 0; j < 27; j++){
+					for (var j = 0; j < 25; j++){
 						
 						if (j != 0){
 							var td = document.createElement('td');
@@ -123,7 +123,7 @@
 					table.appendChild(tbody);
 				}
 				else {
-					for (var j = 0; j < 14; j++){
+					for (var j = 0; j < 13; j++){
 						var th = document.createElement('th');
 						if (j!= 0){
 							th.colSpan = 2;
