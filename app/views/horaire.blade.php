@@ -19,7 +19,7 @@
 
 			function importerHoraire(){
 				// Vérifier le type de l'utilisateur
-				if("{{Auth::User()->type}}" == "gestionnaire")
+				if("{{Auth::User()->type}}" == "Gestionnaire")
 				{
 					$.ajax({
 						url:"{{ URL::asset('ajax/fetch_horaires.php') }}",
@@ -27,13 +27,14 @@
 						dataType:"json",
 						error:function (){},
 						success:function(horaire){
+							console.log(horaire);
 
 						for (var i = 0; i < horaire.length; i++){
 							var dd = document.createElement('dd');
 							var a = document.createElement('a');
 							var div = document.createElement('div');
 
-							a.href = i;
+							a.href = "#" + i;
 							a.innerHTML = horaire[i]['courriel'];
 							dd.appendChild(a);
 
@@ -43,6 +44,11 @@
 							dd.appendChild(div);
 
 							document.getElementById('horaires').appendChild(dd);
+							document.getElementById('horaires').appendChild(document.createElement('hr'));
+							for(var j = 0; j < horaire[i].plages.length; j++){
+
+								afficherGrilleHoraire(horaire[i].plages[j], i);
+							}
 						}
 
 						}
@@ -59,7 +65,7 @@
 				table.id = "table" + no;
 				var thead = document.createElement('thead');
 				var tbody = document.createElement('tbody');
-				for (var i = 0; i < 9; i++){
+				for (var i = 0; i < 8; i++){
 					var tr = document.createElement('tr');
 
 					if(i != 0)
@@ -95,10 +101,19 @@
 				return table;
 			}
 
-			function afficherGrilleHoraire(plages){
-				for (var i = 0; i < plages.length; i++){
+			function afficherGrilleHoraire(plage, no){
+				var table = document.getElementById('table' + no);
 
+				var tr = table.rows[parseInt(plage.jour) + 1];
 
+				var debut = parseInt(plage.debut.split(':')[0]) - 8;
+				if (plage.debut.split(':')[1] == "30"){debut++;}
+
+				var fin = parseInt(plage.fin.split(':')[0]) - 8;
+				if (plage.fin.split(':')[1] == "30"){fin++;}
+
+				for(var i = debut; i < fin; i++){
+					tr.cells[i].style.background = "orange";
 				}
 			}
 
