@@ -18,7 +18,7 @@ class CoureurAuthProvider implements UserProviderInterface
 
         $user = \DB::select('Call Utilisateur(?)', [$id]);
 
-        if (isset($user))
+        if (isset($user[0]))
             return new GenericUser(
                 [
                     'id' => $user[0]->courriel,
@@ -39,8 +39,8 @@ class CoureurAuthProvider implements UserProviderInterface
     public function retrieveByCredentials(array $credentials)
     {
         $user = \DB::select('Call Utilisateur(?)', [$credentials['email']]);
-
-        if (isset($user))
+        
+        if (isset($user[0]))
             return new GenericUser(
                 [
                     'id' => $user[0]->courriel,

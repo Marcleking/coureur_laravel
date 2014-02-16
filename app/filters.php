@@ -39,6 +39,14 @@ Route::filter('auth', function()
 		return Redirect::guest('login');	
 });
 
+Route::filter('auth.type', function($route, $request, $value)
+{
+	if (Auth::User()->type == $value)
+		return;
+
+	return Redirect::route('login');
+});
+
 
 Route::filter('auth.basic', function()
 {

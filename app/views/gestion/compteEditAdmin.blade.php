@@ -2,14 +2,14 @@
 
 @section('content')
 	<div class="panel medium-12 columns">
-		@if (isset($success))
-			<div data-alert class="alert-box success radius">
-			  Modifications appliqué
+		@if (Session::has('success'))
+			<div data-alert id="fade" class="alert-box success radius">
+			  {{ Session::get('success') }}
 			  <a href="#" class="close">&times;</a>
 			</div>
-		@elseif (isset($fail))
-			<div data-alert class="alert-box warning radius">
-			  Vous devez avoir un courriel valide et disponible dans un des comptes des employés!
+		@elseif (Session::has('fail'))
+			<div data-alert id="fade" class="alert-box warning radius">
+			  {{ Session::get('fail') }}
 			  <a href="#" class="close">&times;</a>
 			</div> 
 		@endif

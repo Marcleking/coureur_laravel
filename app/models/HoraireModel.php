@@ -88,7 +88,9 @@ class HoraireModel extends Eloquent {
 
 		Horairemodel::lstRatioErreur();
 
-		var_dump($listRatioErreur);
+		// var_dump($listRatioErreur);
+
+		var_dump($listRessource);
 
 		
 	}

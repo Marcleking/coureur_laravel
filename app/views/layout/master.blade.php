@@ -110,8 +110,12 @@
         <script>            
             
             $(document).foundation();         
-            
+            $(document).ready(function(){
+                $("#fade").delay(2000).fadeOut(1500);
+            });
         </script>
+
+        
         
     </body>
 </html>

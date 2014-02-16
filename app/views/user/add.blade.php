@@ -59,14 +59,5 @@
 		  	<input type="submit" class="button"/>
 		  
 		{{ Form::close() }}
-		
-		<script>
-			$(document).ready(function(){
-				$("#fade").fadeOut(1500,function(){
-				});
-			});
-		</script>
 	</div>
-
-	  
 @stop

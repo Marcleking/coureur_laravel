@@ -2,10 +2,20 @@
 
 class UtilisateursModel extends Eloquent {
 
-	public static function test()
-	{
-		return 1; 
-	}
+	public static $rules = [
+		'nom' => 'required',
+		'prenom' => 'required',
+		'ancienMotdePasse' => 'oldPwd',
+		'motDePasse' => 'required_with:ancienMotdePasse',
+		'numeroCiv' => 'numeric',
+	];
+
+	public static $messages = [
+		'required' => 'Le champs :attribute est requis',
+		'old_pwd' => "L'ancien mot de passe n'est pas valide",
+		'required_with' => "Vous devez mettre votre nouveau mot de passe.",
+		'numeric' => "Le champs :attribute doit être numérique.",
+	];
 
 	public static function afficherUtilisateur($courriel)
 	{

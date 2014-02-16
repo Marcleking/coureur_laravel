@@ -47,14 +47,6 @@
 				Il n'y a pas de message!
 			@endif
 
-		</div>
-		
-		<script>
-			$(document).ready(function(){
-				$("#fade").fadeOut(1500,function(){
-				});
-			});
-		</script>
-		
+		</div>		
 	</div>
 @stop

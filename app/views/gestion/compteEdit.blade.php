@@ -2,14 +2,14 @@
 
 @section('content')
 	<div class="panel medium-12 columns">
-		@if (isset($success))
+		@if (Session::has('success'))
 			<div data-alert id="fade" class="alert-box success radius">
-			  Modifications appliqué
+			  {{ Session::get('success') }}
 			  <a href="#" class="close">&times;</a>
 			</div>
-		@elseif (isset($fail))
+		@elseif (Session::has('fail'))
 			<div data-alert id="fade" class="alert-box warning radius">
-			  Remplir les champs obligatoires
+			  {{ Session::get('fail') }}
 			  <a href="#" class="close">&times;</a>
 			</div> 
 		@endif

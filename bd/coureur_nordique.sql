@@ -395,8 +395,8 @@
         `idQuartTravail` int(11) NOT NULL AUTO_INCREMENT,
 		`jour` int(2) NOT NULL,
         `typeTravail` enum('Chaussure','Vetement','Caissier','') NOT NULL,
-        `heureDebut` datetime NOT NULL,
-        `heureFin` datetime NOT NULL,
+        `heureDebut` time NOT NULL,
+        `heureFin` time NOT NULL,
         `remplacement` tinyint(1) NOT NULL DEFAULT '0',
         `courriel` varchar(60) NOT NULL,
         PRIMARY KEY (`idQuartTravail`),
@@ -409,7 +409,14 @@
 
     -- ---------À faire
 
-    -- --------------------------------------------------------
+    INSERT INTO `plagedetravail` (`idQuartTravail`, `jour`, `typeTravail`, `heureDebut`, `heureFin`, `remplacement`, `courriel`) VALUES
+    (68, 0, 'Chaussure', '13:00:00', '17:00:00', 0, 'oli.tremblay@gmail.com'),
+    (70, 2, 'Chaussure', '13:00:00', '16:30:00', 0, 'oli.tremblay@gmail.com'),
+    (71, 3, 'Chaussure', '13:00:00', '18:00:00', 0, 'suzie.stpierre@gmail.com'),
+    (72, 4, 'Chaussure', '13:00:00', '18:00:00', 0, 'francouelle93@gmail.com'),
+    (73, 4, 'Chaussure', '18:00:00', '21:00:00', 0, 'samuel.beland@live.ca'),
+    (74, 5, 'Chaussure', '13:00:00', '18:00:00', 0, 'samuel.beland@live.ca');
+
 
     --
     -- Structure de la table `ressource`
