@@ -119,6 +119,12 @@ class UserController extends BaseController {
 	{
 		$info = Input::all();
 
+        $validator = Validator::make($info, UtilisateursModel::$rules, UtilisateursModel::$messages);
+        if($validator->fails()) {
+            return Redirect::back()->withErrors($validator->messages())->withInput();
+        }
+
+
 		$notifHoraire = 1;
         $notifRemplacement = 1;
 
@@ -132,7 +138,7 @@ class UserController extends BaseController {
 
         $success = false;
 
-        if (empty($info['motdePasse']) && 
+        if (empty($info['motDePasse']) && 
         	empty($info['ancienMotdePasse'])
         ) {
             $result = UtilisateursModel::modifierUtilisateur(
@@ -152,13 +158,13 @@ class UserController extends BaseController {
             if (isset($result)) {
                 $success = true;
             }
-        } elseif (!empty($info['motdePasse']) && !empty($info['ancienMotdePasse'])) {
+        } elseif (!empty($info['motDePasse']) && !empty($info['ancienMotdePasse'])) {
             $result = UtilisateursModel::modifierUtilisateur(
                 trim($info['nom']),
                 trim($info['prenom']),
-                $info['motdePasse'],
+                $info['motDePasse'],
                 $info['ancienMotdePasse'],
-                $_SESSION['user']->getNom(),
+                Auth::User()->id,
                 trim($info['numeroCiv']),
                 trim($info['rue']),
                 trim($info['ville']),

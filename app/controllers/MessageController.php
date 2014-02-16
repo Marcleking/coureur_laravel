@@ -15,12 +15,18 @@ class MessageController extends BaseController {
 	public function sendMessage() {
 		$info = Input::all();
 
+        $validator = Validator::make($info, MessagesModel::$rules, MessagesModel::$messages);
+        if($validator->fails()) {
+            return Redirect::back()->withErrors($validator->messages());
+        }
+
         $result = MessagesModel::EnvoieMessage(
             trim($info['titre']),
             trim($info['message']),
             Auth::User()->id
         );
         return Redirect::route('message')->withSuccess("Le message à bien été envoyé.");
+
 	}
 
     public function delMessage($id) {

@@ -41,29 +41,7 @@ Route::group(['before' => 'auth'], function() {
         ]
     );
 
-    Route::get(
-        '/message/{id}/del',
-        [
-            'as'   => 'message.delete',
-            'uses' => 'MessageController@delMessage'
-        ]
-    );
-
-    Route::get(
-        '/message/send',
-        [
-            'as'   => 'message.send',
-            'uses' => 'MessageController@sendMessageIndex'
-        ]
-    );
-
-    Route::post(
-        '/message/send',
-        [
-            'as'   => 'message.send',
-            'uses' => 'MessageController@sendMessage'
-        ]
-    );
+    
 
     Route::get(
         '/document',
@@ -89,13 +67,7 @@ Route::group(['before' => 'auth'], function() {
         ]
     );
 
-    Route::get(
-        '/ressource',
-        [
-            'as'   => 'ressource',
-            'uses' => 'CoureurController@ressource'
-        ]
-    );
+    
 
     Route::get(
         '/gestion/compte',
@@ -110,6 +82,40 @@ Route::group(['before' => 'auth'], function() {
         [
             'as'   => 'gestion.compte',
             'uses' => 'UserController@gestionCompteSave'
+        ]
+    );
+});
+
+Route::group(['before' => 'auth.type:Gestionnaire'], function() {
+    Route::get(
+        '/message/{id}/del',
+        [
+            'as'   => 'message.delete',
+            'uses' => 'MessageController@delMessage'
+        ]
+    );
+
+    Route::get(
+        '/message/send',
+        [
+            'as'   => 'message.send',
+            'uses' => 'MessageController@sendMessageIndex'
+        ]
+    );
+
+    Route::post(
+        '/message/send',
+        [
+            'as'   => 'message.send',
+            'uses' => 'MessageController@sendMessage'
+        ]
+    );
+
+    Route::get(
+        '/ressource',
+        [
+            'as'   => 'ressource',
+            'uses' => 'CoureurController@ressource'
         ]
     );
 
