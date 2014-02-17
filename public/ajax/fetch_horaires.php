@@ -20,7 +20,8 @@
 	
 		//Connexion à la BD.
 		$bdd = new PDO("mysql:host=$dbHote;dbname=$dbNom", $dbUser, $dbPwd, array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES utf8"));
-	
+		
+		//echo $_POST['courriel'];
 
 		// GetSchedulesByUser
 		if(isset($_POST['courriel'])){
@@ -53,9 +54,19 @@
 			
 			for ($i = 0 ; $i < count($resultat); $i++) {
 				if ($user != $resultat[$i]['courriel']){
-					$json[] = array("courriel" => $resultat[$i]["courriel"]);
+					
 					$user = $resultat[$i]['courriel'];
 					$userNo++;
+					
+					$sql = 'Call Utilisateur(?)';
+					$req = $bdd->prepare($sql);
+					$req->bindParam(1,$user);
+					$req->execute();
+
+					$utilisateur = $req->fetch();
+
+					$json[] = array("courriel" => $resultat[$i]["courriel"],"nom" => $utilisateur['nom'], "prenom" => $utilisateur['prenom']);
+
 				}
 
 				$json[$userNo]["plages"][] = array("jour" => $resultat[$i]["jour"], "type" => $resultat[$i]["typeTravail"], 

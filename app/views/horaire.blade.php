@@ -13,30 +13,15 @@
 				<a href="#" class="close">&times;</a>
 			</div> 
 		@endif
-		<h3>Horaire</h3>
-		<table id="horaire" cellspacing="0" cellpadding="0">
-			<thead>
-				<tr>
-					<th></th>
-					<th><p>8:00</p></th>
-					<th><p>9:00</p></th>
-					<th><p>10:00</p></th>
-					<th><p>11:00</p></th>
-					<th><p>12:00</p></th>
-					<th><p>13:00</p></th>
-					<th><p>14:00</p></th>
-					<th><p>15:00</p></th>
-					<th><p>16:00</p></th>
-					<th><p>17:00</p></th>
-					<th><p>18:00</p></th>
-				</tr>
-			</thead>
+		
 	<div id="contenu">
-		<a href="{{ route('genere.horaire') }}" class="button">Générer l'horaire</a>
+		@if (Auth::User()->type == "Gestionnaire")
+			<a href="{{ route('genere.horaire') }}" class="button">Générer l'horaire</a>
 
-		<dl id="horaires" class="accordion" data-accordion>
+			<dl id="horaires" class="accordion" data-accordion>
 			
-		</dl>
+			</dl>
+		@endif
 
 		<script type="text/javascript">
 			window.addEventListener('load',init,false);
@@ -61,11 +46,11 @@
 								var div = document.createElement('div');
 
 								a.href = "#" + i;
-								a.innerHTML = horaire[i]['courriel'];
+								a.innerHTML = horaire[i]['prenom'] + " " + horaire[i]['nom'] + " ("+ horaire[i]['courriel'] +")";
 								dd.appendChild(a);
 
 								div.id = i;
-								div.className = "content active";
+								div.className = "content";
 								div.appendChild(genererGrille(i));
 								dd.appendChild(div);
 
@@ -81,14 +66,20 @@
 					});
 				}
 				else
-				{
+				{	
 					$.ajax({
 						url:"{{URL::asset('ajax/fetch_horaires.php')}}",
-						data:{"courriel":"{{Auth::User()->id}}"},
+						type:"POST",
+						data:{'courriel':"oli.tremblay@gmail.com"},
 						dataType:"json",
 						error:function(){},
 						success:function(horaire){
 							console.log(horaire);
+
+							document.getElementById('contenu').appendChild(genererGrille(0));
+							for (var i = 0; i < horaire.length; i++){
+								afficherGrilleHoraire(horaire[i], 0);
+							}
 						}
 					});
 				}
