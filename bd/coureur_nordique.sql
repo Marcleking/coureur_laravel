@@ -1106,7 +1106,7 @@ $$
 DROP PROCEDURE IF EXISTS getSchedules $$
 CREATE PROCEDURE getSchedules ()
 BEGIN
-    Select * From plagedetravail;
+    Select * From plagedetravail ORDER By courriel;
 END
 
 $$
