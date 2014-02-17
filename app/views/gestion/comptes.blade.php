@@ -21,7 +21,7 @@
 				@endif
 				
 				<dl class="accordion" data-accordion>
-		        @foreach (Session::get('listEmploye') as $employe)
+		        @foreach ($list as $employe)
 		            <hr>
 		            <dd>
 		            	<a href="#panel{{ strtr($employe->courriel, array("." => "", "@" => "")) }}">
@@ -65,13 +65,14 @@
 
 		             		<br />
 		             		<div class="right">
-			             		<a href="'.Route('gestion.user.edit.admin', $employe->courriel).'"  class="button tiny">Modifier</a> 
-			             		<a href="'.Route('gestion.user.delete', $employe->courriel).'" class="button alert tiny">Supprimer</a>
+			             		<a href="{{ Route('gestion.user.edit.admin', $employe->courriel) }}"  class="button tiny">Modifier</a> 
+			             		<a href="{{ Route('gestion.user.delete', $employe->courriel) }}" class="button alert tiny">Supprimer</a>
 		             		</div>
 		             		<br />
 		             	</div>
 		            </dd>
 		        @endforeach
+		        </dl>
 			</div>	      
 		</div>
   	</div>
