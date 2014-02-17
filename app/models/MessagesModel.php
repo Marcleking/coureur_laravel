@@ -17,7 +17,7 @@ class MessagesModel extends Eloquent {
 	}
 
 	public static function envoieMessage($titre, $message, $courriel){
-		return DB::select('Call AjouterMessage(?, ?, ?)',
+		DB::select('Call AjouterMessage(?, ?, ?)',
 			array($titre, $message, $courriel));
 	}
 

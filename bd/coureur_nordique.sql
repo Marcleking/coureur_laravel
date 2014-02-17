@@ -434,7 +434,7 @@
     -- Contenu de la table `ressourceMere`
     --
 
-    INSERT INTO `ressourcemere` (`idBlocRessource`, `nomBloc`, `description`, `used`) VALUES
+    INSERT INTO `ressourceMere` (`idBlocRessource`, `nomBloc`, `description`, `used`) VALUES
     (13, 'Disponibilités principales', '', 1);
 
     CREATE TABLE IF NOT EXISTS `ressource` (

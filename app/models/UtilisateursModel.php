@@ -61,7 +61,7 @@ class UtilisateursModel extends Eloquent {
 	}
 
 	public static function supprimerTelephone($courriel) {
-		return DB::select('Call SupprimerTelephone(?)', array($courriel));
+		DB::select('Call SupprimerTelephone(?)', array($courriel));
 	}
 
 	public static function afficherUtilisateurs()
