@@ -293,7 +293,7 @@ class UserController extends BaseController {
 	            $listHtml .= '<br /><div class="right"><a href="'.Route('gestion.user.edit.admin', $employe->courriel).'"  class="button tiny">Modifier</a> <a href="'.Route('gestion.user.delete', $employe->courriel).'" class="button alert tiny">Supprimer</a></div><br /></div></dd>';
 	        }
 
-	        return View::make('gestion.comptes')->withInfo($listHtml);
+	        return View::make('gestion.comptes')->withListEmploye($listEmploye);
 	    }
 	}
 
