@@ -20,7 +20,7 @@ class MessageController extends BaseController {
             return Redirect::back()->withErrors($validator->messages());
         }
 
-        $result = MessagesModel::EnvoieMessage(
+        MessagesModel::EnvoieMessage(
             trim($info['titre']),
             trim($info['message']),
             Auth::User()->id
