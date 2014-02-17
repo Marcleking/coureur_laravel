@@ -20,7 +20,8 @@
 	
 		//Connexion à la BD.
 		$bdd = new PDO("mysql:host=$dbHote;dbname=$dbNom", $dbUser, $dbPwd, array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES utf8"));
-	
+		
+		//echo $_POST['courriel'];
 
 		// GetSchedulesByUser
 		if(isset($_POST['courriel'])){

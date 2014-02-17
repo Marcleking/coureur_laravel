@@ -27,6 +27,13 @@
 						dataType:"json",
 						error:function (){},
 						success:function(horaire){
+							var dl = document.createElement('dl');
+							dl.id = "horaires";
+							dl.className = "accordion";
+							dl.setAttribute("data-accordion","");
+
+							document.getElementById('contenu').appendChild(dl);
+
 							for (var i = 0; i < horaire.length; i++){
 								var dd = document.createElement('dd');
 								var a = document.createElement('a');
@@ -53,14 +60,20 @@
 					});
 				}
 				else
-				{
+				{	
 					$.ajax({
 						url:"{{URL::asset('ajax/fetch_horaires.php')}}",
-						data:{"courriel":"{{Auth::User()->id}}"},
+						type:"POST",
+						data:{'courriel':"oli.tremblay@gmail.com"},
 						dataType:"json",
 						error:function(){},
 						success:function(horaire){
 							console.log(horaire);
+
+							document.getElementById('contenu').appendChild(genererGrille(0));
+							for (var i = 0; i < horaire.length; i++){
+								afficherGrilleHoraire(horaire[i], 0);
+							}
 						}
 					});
 				}
