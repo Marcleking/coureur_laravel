@@ -140,11 +140,11 @@
 
 				var tr = table.rows[parseInt(plage.jour) + 1];
 
-				var debut = parseInt(plage.debut.split(':')[0]) - 8;
-				if (plage.debut.split(':')[1] == "30"){debut++;}
+				var debut = (parseInt(plage.debut.split(':')[0]) - 9) * 2 + 1;
+				if (parseInt(plage.debut.split(':')[1]) == 30){debut++;}
 
-				var fin = parseInt(plage.fin.split(':')[0]) - 8;
-				if (plage.fin.split(':')[1] == "30"){fin++;}
+				var fin = (parseInt(plage.fin.split(':')[0]) - 9) * 2 + 1;
+				if (parseInt(plage.fin.split(':')[1]) == 30){fin++;}
 
 				for(var i = debut; i < fin; i++){
 					tr.cells[i].style.background = "orange";
