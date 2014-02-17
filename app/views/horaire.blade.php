@@ -1,10 +1,38 @@
 @extends('layout.master')
 
 @section('content')
+	<div class="medium-12 columns">
+		@if (Session::has('success'))
+			<div data-alert id="fade" class="alert-box success radius">
+				 {{ Session::get('success') }} 
+				 <a href="#" class="close">&times;</a>
+			</div>
+		@elseif (Session::has('fail'))
+			<div data-alert id="fade" class="alert-box warning radius">
+				{{ Session::get('fail') }}
+				<a href="#" class="close">&times;</a>
+			</div> 
+		@endif
+		<h3>Horaire</h3>
+		<table id="horaire" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th></th>
+					<th><p>8:00</p></th>
+					<th><p>9:00</p></th>
+					<th><p>10:00</p></th>
+					<th><p>11:00</p></th>
+					<th><p>12:00</p></th>
+					<th><p>13:00</p></th>
+					<th><p>14:00</p></th>
+					<th><p>15:00</p></th>
+					<th><p>16:00</p></th>
+					<th><p>17:00</p></th>
+					<th><p>18:00</p></th>
+				</tr>
+			</thead>
 	<div id="contenu">
-		<form id="genererHoraire" action="{{ URL::asset('ajax/horaire/genererHoraire.php') }}">
-			<input type="submit" value="Générer l'horaire" />
-		</form>
+		<a href="{{ route('genere.horaire') }}" class="button">Générer l'horaire</a>
 
 		<dl id="horaires" class="accordion" data-accordion>
 			

@@ -249,51 +249,8 @@ class UserController extends BaseController {
 	public function gestionComptes() 
 	{
 		if (Auth::User()->type == "Gestionnaire") {
-
 	        $listEmploye = UtilisateursModel::afficherUtilisateurs();
-	        $listHtml = '<dl class="accordion" data-accordion> ';
-	        foreach ($listEmploye as $employe) {
-	            $listHtml .= '<hr><dd><a href="#panel' .
-	                        strtr($employe->courriel, array("." => "", "@" => "")) .'">';
-	            $listHtml .=  $employe->prenom ." ". $employe->nom;
-
-	            if ($employe->possesseurCle == 1) {
-	                $listHtml = $listHtml . '<i class="fa fa-key right"> </i>';
-	            }
-	            if ($employe->respHoraireConflit == 1) {
-	                $listHtml = $listHtml . '<i class="fa fa-clock-o right"/> </i>';
-	            }
-
-	            $listHtml .= '</a>';
-	            $listHtml .= '<div id="panel'.strtr($employe->courriel, array("." => "", "@" => "")) .'" class="content">';
-	            $listHtml .= '<div class="left"> Nom: '. $employe->prenom ." ". $employe->nom. '</div>';
-	            $listHtml .= '<div class="right"> Adresse: '. $employe->numeroCivique .", ". $employe->rue;
-	            $listHtml .= '<br />'.$employe->ville. ' '. $employe->codePostal .'</div>';
-	            $listHtml .= '<br />Courriel: '.$employe->courriel;
-	            $listHtml .= '<br />Type Employé: '. $employe->typeEmploye;
-
-	            if ($employe->formationChaussure == 1) {
-	                $listHtml .= '<br />Formation Chaussure: Oui';
-	            } else {
-	                $listHtml .= '<br />Formation Chaussure: Non';
-	            }
-
-	            if ($employe->formationVetement == 1) {
-	                $listHtml = $listHtml . '<br />Formation Vêtement: Oui';
-	            } else {
-	                $listHtml = $listHtml . '<br />Formation Vêtement: Non';
-	            }
-
-	            if ($employe->formationCaissier == 1) {
-	                $listHtml = $listHtml . '<br />Formation Caissier: Oui';
-	            } else {
-	                $listHtml = $listHtml . '<br />Formation Caissier: Non';
-	            }
-
-	            $listHtml .= '<br /><div class="right"><a href="'.Route('gestion.user.edit.admin', $employe->courriel).'"  class="button tiny">Modifier</a> <a href="'.Route('gestion.user.delete', $employe->courriel).'" class="button alert tiny">Supprimer</a></div><br /></div></dd>';
-	        }
-
-	        return View::make('gestion.comptes')->withInfo($listHtml);
+            return View::make('gestion.comptes')->withList($listEmploye);
 	    }
 	}
 

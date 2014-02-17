@@ -20,7 +20,59 @@
 					</div> 
 				@endif
 				
-				{{ $info }}
+				<dl class="accordion" data-accordion>
+		        @foreach ($list as $employe)
+		            <hr>
+		            <dd>
+		            	<a href="#panel{{ strtr($employe->courriel, array("." => "", "@" => "")) }}">
+			            	{{ $employe->prenom ." ". $employe->nom }}
+				            @if ($employe->possesseurCle == 1)
+				                <i class="fa fa-key right"> </i>
+				            @endif
+
+				            @if ($employe->respHoraireConflit == 1)
+				                <i class="fa fa-clock-o right"/> </i>
+				            @endif
+		            	</a>
+		           		<div id="panel{{ strtr($employe->courriel, array("." => "", "@" => "")) }}" class="content">'
+		           			<div class="left"> 
+		           				Nom: {{ $employe->prenom ." ". $employe->nom }}
+		           			</div>
+		           			<div class="right"> 
+		           				Adresse: {{ $employe->numeroCivique .", ". $employe->rue }}
+		            			<br /> {{ $employe->ville. ' '. $employe->codePostal }}
+		            		</div>
+		            		<br />Courriel: {{ $employe->courriel }}
+		            		<br />Type Employé: {{ $employe->typeEmploye }}
+
+				            @if ($employe->formationChaussure == 1)
+				                <br />Formation Chaussure: Oui
+				            @else
+				                <br />Formation Chaussure: Non
+				            @endif
+
+				            @if ($employe->formationVetement == 1)
+				                <br />Formation Vêtement: Oui
+				            @else
+				                <br />Formation Vêtement: Non
+				            @endif
+
+				            @if ($employe->formationCaissier == 1)
+				                <br />Formation Caissier: Oui
+				           	@else
+				                <br />Formation Caissier: Non
+				            @endif
+
+		             		<br />
+		             		<div class="right">
+			             		<a href="{{ Route('gestion.user.edit.admin', $employe->courriel) }}"  class="button tiny">Modifier</a> 
+			             		<a href="{{ Route('gestion.user.delete', $employe->courriel) }}" class="button alert tiny">Supprimer</a>
+		             		</div>
+		             		<br />
+		             	</div>
+		            </dd>
+		        @endforeach
+		        </dl>
 			</div>	      
 		</div>
   	</div>

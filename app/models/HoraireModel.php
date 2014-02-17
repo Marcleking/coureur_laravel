@@ -27,7 +27,7 @@ class HoraireModel extends Eloquent {
 		//Création de l'array de l'horaire
         $horaire = [];
         //Parcours de toute les ressources
-		foreach ($listRessource as $ressource) {
+		foreach ($listRessource as &$ressource) {
 			//Parcours de tout les types d'employés
 			foreach ($ressource['typeEmp'] as & $typeRessource) {
 				// Si la ressource reste encore à être comblé
@@ -35,7 +35,7 @@ class HoraireModel extends Eloquent {
 					// Parcours de tout les utilisateurs
 					foreach ($listUtilhoraire as $users) {
 						// Si l'employé a la formation pour la ressource demander actuel
-						if(!HoraireModel::empEstTypeRessource($typeRessource, $users))
+						if(HoraireModel::empEstTypeRessource($typeRessource, $users))
 						{
 							// Parcours de la liste des disponibilité de l'employé
 							foreach ($users['listeDispoSemaine'] as &$dispo) {
@@ -83,16 +83,29 @@ class HoraireModel extends Eloquent {
 			}
 		}
 
-		// var_dump($horaire);
+		//var_dump($horaire);
 		HoraireModel::ajoutHoraireDansBd($horaire);
 
 		Horairemodel::lstRatioErreur();
 
 		// var_dump($listRatioErreur);
 
-		var_dump($listRessource);
+		$erreur = false;
+		 //Parcours de toute les ressources
+		foreach ($listRessource as $ressource) {
+			foreach ($ressource['typeEmp'] as $typeEmp) {
+				if ($typeEmp[array_keys($typeEmp)[0]] > 0) {
+					$erreur = true;
+				}
+			}
+		}
 
-		
+		if ($erreur) {
+			return false;
+			//Envoie d'un courriel à l'approbateur, il manque du monde O_O
+		}
+
+		return true;
 	}
 
 	public static function ajoutHoraireDansBd($horaire)
@@ -105,11 +118,11 @@ class HoraireModel extends Eloquent {
 
 	public static function empEstTypeRessource($typeRessource, $employe)
 	{
-		if (array_keys($typeRessource) == "chaussure" && $employe['formationChaussure'] == "1")
+		if (array_keys($typeRessource)[0] == "chaussure" && $employe['formationChaussure'] == "1")
 			return true;
-		elseif (array_keys($typeRessource) == "caissier" && $employe['formationCaissier'] == "1")
+		elseif (array_keys($typeRessource)[0] == "caissier" && $employe['formationCaissier'] == "1")
 			return true;
-		elseif (array_keys($typeRessource) == "vetement" && $employe['formationVetement'] == "1")
+		elseif (array_keys($typeRessource)[0] == "vetement" && $employe['formationVetement'] == "1")
 			return true;
 		else
 			return false;
