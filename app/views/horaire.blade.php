@@ -55,36 +55,42 @@
 						dataType:"json",
 						error:function (){},
 						success:function(horaire){
-							console.log(horaire);
+							for (var i = 0; i < horaire.length; i++){
+								var dd = document.createElement('dd');
+								var a = document.createElement('a');
+								var div = document.createElement('div');
 
-						for (var i = 0; i < horaire.length; i++){
-							var dd = document.createElement('dd');
-							var a = document.createElement('a');
-							var div = document.createElement('div');
+								a.href = "#" + i;
+								a.innerHTML = horaire[i]['courriel'];
+								dd.appendChild(a);
 
-							a.href = "#" + i;
-							a.innerHTML = horaire[i]['courriel'];
-							dd.appendChild(a);
+								div.id = i;
+								div.className = "content active";
+								div.appendChild(genererGrille(i));
+								dd.appendChild(div);
 
-							div.id = i;
-							div.className = "content active";
-							div.appendChild(genererGrille(i));
-							dd.appendChild(div);
+								document.getElementById('horaires').appendChild(dd);
+								document.getElementById('horaires').appendChild(document.createElement('hr'));
+								for(var j = 0; j < horaire[i].plages.length; j++){
 
-							document.getElementById('horaires').appendChild(dd);
-							document.getElementById('horaires').appendChild(document.createElement('hr'));
-							for(var j = 0; j < horaire[i].plages.length; j++){
-
-								afficherGrilleHoraire(horaire[i].plages[j], i);
+									afficherGrilleHoraire(horaire[i].plages[j], i);
+								}
 							}
-						}
 
 						}
 					});
 				}
 				else
 				{
-
+					$.ajax({
+						url:"{{URL::asset('ajax/fetch_horaires.php')}}",
+						data:{"courriel":"{{Auth::User()->id}}"},
+						dataType:"json",
+						error:function(){},
+						success:function(horaire){
+							console.log(horaire);
+						}
+					});
 				}
 			}
 
