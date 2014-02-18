@@ -58,7 +58,7 @@
 			$passage_ligne = "\n";
 		}
 		//=====Déclaration des messages au format texte et au format HTML.
-		$message_txt = "Salut à tous, voici un e-mail envoyé par un script PHP.";
+		$message_txt = "Information sur les disponibilités";
 		$message_html = "<html><head></head><body><b>Bonjour à tous</b>, voici un e-mail pour vous informer que vous n'avez pas rentré vos disponibilités. Il vous reste 48 heures. <br /> <br /> Merci et bonne soirée.</body></html>";
 		//==========
 		 
@@ -71,8 +71,8 @@
 		//=========
 		 
 		//=====Création du header de l'e-mail.
-		$header = "From: \"WeaponsB\"<lecoureurnordique@mail.fr>".$passage_ligne;
-		$header.= "Reply-to: \"WeaponsB\" <lecoureurnordique@mail.fr>".$passage_ligne;
+		$header = "From: \"Le Coureur Nordique\"<lecoureurnordique@mail.fr>".$passage_ligne;
+		$header.= "Reply-to: \"Le Coureur Nordique\" <lecoureurnordique@mail.fr>".$passage_ligne;
 		$header.= "MIME-Version: 1.0".$passage_ligne;
 		$header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
 		//==========
