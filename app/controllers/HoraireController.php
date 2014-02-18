@@ -10,7 +10,7 @@ class HoraireController extends BaseController {
 	}
 
 	public function notif() {
-		//HoraireModel::notification();
+		HoraireModel::notification();
 		return Redirect::route('horaire')->withSuccess("Les notifications on bien été envoyé.");
 	}
 
