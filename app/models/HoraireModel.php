@@ -119,24 +119,11 @@ class HoraireModel extends Eloquent {
 		if ($erreur) {
 			return false;
 			//Envoie d'un courriel à l'approbateur, il manque du monde O_O
-			$approbateurs = DB::table('employe')->where('typeEmploye', 'Gestionnaire')->get();
-			foreach ($approbateurs as $approbateur) {
-				
-				Mail::send(
-					'emails.welcome',
-					null,
-					function($message) use ($approbateur) {
-						$message->from('coureur@nordique.com', 'Coureur Nordique');
-						$message->to($approbateur['courriel'], $approbateur['nom'].', '.$approbateur['prenom'])->subject('Coureur Nordique');
-					}
-				);
-			}
+			
 		} else {
 			//Envoie d'un courriel à l'approbateur sa bien marcher
-			Mail::send('emails.welcome', $data, function($message)
-			{
-			    $message->to('foo@example.com', 'John Smith')->subject('Coureur nordique');
-			});
+			
+			
 			//Envoie d'un courriel à toute les employés abonnée au notif: sa la marcher
 		}
 
