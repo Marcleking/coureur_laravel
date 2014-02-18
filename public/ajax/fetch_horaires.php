@@ -65,7 +65,7 @@
 
 					$utilisateur = $req->fetch();
 
-					$json[] = array("courriel" => $resultat[$i]["courriel"],"nom" => $utilisateur['nom'], "prenom" => $utilisateur['prenom']);
+					$json[] = array("courriel" => $resultat[$i]["courriel"],"nom" => $utilisateur['nom'], "prenom" => $utilisateur['prenom'], "cle" => $utilisateur['possesseurCle']);
 
 				}
 

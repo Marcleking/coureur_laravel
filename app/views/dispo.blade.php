@@ -9,7 +9,7 @@
 				var lignes = document.getElementsByClassName('selectable');
 				
 				for(var i = 0; i < lignes.length; i++){				
-					lignes[i].id = "selectable" + i;
+					
 					$('#selectable' + i).bind("mousedown", function(e){
 							e.metaKey = true;
 						}).bind("mouseup",function(e){
@@ -65,7 +65,7 @@
 			
 			function ShowMessage(text, status){
 				
-				var previousMessage = document.getElementById('message');
+				var previousMessage = document.getElementById('fade');
 				
 				if(typeof(previousMessage) != 'undefined' && previousMessage != null){
 					previousMessage.parentNode.removeChild(previousMessage);
@@ -75,9 +75,8 @@
 				{
 					var message = document.createElement("div");
 				
-					//div.innerHTML = "<div data-alert id='message'></div>"
 					message.setAttribute("data-alert","");
-					message.id = "message";
+					message.id = "fade";
 					message.className = "alert-box radius"
 					
 					if (status == "error"){
@@ -88,12 +87,6 @@
 					}
 					
 					message.innerHTML = text;
-					var link = document.createElement('a');
-					link.href = "#";
-					link.className = "close";
-					link.innerHTML = "&times;";
-					
-					message.appendChild(link);
 					
 					document.getElementById('contenu').insertBefore(message,document.getElementById('formDispo'));
 				}
@@ -227,7 +220,6 @@
 					error: function(){alert('Erreur');},
 					success: function(test) {
 						deleteTableau();
-						
 						for(var i = 0; i< test.length; i++)
 						{
 							var ligneselect;
@@ -255,9 +247,9 @@
 								  ligneselect = document.getElementById('selectable6');
 								  break;
 								default:
-								  alert("erreur");
+								  ligneselect = "erreur";
 							}
-							
+
 							var split = test[i]['debut'].split(":");
 							var heure = (split[0] - 9) * 2 + 1;
 							
@@ -426,6 +418,7 @@
 					lesJours.innerHTML = vecteurJoursSemaine[i];
 					
 					lesLignes.appendChild(lesJours);
+					lesLignes.id = "selectable" + i;
 					
 					for (var j=0; j<24; j++)
 					{

@@ -66,8 +66,11 @@
 								var a = document.createElement('a');
 								var div = document.createElement('div');
 
+								var cle = "";
+								if(horaire[i]['cle'] == "1"){cle = " Clé"};
+
 								a.href = "#" + i;
-								a.innerHTML = horaire[i]['prenom'] + " " + horaire[i]['nom'] + " ("+ horaire[i]['courriel'] +")";
+								a.innerHTML = horaire[i]['prenom'] + " " + horaire[i]['nom'] + " ("+ horaire[i]['courriel'] +")" + cle ;
 								dd.appendChild(a);
 
 								div.id = i;
