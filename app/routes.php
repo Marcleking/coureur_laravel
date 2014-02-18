@@ -182,4 +182,12 @@ Route::group(['before' => 'auth.type:Gestionnaire'], function() {
             'uses' => 'HoraireController@genere'
         ]
     );
+
+    Route::get(
+        'notification',
+        [
+            'as'   => 'notification.generate',
+            'uses' => 'HoraireController@notif'
+        ]
+    );
 });
