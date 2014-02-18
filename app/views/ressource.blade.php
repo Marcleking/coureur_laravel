@@ -198,8 +198,14 @@
 						if (typeof groupes != 'undefined'){
 							lesGroupes = groupes;
 							var select = document.getElementById('groupes');
+
+							var nbOptions = select.options.length;
+							for(var i = 0; i < nbOptions; i++){
+								select.remove(0);
+							}
+
 							select.style.display = 'none';
-							select.addEventListener('change',selectGroupe);
+							select.addEventListener('change',selectGroupe, false);
 							
 							if (groupes.length > 0){
 								for (var i = 0; i < groupes.length; i++){
@@ -209,6 +215,11 @@
 									select.appendChild(option);
 								}
 								select.style.display = 'inline-block';
+
+								var i = 0;
+								while(lesGroupes[i].actif != 0){i++;}
+
+								select.selectedIndex = i;
 								selectGroupe();
 							}else{
 								document.getElementById('actif').checked = true;
@@ -232,14 +243,20 @@
 					error:function(){},
 					success:function(groupe){
 						groupe = jQuery.parseJSON(groupe);
-						lesGroupes.push(groupe);
-						var option = document.createElement('option');
-						option.value = groupe['id'];
-						option.innerHTML = groupe['nom'];
-						document.getElementById('groupes').appendChild(option);
-						document.getElementById('groupes').style.display = "inline-block";
-						document.getElementById('groupes').selectedIndex = document.getElementById('groupes').length - 1;
-						selectGroupe();
+						if(groupe.message == null){
+							lesGroupes.push(groupe);
+							var option = document.createElement('option');
+							option.value = groupe['id'];
+							option.innerHTML = groupe['nom'];
+							document.getElementById('groupes').appendChild(option);
+							document.getElementById('groupes').style.display = "inline-block";
+							document.getElementById('groupes').selectedIndex = document.getElementById('groupes').length - 1;
+							selectGroupe();
+							showMessage("Le groupe a été ajouté avec succès!","success");
+						}
+						else{
+							showMessage(groupe.message,"error");
+						}
 					}
 				});
 			}
@@ -258,14 +275,40 @@
 					error:function(){},
 					success:function(groupe){
 						groupe = jQuery.parseJSON(groupe);
-						var i = 0;
-						while ( i < lesGroupes.length && lesGroupes[i].id != groupe.id){
-							i++;
+						if(groupe.message == null){
+							var i = 0;
+							while ( i < lesGroupes.length && lesGroupes[i].id != groupe.id){
+								i++;
+							}
+							
+							lesGroupes[i].nom = groupe.nom;
+							lesGroupes[i].descriptions = groupe.nom;
+							lesGroupes[i].actif = groupe.actif;
+							showMessage("Le groupe a été modifié avec succès!","success");
 						}
+						else{
+							showMessage(groupe.message,"error");
+						}
+					}
+				});
+			}
+
+			function suppGroupe(e){
+				e.preventDefault();
+
+				$.ajax({
+					type:"POST",
+					url:"{{URL::asset('ajax/push_ressources.php')}}",
+					data:{
+						'id':document.getElementById('groupes').options[document.getElementById('groupes').selectedIndex].value,
+						'type':'suppGroup'},
+					dataType:"json",
+					error:function(){},
+					success:function(message){
 						
-						lesGroupes[i].nom = groupe.nom;
-						lesGroupes[i].descriptions = groupe.nom;
-						lesGroupes[i].actif = groupe.actif;
+						loadGroups();
+						showMessage(message.message, message.type);
+					
 					}
 				});
 			}
@@ -288,15 +331,25 @@
 				
 				try{
 					document.getElementById('ressourcesMere').removeChild(document.getElementById('modifierGroupe'));
+					document.getElementById('ressourcesMere').removeChild(document.getElementById('supprimerGroupe'));
 				}
 				catch(err){}
-				if (document.getElementById('groupes').length > 0){
+				if (lesGroupes.length > 0){
 					var btnModif = document.createElement('input');
 					btnModif.id = 'modifierGroupe';
 					btnModif.type = 'button';
 					btnModif.value = 'Modifier';
 					btnModif.addEventListener('click',modifGroupe);
 					document.getElementById('ressourcesMere').appendChild(btnModif);
+
+					if (lesGroupes.length > 1 && leGroupe.actif != 0){
+						var btnSupp = document.createElement('input');
+						btnSupp.id = 'supprimerGroupe';
+						btnSupp.type = 'button';
+						btnSupp.value = 'Supprimer';
+						btnSupp.addEventListener('click', suppGroupe);
+						document.getElementById('ressourcesMere').appendChild(btnSupp);
+					}
 				}
 				
 				$.ajax({
@@ -307,27 +360,43 @@
 					error:function(){},
 					success:function(blocs){
 						lesBlocs = blocs;
-						var table = document.getElementById('ressources');
-						
-						for(var i = 0; i < blocs.length; i++){
-							var row = table.rows[parseInt(lesBlocs[i].jour) + 1];
-							var iDebut = (parseInt(lesBlocs[i].heureDebut.split(':')[0]) - 9) * 2 + 1;
-							var iFin = (parseInt(lesBlocs[i].heureFin.split(':')[0]) - 9) * 2 + 1;
+						if (lesBlocs.length > 0){
+							var table = document.getElementById('ressources');
 							
-							if (lesBlocs[i].heureDebut.split(':')[1] == '30'){
-								iDebut++;
+							for(var i = 0; i < blocs.length; i++){
+								var row = table.rows[parseInt(lesBlocs[i].jour) + 1];
+								var iDebut = (parseInt(lesBlocs[i].heureDebut.split(':')[0]) - 9) * 2 + 1;
+								var iFin = (parseInt(lesBlocs[i].heureFin.split(':')[0]) - 9) * 2 + 1;
+								
+								if (lesBlocs[i].heureDebut.split(':')[1] == '30'){
+									iDebut++;
+								}
+								if (lesBlocs[i].heureFin.split(':')[1] == '30' ){
+									iFin++;
+								}
+								
+								for (var j = iDebut; j < iFin; j++){
+									row.childNodes[j].className = "bloc " + lesBlocs[i].id;
+									row.childNodes[j].addEventListener('click', selectionBloc);
+								}
 							}
-							if (lesBlocs[i].heureFin.split(':')[1] == '30' ){
-								iFin++;
-							}
+							noAutoBloc = parseInt(lesBlocs[lesBlocs.length - 1].id) + 1;
+						}
+						else
+						{	
 							
-							for (var j = iDebut; j < iFin; j++){
-								row.childNodes[j].className = "bloc " + lesBlocs[i].id;
-								row.childNodes[j].addEventListener('click', selectionBloc);
+							var table = document.getElementById('ressources');
+
+							for(var i = 1; i < table.rows.length; i++){
+
+								for(var j = 1; j < table.rows[i].cells.length; j++){
+									table.rows[i].cells[j].className = "";
+								}
 							}
+
+							noAutoBloc = 0;
 						}
 						
-						noAutoBloc = parseInt(lesBlocs[lesBlocs.length - 1].id) + 1;
 					}
 				});
 			}
@@ -339,17 +408,24 @@
 					data:{'noGroupe':document.getElementById('groupes').options[document.getElementById('groupes').selectedIndex].value,
 						  'type':'changeActif'},
 					error:function(){},
-					success:function(){
-						for(var i = 0; i < lesGroupes.length; i++){
-							if(i == document.getElementById('groupes').selectedIndex){
-								lesGroupes[i].actif = "0";
-								document.getElementById('actif').disabled = true;
-								document.getElementById('actif').checked = true;
-								document.getElementById('actif').title = "Au moins un groupe de ressources doit être sélectionné.";
+					success:function(message){
+						message = jQuery.parseJSON(message);
+						if(message.message == null){
+							for(var i = 0; i < lesGroupes.length; i++){
+								if(i == document.getElementById('groupes').selectedIndex){
+									lesGroupes[i].actif = "0";
+									document.getElementById('actif').disabled = true;
+									document.getElementById('actif').checked = true;
+									document.getElementById('actif').title = "Au moins un groupe de ressources doit être sélectionné.";
+								}
+								else{
+									lesGroupes[i].actif = "1";
+								}
 							}
-							else{
-								lesGroupes[i].actif = "1";
-							}
+							showMessage("Groupe actif modifié avec succès!","success");
+						}
+						else{
+							showMessage(message.message,"error");
 						}
 					}
 				});
@@ -463,7 +539,13 @@
 						
 					},
 					success:function(text){
-						
+						text = jQuery.parseJSON(text);
+						if(text.message == null){
+							showMessage("Les ressources ont été ajoutées avec succès!","success");
+						}
+						else{
+							showMessage(text.message,"error");
+						}
 					}
 				});
 				
@@ -559,6 +641,28 @@
 				document.getElementById('nbChaussures').value = nbChaussures;
 				document.getElementById('nbVetements').value = nbVetements;
 				document.getElementById('nbCaisses').value = nbCaisses;
+			}
+
+			function showMessage(text, status){
+				if (document.getElementById('fade') != null){
+					document.getElementById('fade').parentNode.removeChild(document.getElementById('fade'));
+				}
+
+				var message = document.createElement("div");
+				message.setAttribute("data-alert","");
+				message.id = "fade";
+				message.className = "alert-box radius";
+
+				if (status == "error"){
+					message.className = message.className + " warning";
+				}
+				else if (status == "success"){
+					message.className = message.className + "success"
+				}
+				
+				message.innerHTML = text;
+
+				document.getElementById('contenu').insertBefore(message,document.getElementById('ressourcesMere').parentNode);
 			}
 		
 		</script>

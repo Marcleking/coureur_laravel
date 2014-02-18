@@ -13,15 +13,35 @@
 				<a href="#" class="close">&times;</a>
 			</div> 
 		@endif
-		
+	
+	<style type="text/css">
+		#chaussure{
+			background: red;
+		}
+		#vetement{
+			background: green;	
+		}
+		#caisse{
+			background: blue;
+		}
+	</style>
+
 	<div id="contenu">
 		@if (Auth::User()->type == "Gestionnaire")
 			<a href="{{ route('genere.horaire') }}" class="button">Générer l'horaire</a>
-
-			<dl id="horaires" class="accordion" data-accordion>
-			
-			</dl>
 		@endif
+
+		
+		<ul id="legende">
+			<li id="chaussure" >Chaussure</li>
+			<li id="vetement">Vêtement</li>
+			<li id="caisse">Caisse</li>
+		</ul>
+		
+		@if (Auth::User()->type == "Gestionnaire")
+			<dl id="horaires" class="accordion" data-accordion></dl>
+		@endif
+
 
 		<script type="text/javascript">
 			window.addEventListener('load',init,false);
@@ -40,6 +60,7 @@
 						dataType:"json",
 						error:function (){},
 						success:function(horaire){
+							console.log(horaire);
 							for (var i = 0; i < horaire.length; i++){
 								var dd = document.createElement('dd');
 								var a = document.createElement('a');
@@ -137,8 +158,23 @@
 				var fin = (parseInt(plage.fin.split(':')[0]) - 9) * 2 + 1;
 				if (parseInt(plage.fin.split(':')[1]) == 30){fin++;}
 
+				var couleur;
+				console.log(plage.type);
+				switch(plage.type)
+				{
+					case "Chaussure":
+						couleur = "red";
+						break;
+					case "Vetement":
+						couleur = "green";
+						break;
+					case "Caisse":
+						couleur = "blue";
+						break;
+				}
+
 				for(var i = debut; i < fin; i++){
-					tr.cells[i].style.background = "orange";
+					tr.cells[i].style.background = couleur;
 				}
 			}
 
