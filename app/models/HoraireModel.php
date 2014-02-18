@@ -36,19 +36,21 @@ class HoraireModel extends Eloquent {
 				// Si la ressource reste encore à être comblé
 				if ($typeRessource > 0) {
 					// Parcours de tout les utilisateurs
-					foreach ($listUtilhoraire as $users) {
+					foreach ($listUtilhoraire as &$users) {
 						// Si l'employé a la formation pour la ressource demander actuel
 						if(HoraireModel::empEstTypeRessource($typeRessource, $users))
 						{
 							// Parcours de la liste des disponibilité de l'employé
 							foreach ($users['listeDispoSemaine'] as &$dispo) {
 								
+								//Gestion des clés
+								if($ressource['heureDebut'] == '09:00:00' && $users['possesseurCle'] == "0") {
+									continue;
+								}
 
-								//if($listRessource[0] == $ressource && $users['possesseurCle'] == "0") {
-								//	continue;
-								//}
-
-								//dd($listRessource[count($listRessource)-1]);
+								if(($ressource['heureFin'] == '17:00:00' || $ressource['heureFin'] == '21:00:00') && $users['possesseurCle'] == "0") {
+									continue;
+								}
 
 								// Si l'employé est disponible pour la journée actuelle
 								if(HoraireModel::idEgualJour($ressource['jour'], $dispo['jour'])) {
@@ -114,12 +116,24 @@ class HoraireModel extends Eloquent {
 		if ($erreur) {
 			return false;
 			//Envoie d'un courriel à l'approbateur, il manque du monde O_O
-			Mail::send('emails.welcome', $data, function($message)
-			{
-			    $message->to('foo@example.com', 'John Smith')->subject('Welcome!');
-			});
+			$approbateurs = DB::table('employe')->where('typeEmploye', 'Gestionnaire')->get();
+			foreach ($approbateurs as $approbateur) {
+				
+				Mail::send(
+					'emails.welcome',
+					null,
+					function($message) use ($approbateur) {
+						$message->from('coureur@nordique.com', 'Coureur Nordique');
+						$message->to($approbateur['courriel'], $approbateur['nom'].', '.$approbateur['prenom'])->subject('Coureur Nordique');
+					}
+				);
+			}
 		} else {
 			//Envoie d'un courriel à l'approbateur sa bien marcher
+			Mail::send('emails.welcome', $data, function($message)
+			{
+			    $message->to('foo@example.com', 'John Smith')->subject('Coureur nordique');
+			});
 			//Envoie d'un courriel à toute les employés abonnée au notif: sa la marcher
 		}
 
@@ -198,8 +212,8 @@ class HoraireModel extends Eloquent {
 			//=========
 			 
 			//=====Création du header de l'e-mail.
-			$header = "From: \"WeaponsB\"<lecoureurnordique@mail.fr>".$passage_ligne;
-			$header.= "Reply-to: \"WeaponsB\" <lecoureurnordique@mail.fr>".$passage_ligne;
+			$header = "From: \"Coureur Nordique\"<lecoureurnordique@mail.fr>".$passage_ligne;
+			$header.= "Reply-to: \"Coureur Nordique\" <lecoureurnordique@mail.fr>".$passage_ligne;
 			$header.= "MIME-Version: 1.0".$passage_ligne;
 			$header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
 			//==========
@@ -270,11 +284,13 @@ class HoraireModel extends Eloquent {
 
 	public static function genererRatio() 
 	{
+
 		global $RatioDemiHrs, $listUtilhoraire, $listRessource;
 		
 		if(!isset($RatioDemiHrs)) {
 			$RatioDemiHrs = HoraireModel::arrayRatioSemaine();
 		}
+		
 		HoraireModel::ajoutDispo($listUtilhoraire);
 		HoraireModel::divisionParRessource($listRessource);
 		//var_dump(HoraireModel::trouverRatioPlusPetit());
