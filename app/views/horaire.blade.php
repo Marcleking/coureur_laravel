@@ -94,7 +94,7 @@
 					$.ajax({
 						url:"{{URL::asset('ajax/fetch_horaires.php')}}",
 						type:"POST",
-						data:{'courriel':"oli.tremblay@gmail.com"},
+						data:{'courriel':"{{Auth::User()->id}}"},
 						dataType:"json",
 						error:function(){},
 						success:function(horaire){
