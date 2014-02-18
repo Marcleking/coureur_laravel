@@ -178,7 +178,7 @@ class HoraireModel extends Eloquent {
 				$passage_ligne = "\n";
 			}
 			//=====Déclaration des messages au format texte et au format HTML.
-			$message_txt = "Salut à tous, voici un e-mail envoyé par un script PHP.";
+			$message_txt = "Bonjour à tous, voici un e-mail pour vous informer que vous n'avez pas rentré vos disponibilités. Il vous reste 48 heures.";
 			$message_html = "<html><head></head><body><b>Bonjour à tous</b>, voici un e-mail pour vous informer que vous n'avez pas rentré vos disponibilités. Il vous reste 48 heures. <br /> <br /> Merci et bonne soirée.</body></html>";
 			//==========
 			 
@@ -187,7 +187,7 @@ class HoraireModel extends Eloquent {
 			//==========
 			 
 			//=====Définition du sujet.
-			$sujet = "Hey mon ami !";
+			$sujet = "Vos disponibilités ne sont pas présente !";
 			//=========
 			 
 			//=====Création du header de l'e-mail.
