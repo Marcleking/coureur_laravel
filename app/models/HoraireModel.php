@@ -191,8 +191,8 @@ class HoraireModel extends Eloquent {
 			//=========
 			 
 			//=====Création du header de l'e-mail.
-			$header = "From: \"WeaponsB\"<lecoureurnordique@mail.fr>".$passage_ligne;
-			$header.= "Reply-to: \"WeaponsB\" <lecoureurnordique@mail.fr>".$passage_ligne;
+			$header = "From: \"Le Coureur Nordique\"<lecoureurnordique@mail.fr>".$passage_ligne;
+			$header.= "Reply-to: \"Le Coureur Nordique\" <lecoureurnordique@mail.fr>".$passage_ligne;
 			$header.= "MIME-Version: 1.0".$passage_ligne;
 			$header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
 			//==========
