@@ -31,7 +31,7 @@ class HoraireModel extends Eloquent {
         $horaire = [];
         //Parcours de toute les ressources
         if (!isset($listRessource))
-        	return false;
+        	return "no.ressource";
 
 		foreach ($listRessource as &$ressource) {
 			//Parcours de tout les types d'employés
