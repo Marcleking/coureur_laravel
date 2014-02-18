@@ -6,7 +6,11 @@ class ValidationValidator extends Illuminate\Validation\Validator {
     {
     	$info = Input::all();
 
-        $user = \DB::select('Call Connexion(?, ?, ?, ?)', [Auth::User()->id, $info['ancienMotdePasse'], '123', '123']);
+    	try {
+       		$user = \DB::select('Call Connexion(?, ?, ?, ?)', [Auth::User()->id, $info['ancienMotdePasse'], '123', '123']);
+       	} catch (Exception $e) {
+       		return false;
+       	}
 
         if(isset($user[0]))
             return true;

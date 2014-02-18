@@ -589,21 +589,21 @@
 
     DROP PROCEDURE IF EXISTS Connexion $$
     CREATE PROCEDURE Connexion (in p_courriel varchar(60),
-                                                            in p_mdp varchar(60),
-                                                            in p_lastIp varchar(20),
-                                                            in p_lastLogon date)
+                                in p_mdp varchar(60),
+                                in p_lastIp varchar(20),
+                                in p_lastLogon date)
     BEGIN
-            if exists (SELECT courriel, typeEmploye FROM employe WHERE courriel = p_courriel AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel))) then
-                UPDATE employe
-                    set lastIp = p_lastIp,
-                    lastLogon = p_lastLogon
-                    where courriel = p_courriel;
+        if exists (SELECT courriel, typeEmploye FROM employe WHERE courriel = p_courriel AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel))) then
+            UPDATE employe
+                set lastIp = p_lastIp,
+                lastLogon = p_lastLogon
+                where courriel = p_courriel;
 
-                SELECT courriel, typeEmploye
-                    FROM employe
-                    WHERE courriel = p_courriel
-                    AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel));
-            end if;
+            SELECT courriel, typeEmploye
+                FROM employe
+                WHERE courriel = p_courriel
+                AND motDePasse = SHA1(concat(SHA1(p_mdp), p_courriel));
+        end if;
     END
     $$
 
@@ -654,6 +654,7 @@
         CREATE PROCEDURE SupprimerTelephone (in p_courriel varchar(60))
         BEGIN
             if exists(Select * from employe where courriel = p_courriel) then
+                Select * from telephone where courriel = p_courriel;
                 DELETE FROM telephone WHERE courriel = p_courriel;
             end if;
         END
@@ -774,22 +775,22 @@
                                     in p_annee int(11))
     BEGIN
 
-    DECLARE idSemaine int(11);
+        DECLARE idSemaine int(11);
 
-    if(-1 = (SELECT refIdSemaineACopier FROM disponibilitesemaine WHERE noDispoSemaine = p_noSemaine AND annee = p_annee AND courriel = p_courriel )) then
-        SET idSemaine = (   SELECT idDispoSemaine FROM disponibilitesemaine
-                            WHERE disponibilitesemaine.courriel = p_courriel
-                            AND disponibilitesemaine.noDispoSemaine = p_noSemaine
-                                AND disponibilitesemaine.annee = p_annee);
-    else
-        SET idSemaine = (   SELECT refIdSemaineACopier FROM disponibilitesemaine
-                            WHERE noDispoSemaine = p_noSemaine
-                            AND annee = p_annee
-                            AND courriel = p_courriel );
-    end if;
-    SELECT heureDebut, heureFin, jour
-    FROM disponibilitejours
-    WHERE disponibilitejours.idDispoSemaine = idSemaine;
+        if(-1 = (SELECT refIdSemaineACopier FROM disponibilitesemaine WHERE noDispoSemaine = p_noSemaine AND annee = p_annee AND courriel = p_courriel )) then
+            SET idSemaine = (   SELECT idDispoSemaine FROM disponibilitesemaine
+                                WHERE disponibilitesemaine.courriel = p_courriel
+                                AND disponibilitesemaine.noDispoSemaine = p_noSemaine
+                                    AND disponibilitesemaine.annee = p_annee);
+        else
+            SET idSemaine = (   SELECT refIdSemaineACopier FROM disponibilitesemaine
+                                WHERE noDispoSemaine = p_noSemaine
+                                AND annee = p_annee
+                                AND courriel = p_courriel );
+        end if;
+        SELECT heureDebut, heureFin, jour
+        FROM disponibilitejours
+        WHERE disponibilitejours.idDispoSemaine = idSemaine;
     END
     $$
 
@@ -937,6 +938,7 @@ CREATE PROCEDURE AjouterMessage(in p_titre varchar(70),
     BEGIN
         INSERT INTO message (titre, message, courriel, date)
         VALUES (p_titre, p_message, p_courriel, now());
+        Select * from message where idMessage = LAST_INSERT_ID();
     END
 
 
@@ -1039,6 +1041,7 @@ CREATE PROCEDURE deleteResourcesByGroup(
 	in p_noBlocRessource int(11)
 )
 	BEGIN
+        Select * from ressource where noBlocRessource = p_noBlocRessource;
 		DELETE FROM ressource WHERE noBlocRessource = p_noBlocRessource;
 	END
 $$
@@ -1091,6 +1094,7 @@ CREATE PROCEDURE setUsedMere (in p_idBlocRessource int(11))
             UPDATE ressourceMere set
                 used = 0
                 where idBlocRessource = p_idBlocRessource;
+            Select * from ressourceMere where idBlocRessource = p_idBlocRessource;
         end if;
     END
 $$
