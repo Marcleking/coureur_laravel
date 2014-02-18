@@ -1068,7 +1068,7 @@ DROP PROCEDURE IF EXISTS getRessourcesFromBloc $$
 CREATE PROCEDURE getRessourcesFromBloc (in p_idBlocRessource int(11))
     BEGIN
         if exists(Select * from ressourceMere where idBlocRessource = p_idBlocRessource) then
-            Select * from ressource where noBlocRessource = p_idBlocRessource;
+            Select * from ressource where noBlocRessource = p_idBlocRessource Order by jour, heureDebut;
         end if;
     END
 $$

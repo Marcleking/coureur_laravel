@@ -9,4 +9,9 @@ class HoraireController extends BaseController {
 		return Redirect::route('horaire')->withFail("Il manque d'employé pour combler toute les resssources. Une horaire à tout de même été généré.");
 	}
 
+	public function notif() {
+		//HoraireModel::notification();
+		return Redirect::route('horaire')->withSuccess("Les notifications on bien été envoyé.");
+	}
+
 }

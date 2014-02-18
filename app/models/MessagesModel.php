@@ -29,5 +29,4 @@ class MessagesModel extends Eloquent {
 		}
 		return false;
 	}
-
 }
