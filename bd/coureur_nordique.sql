@@ -362,14 +362,14 @@
     --
 
     INSERT INTO `employe` (`nom`, `prenom`, `motDePasse`, `courriel`, `numeroCivique`, `rue`, `ville`, `codePostal`, `possesseurCle`, `typeEmploye`, `indPriorite`, `formationVetement`, `formationChaussure`, `formationCaissier`, `respHoraireConflit`, `notifHoraire`, `notifRemplacement`, `lastIp`, `lastLogon`) VALUES
-    ('Bouchars-Marceau', 'Marc-Antoine', '95ff3a032b84ae7ef0457187a6bf9658454bc9a8', 'marcantoine.bouchardm@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 0, 0, 0, 0, 1, 0, NULL, NULL),
-    ('Demers', 'Antoine', '2c3e74ea735e53f42d5d827d2fa061fbfac6770f', 'Antoine.Demers@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 6, 1, 1, 1, 0, 1, 0, NULL, NULL),
-    ('Delmaire', 'Charles', '41aec588a23fb952f922a79c614b781b5668c212', 'Charles.Delmaire@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 1, 1, 1, 0, 1, 0, NULL, NULL),
+    ('Bouchars-Marceau', 'Marc-Antoine', '95ff3a032b84ae7ef0457187a6bf9658454bc9a8', 'marcantoine.bouchardm@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 1, 0, 0, 0, 1, 0, NULL, NULL),
+    ('Demers', 'Antoine', '2c3e74ea735e53f42d5d827d2fa061fbfac6770f', 'Antoine.Demers@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 6, 1, 0, 1, 0, 1, 0, NULL, NULL),
+    ('Delmaire', 'Charles', '41aec588a23fb952f922a79c614b781b5668c212', 'Charles.Delmaire@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 1, 1, 0, 0, 1, 0, NULL, NULL),
     ('Tremblay', 'Olivier', '7f4ee8a8a0f385b2c69cb40ae39d696fb71b948d', 'oli.tremblay@gmail.com', NULL, NULL, NULL, NULL, 1, "Employe", 5, 1, 1, 1, 0, 1, 0, NULL, NULL),
     ('Ouellet', 'Francis', '0c5225da1e3e96d5b4bd33767425d6909427df6d', 'francouelle93@gmail.com', NULL, NULL, NULL, NULL, 1, "Gestionnaire", 2, 1, 1, 1, 0, 1, 0, NULL, NULL),
     ('St-Pierre', 'Suzie', '9fea8e4fee1a0700448d0b21a9fffa6415ee81fa', 'suzie.stpierre@gmail.com', NULL, NULL, NULL, NULL, 1, "Employe", 3, 1, 1, 1, 0, 1, 0, NULL, NULL),
     ('Beland', 'Samuel', '38b46982f1dc38f6cc13e3a3c054915d6c51290f', 'samuel.beland@live.ca', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 2, 1, 1, 1, 0, 1, 0, NULL, NULL),
-    ('Rochette', 'Olivia', '051dd59b5859f4ea6ea6a48dab554546e376557e', 'olivia.rochette@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 4, 1, 1, 1, 0, 1, 0, NULL, NULL);
+    ('Rochette', 'Olivia', '051dd59b5859f4ea6ea6a48dab554546e376557e', 'olivia.rochette@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 4, 0, 1, 1, 0, 1, 0, NULL, NULL);
     -- --------------------------------------------------------
 
     --
