@@ -55,8 +55,11 @@ class UtilisateursModel extends Eloquent {
 	}
 
 	public static function ajoutTelephone($type, $numero, $courriel) {
-		
-		$row = DB::select('Call AjoutTelephone(?, ?, ?)', array($numero, $type, $courriel));
+		try {
+			$row = DB::select('Call AjoutTelephone(?, ?, ?)', array($numero, $type, $courriel));
+		} catch (Exception $e) {
+			return null;
+		}
 		return $row;
 	}
 
