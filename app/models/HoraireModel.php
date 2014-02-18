@@ -165,6 +165,7 @@ class HoraireModel extends Eloquent {
 			}
 			
 			if($siDispo == false) {
+
 			//var_dump($siDispo);
 			
 		
