@@ -21,6 +21,9 @@ class HoraireModel extends Eloquent {
 		//Tri de la liste des dispos selon l'indice de priorité de l'employé
 		$listUtilhoraire = array_values(array_sort($listUtilhoraire, function($value)
 		{
+			if ($value['indPriorite'] == 0)
+				return 0;
+
 		    return 1/$value['indPriorite'];
 		}));
 
@@ -111,9 +114,13 @@ class HoraireModel extends Eloquent {
 		if ($erreur) {
 			return false;
 			//Envoie d'un courriel à l'approbateur, il manque du monde O_O
+			Mail::send('emails.welcome', $data, function($message)
+			{
+			    $message->to('foo@example.com', 'John Smith')->subject('Welcome!');
+			});
 		} else {
 			//Envoie d'un courriel à l'approbateur sa bien marcher
-			//Envoie d'un courriel à toute les employés : sa la marcher
+			//Envoie d'un courriel à toute les employés abonnée au notif: sa la marcher
 		}
 
 		return true;
