@@ -30,6 +30,9 @@ class HoraireModel extends Eloquent {
 		//Création de l'array de l'horaire
         $horaire = [];
         //Parcours de toute les ressources
+        if (!isset($listRessource))
+        	return false;
+        
 		foreach ($listRessource as &$ressource) {
 			//Parcours de tout les types d'employés
 			foreach ($ressource['typeEmp'] as & $typeRessource) {
@@ -411,10 +414,11 @@ class HoraireModel extends Eloquent {
 		
 		$sql = 'Call getRessourcesFromBloc(:id)';
 		$prep = $connBD->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$prep->execute(array(':id' => $getUsedMere[0]['idBlocRessource']));
-		
-		$listeRessource = $prep->fetchAll(PDO::FETCH_ASSOC);
-
+		$listeRessource = null;
+		try {
+			$prep->execute(array(':id' => $getUsedMere[0]['idBlocRessource']));
+			$listeRessource = $prep->fetchAll(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {}
 
 		foreach ($listeRessource as &$ressource) {
 			$ressource['typeEmp']['chaussure'] = ['chaussure' => $ressource['nbEmpChaussures']];
