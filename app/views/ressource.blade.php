@@ -217,7 +217,7 @@
 								select.style.display = 'inline-block';
 
 								var i = 0;
-								while(lesGroupes[i].actif != 0){i++;}
+								while(lesGroupes.length < i && lesGroupes[i].actif != 0){i++;}
 
 								select.selectedIndex = i;
 								selectGroupe();

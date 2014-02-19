@@ -81,7 +81,48 @@
         KEY `fk_DisponibiliteJours_DisponibiliteSemaine_idx` (`idDispoSemaine`)
     ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
     -- --------------------------------------------------------
-	
+
+    INSERT INTO `disponibilitejours` (`idDispoJours`, `jour`, `heureDebut`, `heureFin`, `idDispoSemaine`) VALUES
+    (8, 'dimanche', '10:00:00', '16:00:00', 1),
+    (9, 'jeudi', '16:00:00', '21:00:00', 1),
+    (10, 'vendredi', '16:00:00', '21:00:00', 1),
+    (11, 'lundi', '09:00:00', '17:00:00', 2),
+    (12, 'mardi', '09:00:00', '17:00:00', 2),
+    (13, 'mercredi', '09:00:00', '17:00:00', 2),
+    (14, 'jeudi', '09:00:00', '17:00:00', 2),
+    (15, 'vendredi', '09:00:00', '17:00:00', 2),
+    (16, 'lundi', '16:00:00', '21:00:00', 3),
+    (17, 'mardi', '16:00:00', '21:00:00', 3),
+    (18, 'mercredi', '16:00:00', '21:00:00', 3),
+    (19, 'jeudi', '16:00:00', '21:00:00', 3),
+    (20, 'vendredi', '16:00:00', '21:00:00', 3),
+    (21, 'dimanche', '09:00:00', '14:00:00', 4),
+    (22, 'mardi', '12:00:00', '17:00:00', 4),
+    (23, 'mercredi', '16:00:00', '21:00:00', 4),
+    (24, 'jeudi', '12:00:00', '17:00:00', 4),
+    (25, 'samedi', '09:00:00', '14:00:00', 4),
+    (26, 'lundi', '09:00:00', '15:00:00', 5),
+    (27, 'mardi', '09:00:00', '15:00:00', 5),
+    (28, 'mercredi', '09:00:00', '15:00:00', 5),
+    (29, 'jeudi', '09:00:00', '15:00:00', 5),
+    (30, 'vendredi', '09:00:00', '15:00:00', 5),
+    (31, 'dimanche', '09:00:00', '12:00:00', 6),
+    (32, 'lundi', '18:00:00', '21:00:00', 6),
+    (33, 'mardi', '18:00:00', '21:00:00', 6),
+    (34, 'mercredi', '18:00:00', '21:00:00', 6),
+    (35, 'jeudi', '18:00:00', '21:00:00', 6),
+    (36, 'vendredi', '18:00:00', '21:00:00', 6),
+    (37, 'dimanche', '11:00:00', '17:00:00', 7),
+    (38, 'lundi', '11:00:00', '17:00:00', 7),
+    (39, 'mardi', '11:00:00', '17:00:00', 7),
+    (40, 'mercredi', '11:00:00', '17:00:00', 7),
+    (41, 'jeudi', '11:00:00', '17:00:00', 7),
+    (42, 'vendredi', '11:00:00', '17:00:00', 7),
+    (43, 'samedi', '11:00:00', '17:00:00', 7),
+    (44, 'dimanche', '09:00:00', '21:00:00', 8),
+    (45, 'samedi', '09:00:00', '21:00:00', 8);
+
+	/*
 	INSERT INTO `disponibilitejours` (`idDispoJours`, `jour`, `heureDebut`, `heureFin`, `idDispoSemaine`) VALUES
 	(8, 'dimanche', '09:30:00', '12:30:00', 1),
 	(9, 'dimanche', '14:00:00', '17:00:00', 1),
@@ -204,7 +245,7 @@
 	(126, 'mardi', '14:30:00', '17:30:00', 24),
 	(127, 'jeudi', '10:00:00', '21:00:00', 24),
 	(128, 'vendredi', '09:30:00', '17:30:00', 24);
-	
+	*/
 	
     --
     -- Structure de la table `disponibilitesemaine`
@@ -221,7 +262,18 @@
         KEY `fk_DisponibiliteSemaine_Employe1_idx` (`courriel`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-	INSERT INTO `disponibilitesemaine` (`idDispoSemaine`, `noDispoSemaine`, `annee`, `nbHeureSouhaite`, `refIdSemaineACopier`, `courriel`) VALUES
+
+    INSERT INTO `disponibilitesemaine` (`idDispoSemaine`, `noDispoSemaine`, `annee`, `nbHeureSouhaite`, `refIdSemaineACopier`, `courriel`) VALUES
+    (1, 8, 2014, 10, -1, 'marcantoine.bouchardm@gmail.com'),
+    (2, 8, 2014, 35, -1, 'Antoine.Demers@gmail.com'),
+    (3, 8, 2014, 25, -1, 'Charles.Delmaire@gmail.com'),
+    (4, 8, 2014, 20, -1, 'oli.tremblay@gmail.com'),
+    (5, 8, 2014, 32, -1, 'francouelle93@gmail.com'),
+    (6, 8, 2014, 15, -1, 'suzie.stpierre@gmail.com'),
+    (7, 8, 2014, 30, -1, 'samuel.beland@live.ca'),
+    (8, 8, 2014, 14, -1, 'olivia.rochette@gmail.com');
+
+	/*INSERT INTO `disponibilitesemaine` (`idDispoSemaine`, `noDispoSemaine`, `annee`, `nbHeureSouhaite`, `refIdSemaineACopier`, `courriel`) VALUES
 	(1, 7, 2014, 36, -1, 'samuel.beland@live.ca'),
 	(2, 8, 2014, 35, -1, 'samuel.beland@live.ca'),
 	(3, 9, 2014, 24, -1, 'samuel.beland@live.ca'),
@@ -246,7 +298,7 @@
 	(22, 7, 2014, 35, -1, 'suzie.stpierre@gmail.com'),
 	(23, 8, 2014, 31, -1, 'suzie.stpierre@gmail.com'),
 	(24, 9, 2014, 38, -1, 'suzie.stpierre@gmail.com');
-	
+	*/
     -- --------------------------------------------------------
 
     --
@@ -310,14 +362,14 @@
     --
 
     INSERT INTO `employe` (`nom`, `prenom`, `motDePasse`, `courriel`, `numeroCivique`, `rue`, `ville`, `codePostal`, `possesseurCle`, `typeEmploye`, `indPriorite`, `formationVetement`, `formationChaussure`, `formationCaissier`, `respHoraireConflit`, `notifHoraire`, `notifRemplacement`, `lastIp`, `lastLogon`) VALUES
-    ('Bouchars-Marceau', 'Marc-Antoine', '95ff3a032b84ae7ef0457187a6bf9658454bc9a8', 'marcantoine.bouchardm@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 0, 0, 0, 0, 1, 0, NULL, NULL),
-    ('Demers', 'Antoine', '2c3e74ea735e53f42d5d827d2fa061fbfac6770f', 'Antoine.Demers@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 6, 1, 1, 1, 0, 1, 0, NULL, NULL),
-    ('Delmaire', 'Charles', '41aec588a23fb952f922a79c614b781b5668c212', 'Charles.Delmaire@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 1, 1, 1, 0, 1, 0, NULL, NULL),
-    ('Tremblay', 'Olivier', '7f4ee8a8a0f385b2c69cb40ae39d696fb71b948d', 'oli.tremblay@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 5, 1, 1, 1, 0, 1, 0, NULL, NULL),
-    ('Ouellet', 'Francis', '0c5225da1e3e96d5b4bd33767425d6909427df6d', 'francouelle93@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 2, 1, 1, 1, 0, 1, 0, NULL, NULL),
-    ('St-Pierre', 'Suzie', '9fea8e4fee1a0700448d0b21a9fffa6415ee81fa', 'suzie.stpierre@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 3, 1, 1, 1, 0, 1, 0, NULL, NULL),
+    ('Bouchars-Marceau', 'Marc-Antoine', '95ff3a032b84ae7ef0457187a6bf9658454bc9a8', 'marcantoine.bouchardm@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 1, 0, 0, 0, 1, 0, NULL, NULL),
+    ('Demers', 'Antoine', '2c3e74ea735e53f42d5d827d2fa061fbfac6770f', 'Antoine.Demers@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 6, 1, 0, 1, 0, 1, 0, NULL, NULL),
+    ('Delmaire', 'Charles', '41aec588a23fb952f922a79c614b781b5668c212', 'Charles.Delmaire@gmail.com', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 1, 1, 1, 0, 0, 1, 0, NULL, NULL),
+    ('Tremblay', 'Olivier', '7f4ee8a8a0f385b2c69cb40ae39d696fb71b948d', 'oli.tremblay@gmail.com', NULL, NULL, NULL, NULL, 1, "Employe", 5, 1, 1, 1, 0, 1, 0, NULL, NULL),
+    ('Ouellet', 'Francis', '0c5225da1e3e96d5b4bd33767425d6909427df6d', 'francouelle93@gmail.com', NULL, NULL, NULL, NULL, 1, "Gestionnaire", 2, 1, 1, 1, 0, 1, 0, NULL, NULL),
+    ('St-Pierre', 'Suzie', '9fea8e4fee1a0700448d0b21a9fffa6415ee81fa', 'suzie.stpierre@gmail.com', NULL, NULL, NULL, NULL, 1, "Employe", 3, 1, 1, 1, 0, 1, 0, NULL, NULL),
     ('Beland', 'Samuel', '38b46982f1dc38f6cc13e3a3c054915d6c51290f', 'samuel.beland@live.ca', NULL, NULL, NULL, NULL, 0, "Gestionnaire", 2, 1, 1, 1, 0, 1, 0, NULL, NULL),
-    ('Rochette', 'Olivia', '051dd59b5859f4ea6ea6a48dab554546e376557e', 'olivia.rochette@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 4, 1, 1, 1, 0, 1, 0, NULL, NULL);
+    ('Rochette', 'Olivia', '051dd59b5859f4ea6ea6a48dab554546e376557e', 'olivia.rochette@gmail.com', NULL, NULL, NULL, NULL, 0, "Employe", 4, 0, 1, 1, 0, 1, 0, NULL, NULL);
     -- --------------------------------------------------------
 
     --
@@ -435,7 +487,7 @@
     --
 
     INSERT INTO `ressourceMere` (`idBlocRessource`, `nomBloc`, `description`, `used`) VALUES
-    (13, 'Disponibilités principales', '', 1);
+    (13, 'Disponibilités principales', '', 0);
 
     CREATE TABLE IF NOT EXISTS `ressource` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -453,21 +505,15 @@
     -- Contenu de la table `ressource`
     --
 
+    
     INSERT INTO `ressource` (`id`, `noBlocRessource`, `jour`, `heureDebut`, `heureFin`, `nbEmpChaussures`, `nbEmpVetements`, `nbEmpCaissier`) VALUES
-    (13, 13, 0, '09:00:00', '13:00:00', 1, 1, 1),
-    (14, 13, 0, '13:00:00', '18:00:00', 2, 2, 2),
-    (15, 13, 1, '09:00:00', '13:00:00', 1, 1, 1),
-    (16, 13, 1, '13:00:00', '18:00:00', 2, 2, 2),
-    (17, 13, 2, '09:00:00', '13:00:00', 1, 1, 1),
-    (18, 13, 3, '09:00:00', '13:00:00', 1, 1, 1),
-    (19, 13, 4, '09:00:00', '13:00:00', 1, 1, 1),
-    (20, 13, 6, '09:00:00', '13:00:00', 2, 2, 2),
-    (21, 13, 5, '09:00:00', '13:00:00', 2, 2, 2),
-    (22, 13, 2, '13:00:00', '18:00:00', 2, 2, 2),
-    (23, 13, 3, '13:00:00', '18:00:00', 2, 2, 2),
-    (24, 13, 4, '13:00:00', '21:00:00', 3, 3, 3),
-    (25, 13, 5, '13:00:00', '21:00:00', 3, 3, 3),
-    (26, 13, 6, '13:00:00', '21:00:00', 3, 3, 3);
+    (27, 13, 0, '09:00:00', '18:00:00', 1, 1, 1),
+    (28, 13, 1, '09:00:00', '18:00:00', 1, 1, 1),
+    (29, 13, 2, '09:00:00', '18:00:00', 1, 1, 1),
+    (30, 13, 3, '09:00:00', '18:00:00', 1, 1, 1),
+    (31, 13, 4, '09:00:00', '21:00:00', 1, 1, 1),
+    (32, 13, 5, '09:00:00', '21:00:00', 1, 1, 1),
+    (33, 13, 6, '09:00:00', '21:00:00', 1, 1, 1);
 
 
     -- --------------------------------------------------------
@@ -1102,7 +1148,7 @@ $$
 DROP PROCEDURE IF EXISTS getUsedMere $$
 CREATE PROCEDURE getUsedMere ()
     BEGIN
-        Select * from ressourceMere where used = true;
+        Select * from ressourceMere where used = 0;
     END
 
 $$
