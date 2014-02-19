@@ -27,6 +27,10 @@ class HoraireModel extends Eloquent {
 		    return 1/$value['indPriorite'];
 		}));
 
+		$cleDebut = false;
+		$cleFin = false;
+
+
 		//Création de l'array de l'horaire
         $horaire = [];
         //Parcours de toute les ressources
@@ -46,12 +50,14 @@ class HoraireModel extends Eloquent {
 							// Parcours de la liste des disponibilité de l'employé
 							foreach ($users['listeDispoSemaine'] as &$dispo) {
 								
-								//Gestion des clés
-								if($ressource['heureDebut'] == '09:00:00' && $users['possesseurCle'] == "0") {
+								//Gestion des clés pour le début
+								if($ressource['heureDebut'] == '09:00:00' && $users['possesseurCle'] == "0" && !$cleDebut) {
+									$cleDebut = true;
 									continue;
 								}
 
-								if(($ressource['heureFin'] == '17:00:00' || $ressource['heureFin'] == '21:00:00') && $users['possesseurCle'] == "0") {
+								if(($ressource['heureFin'] == '17:00:00' || $ressource['heureFin'] == '21:00:00') && $users['possesseurCle'] == "0" && !$cleFin) {
+									$cleFin = true;
 									continue;
 								}
 
@@ -98,7 +104,6 @@ class HoraireModel extends Eloquent {
 				}
 			}
 		}
-
 		//var_dump($horaire);
 		HoraireModel::ajoutHoraireDansBd($horaire);
 
@@ -255,14 +260,18 @@ class HoraireModel extends Eloquent {
 
 	public static function empEstTypeRessource($typeRessource, $employe)
 	{
-		if (array_keys($typeRessource)[0] == "chaussure" && $employe['formationChaussure'] == "1")
+		if (array_keys($typeRessource)[0] == "chaussure" && $employe['formationChaussure'] == "1") {
 			return true;
-		elseif (array_keys($typeRessource)[0] == "caissier" && $employe['formationCaissier'] == "1")
+		}
+		elseif (array_keys($typeRessource)[0] == "caissier" && $employe['formationCaissier'] == "1") {
 			return true;
-		elseif (array_keys($typeRessource)[0] == "vetement" && $employe['formationVetement'] == "1")
+		}
+		elseif (array_keys($typeRessource)[0] == "vetement" && $employe['formationVetement'] == "1") {
 			return true;
-		else
+		}
+		else {
 			return false;
+		}
 	}
 
 	public static function idEgualJour($id, $jour)
