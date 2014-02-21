@@ -190,4 +190,11 @@ Route::group(['before' => 'auth.type:Gestionnaire'], function() {
             'uses' => 'HoraireController@notif'
         ]
     );
+	Route::get(
+        'echange',
+        [
+            'as'   => 'echange',
+            'uses' => 'EchangeController@lesEchanges'
+        ]
+    );
 });

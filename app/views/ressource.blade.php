@@ -312,8 +312,12 @@
 					}
 				});
 			}
-			
+			function deleteTableau()
+				{
+						$('.bloc').removeClass();		
+				}
 			function selectGroupe(){
+				deleteTableau();
 				var leGroupe = lesGroupes[document.getElementById('groupes').selectedIndex];
 				
 				document.getElementById('nom').value = leGroupe.nom;

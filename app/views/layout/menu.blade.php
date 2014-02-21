@@ -12,6 +12,8 @@
 <hr />
 <li><a href="{{ Route('dispo') }}"><i class="fa fa-clock-o fa-2x"></i> Saisie des disponibilités</a></li>
 <hr />
+<li><a href="{{ Route('echange') }}"><i class="fa fa-exchange fa-2x"></i> Gestion des échanges</a></li>
+<hr />
 <li><a href="{{ Route('gestion.compte') }}"><i class="fa fa-cogs fa-2x"></i> Gestion du compte</a></li>
 <hr />
 @if (Auth::User()->type == "Gestionnaire")

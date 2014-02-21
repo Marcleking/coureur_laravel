@@ -24,3 +24,5 @@ class CoureurController extends BaseController {
 	}
 
 }
+
+?>

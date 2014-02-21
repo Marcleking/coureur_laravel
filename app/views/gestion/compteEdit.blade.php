@@ -137,8 +137,7 @@
 		
 	<script>
 		$(document).ready(function(){
-			$("#fade").fadeOut(1500,function(){
-			});
+			$("#fade").delay(3000).fadeOut(1500);
 		});
 	</script>
 	</div>
