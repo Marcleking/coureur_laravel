@@ -39,8 +39,21 @@
 		           				Nom: {{ $employe->prenom ." ". $employe->nom }}
 		           			</div>
 		           			<div class="right"> 
-		           				Adresse: {{ $employe->numeroCivique .", ". $employe->rue }}
-		            			<br /> {{ $employe->ville. ' '. $employe->codePostal }}
+								@if(($employe->numeroCivique != "" && $employe->rue != "") || $employe->ville != "" || $employe->codePostal != "")
+									Adresse: 
+								@endif
+								
+								@if($employe->numeroCivique != "" && $employe->rue != "")
+									{{ $employe->numeroCivique .", ". $employe->rue }}
+									@if($employe->ville != "" || $employe->codePostal != "")
+										<br />
+									@endif
+								@endif
+								
+								@if($employe->ville != "" || $employe->codePostal != "")
+									{{ $employe->ville. ' '. $employe->codePostal }}
+								@endif
+								
 		            		</div>
 		            		<br />Courriel: {{ $employe->courriel }}
 		            		<br />Type Employé: {{ $employe->typeEmploye }}

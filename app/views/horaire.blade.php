@@ -26,8 +26,15 @@
 			background: blue;
 		}
 		.first {
-			overflow: hidden;
-			width: 100px;
+			min-width:150px;
+		}
+		.nav dd {
+			max-width:100px;
+
+		}
+		.nav dd a {
+			padding-left:25px;
+			padding-right:25px;
 		}
 	</style>
 
@@ -43,7 +50,7 @@
 			<li id="caisse">Caisse</li>
 		</ul>
 		
-			<dl class="tabs" data-tab>
+			<dl class="tabs nav" data-tab>
 			  <dd id="panel0"><a id="pan0" class="active" href="#panel2-0">Dimanche</a></dd>
 			  <dd id="panel1"><a id="pan1" href="#panel2-1">Lundi</a></dd>
 			  <dd id="panel2"><a id="pan2" href="#panel2-2">Mardi</a></dd>
@@ -85,18 +92,27 @@
 			function init(){
 				importerHoraire();
 				navActif();
+				
+			}
+			
+			function retirerTableVide() {
+				for(var i=0; i< 7; i++) {
+					var div = document.getElementById('table'+i);
+					var tbody = div.getElementsByTagName('tbody');
+					var tr = tbody[0].getElementsByTagName('tr');
+					
+					if(tr.length == 0)
+						div.remove();
+				}
+			
 			}
 
 			function navActif() {
 				var date = new Date();
-				console.log(date.getDay());
 				document.getElementById('panel2-'+ date.getDay()).setAttribute("class", "active content");
 				document.getElementById('panel'+ date.getDay()).setAttribute("class", "active");
 			}
 			function importerHoraire(){
-				// Vérifier le type de l'utilisateur
-				if("{{Auth::User()->type}}" == "Gestionnaire")
-				{
 					$.ajax({
 						url:"{{ URL::asset('ajax/fetch_horaires.php') }}",
 						type:"POST",
@@ -116,30 +132,11 @@
 								}
 							}						
 							
-							
+							retirerTableVide();
 							
 
 						}
 					});
-				}
-				else
-				{	
-					$.ajax({
-						url:"{{URL::asset('ajax/fetch_horaires.php')}}",
-						type:"POST",
-						data:{'courriel':"{{Auth::User()->id}}"},
-						dataType:"json",
-						error:function(){},
-						success:function(horaire){
-							console.log(horaire);
-
-							document.getElementById('contenu').appendChild(genererGrille(0));
-							for (var i = 0; i < horaire.length; i++){
-								afficherGrilleHoraire(horaire[i], 0);
-							}
-						}
-					});
-				}
 			}
 
 			function genererGrille(no){
@@ -149,13 +146,17 @@
 				var tbody = document.createElement('tbody');
 				for (var i = 0; i < 8; i++){
 					var tr = document.createElement('tr');
-
+					
 				if(i ==0){
 						for (var j = 0; j < 13; j++){
 							var th = document.createElement('th');
 							if(j != 0){
 								th.colSpan = 2;
 								th.innerHTML = (j+8) + ":00";
+							}
+							else 
+							{
+								th.setAttribute("class", "first");
 							}
 							tr.appendChild(th);
 						}

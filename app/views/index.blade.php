@@ -5,7 +5,7 @@
 		<h3>Messages</h3>
 		
 		<div class="panel">
-			@if (isset($messages))
+			@if (isset($messages) && !$messages->isEmpty())
 				<dl class="accordion" data-accordion>
 		            @foreach ($messages as $message)
 		            	<dd>
@@ -31,7 +31,7 @@
 		        </dl>
 		        {{ $messages->links() }}
 			@else
-				Il n'y a pas de message!
+				<p class="text-center">Il n'y a pas de message!</p>
 			@endif
 		</div>
 	</div>
