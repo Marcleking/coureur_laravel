@@ -25,7 +25,7 @@ class MessageController extends BaseController {
             trim($info['message']),
             Auth::User()->id
         );
-        return Redirect::route('message')->withSuccess("Le message à bien été envoyé.");
+        return Redirect::route('message')->withSuccess("Le message a bien été envoyé.");
 
 	}
 
