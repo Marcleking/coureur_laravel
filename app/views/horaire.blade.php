@@ -1,6 +1,7 @@
 @extends('layout.master')
 
 @section('content')
+
 	<div class="medium-12 columns">
 		@if (Session::has('success'))
 			<div data-alert id="fade" class="alert-box success radius">
@@ -24,6 +25,10 @@
 		#caisse{
 			background: blue;
 		}
+		.first {
+			overflow: hidden;
+			width: 100px;
+		}
 	</style>
 
 	<div id="contenu">
@@ -38,6 +43,37 @@
 			<li id="caisse">Caisse</li>
 		</ul>
 		
+			<dl class="tabs" data-tab>
+			  <dd><a id="pan0" class="active" href="#panel2-0">Dimanche</a></dd>
+			  <dd><a id="pan1" href="#panel2-1">Lundi</a></dd>
+			  <dd><a id="pan2" href="#panel2-2">Mardi</a></dd>
+			  <dd><a id="pan3" href="#panel2-3">Mercredi</a></dd>
+			  <dd><a id="pan4" href="#panel2-4">Jeudi</a></dd>
+			  <dd><a id="pan5" href="#panel2-5">Vendredi</a></dd>
+			  <dd><a id="pan6" href="#panel2-6">Samedi</a></dd>
+			</dl>	
+			<div class="tabs-content">
+			 <div class="content active" id="panel2-0">
+				
+			</div>
+			<div class="content" id="panel2-1">
+				
+			</div>
+			<div class="content" id="panel2-2">
+			</div>
+			<div class="content" id="panel2-3">
+				
+			</div>
+			<div class="content" id="panel2-4">
+				
+			</div>
+			<div class="content" id="panel2-5">
+				
+			</div>
+			<div class="content" id="panel2-6">
+				
+			</div>
+		</div>		
 		@if (Auth::User()->type == "Gestionnaire")
 			<dl id="horaires" class="accordion" data-accordion></dl>
 		@endif
@@ -48,6 +84,23 @@
 
 			function init(){
 				importerHoraire();
+				 gestionClic();
+			}
+			
+			function gestionClic() {
+				for(var i=0;i<7;i++) {
+					var pan = document.getElementById('pan'+i)
+					pan.addEventListener('click',cacher(i),false);
+				}
+			}
+			
+			function cacher(jour) {
+				for(var i=0;i<7;i++) {
+					if(i == jour)
+						$('panel2-'+i).show();
+					else
+						$('panel2-'+i).hide();
+				}
 			}
 
 			function importerHoraire(){
@@ -61,30 +114,20 @@
 						error:function (){},
 						success:function(horaire){
 							console.log(horaire);
-							for (var i = 0; i < horaire.length; i++){
-								var dd = document.createElement('dd');
-								var a = document.createElement('a');
-								var div = document.createElement('div');
-
-								var cle = "";
-								if(horaire[i]['cle'] == "1"){cle = " Clé"};
-
-								a.href = "#" + i;
-								a.innerHTML = horaire[i]['prenom'] + " " + horaire[i]['nom'] + " ("+ horaire[i]['courriel'] +")" + cle ;
-								dd.appendChild(a);
-
-								div.id = i;
-								div.className = "content";
+							
+							
+							for(var i=0; i< 7; i++) {
+								var div = document.getElementById('panel2-'+i);
 								div.appendChild(genererGrille(i));
-								dd.appendChild(div);
-
-								document.getElementById('horaires').appendChild(dd);
-								document.getElementById('horaires').appendChild(document.createElement('hr'));
-								for(var j = 0; j < horaire[i].plages.length; j++){
-
-									afficherGrilleHoraire(horaire[i].plages[j], i);
-								}
 							}
+							for (var j = 0; j < horaire.length; j++){
+								for(var k = 0; k < horaire[j].plages.length; k++){
+									afficherGrilleHoraire(horaire[j].plages[k], j, horaire[j].nom, horaire[j].prenom );
+								}
+							}						
+							
+							
+							
 
 						}
 					});
@@ -117,25 +160,10 @@
 				for (var i = 0; i < 8; i++){
 					var tr = document.createElement('tr');
 
-					if(i != 0)
-					{
-						for (var j = 0; j < 25; j++){
-							if (j != 0){
-								var td = document.createElement('td');
-								tr.appendChild(td)
-							}
-							else{
-								var th = document.createElement('th');
-								th.innerHTML = parseJour(i - 1);
-								tr.appendChild(th)
-							}
-						}
-
-						tbody.appendChild(tr);
-					}
-					else{
+				if(i ==0){
 						for (var j = 0; j < 13; j++){
 							var th = document.createElement('th');
+							th.setAttribute("style", "width:100px");
 							if(j != 0){
 								th.colSpan = 2;
 								th.innerHTML = (j+8) + ":00";
@@ -150,10 +178,26 @@
 				return table;
 			}
 
-			function afficherGrilleHoraire(plage, no){
-				var table = document.getElementById('table' + no);
+			function afficherGrilleHoraire(plage, no, nom, prenom){
+				var table = document.getElementById('table' + plage.jour);
+				var tbody = table.getElementsByTagName('tbody')[0];
+				var tr1 = document.createElement('tr');
+				
+				for (var j = 0; j < 25; j++){
+							if (j != 0){
+								var td = document.createElement('td');
+								tr1.appendChild(td)
+							}
+							else{
+								var th = document.createElement('th');
+								th.innerHTML = prenom + ' ' + nom;
+								th.setAttribute("class", "first");
+								tr1.appendChild(th)
+							}
+						}
 
-				var tr = table.rows[parseInt(plage.jour) + 1];
+						tbody.appendChild(tr1);
+
 
 				var debut = (parseInt(plage.debut.split(':')[0]) - 9) * 2 + 1;
 				if (parseInt(plage.debut.split(':')[1]) == 30){debut++;}
@@ -177,42 +221,14 @@
 				}
 
 				for(var i = debut; i < fin; i++){
-					tr.cells[i].style.background = couleur;
+					tr1.cells[i].style.background = couleur;
 				}
 			}
 
-			function parseJour(no){
-				var jour;
-				
-				switch(no){
-					case 0:
-						jour = "Dimanche";
-					break;
-					case 1:
-						jour = "Lundi";
-					break;
-					case 2:
-						jour = "Mardi";
-					break;
-					case 3:
-						jour = "Mercredi";
-					break;
-					case 4:
-						jour = "Jeudi";
-					break;
-					case 5:
-						jour = "Vendredi";
-					break;
-					case 6:
-						jour = "Samedi";
-					break;
-					default:
-						jour = "";
-				}
-				return jour;
-			}
 		</script>
 
 
 	</div>
+	</style>
+
 @stop
