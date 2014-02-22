@@ -44,16 +44,16 @@
 		</ul>
 		
 			<dl class="tabs" data-tab>
-			  <dd><a id="pan0" class="active" href="#panel2-0">Dimanche</a></dd>
-			  <dd><a id="pan1" href="#panel2-1">Lundi</a></dd>
-			  <dd><a id="pan2" href="#panel2-2">Mardi</a></dd>
-			  <dd><a id="pan3" href="#panel2-3">Mercredi</a></dd>
-			  <dd><a id="pan4" href="#panel2-4">Jeudi</a></dd>
-			  <dd><a id="pan5" href="#panel2-5">Vendredi</a></dd>
-			  <dd><a id="pan6" href="#panel2-6">Samedi</a></dd>
+			  <dd id="panel0"><a id="pan0" class="active" href="#panel2-0">Dimanche</a></dd>
+			  <dd id="panel1"><a id="pan1" href="#panel2-1">Lundi</a></dd>
+			  <dd id="panel2"><a id="pan2" href="#panel2-2">Mardi</a></dd>
+			  <dd id="panel3"><a id="pan3" href="#panel2-3">Mercredi</a></dd>
+			  <dd id="panel4"><a id="pan4" href="#panel2-4">Jeudi</a></dd>
+			  <dd id="panel5"><a id="pan5" href="#panel2-5">Vendredi</a></dd>
+			  <dd id="panel6"><a id="pan6" href="#panel2-6">Samedi</a></dd>
 			</dl>	
 			<div class="tabs-content">
-			 <div class="content active" id="panel2-0">
+			 <div class="content" id="panel2-0">
 				
 			</div>
 			<div class="content" id="panel2-1">
@@ -84,25 +84,15 @@
 
 			function init(){
 				importerHoraire();
-				 gestionClic();
-			}
-			
-			function gestionClic() {
-				for(var i=0;i<7;i++) {
-					var pan = document.getElementById('pan'+i)
-					pan.addEventListener('click',cacher(i),false);
-				}
-			}
-			
-			function cacher(jour) {
-				for(var i=0;i<7;i++) {
-					if(i == jour)
-						$('panel2-'+i).show();
-					else
-						$('panel2-'+i).hide();
-				}
+				navActif();
 			}
 
+			function navActif() {
+				var date = new Date();
+				console.log(date.getDay());
+				document.getElementById('panel2-'+ date.getDay()).setAttribute("class", "active content");
+				document.getElementById('panel'+ date.getDay()).setAttribute("class", "active");
+			}
 			function importerHoraire(){
 				// Vérifier le type de l'utilisateur
 				if("{{Auth::User()->type}}" == "Gestionnaire")
@@ -163,7 +153,6 @@
 				if(i ==0){
 						for (var j = 0; j < 13; j++){
 							var th = document.createElement('th');
-							th.setAttribute("style", "width:100px");
 							if(j != 0){
 								th.colSpan = 2;
 								th.innerHTML = (j+8) + ":00";
