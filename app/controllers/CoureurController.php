@@ -4,7 +4,9 @@ class CoureurController extends BaseController {
 
 	public function index() {
 		$result = MessagesModel::afficherMessages();
-		return View::make('index')->withMessages($result);
+		$info = UtilisateursModel::afficherUtilisateur(Auth::User()->id);
+
+		return View::make('index')->withMessages($result)->withInfo($info);;
 	}
 
 	public function document($folder = "") {

@@ -1190,3 +1190,35 @@ CREATE PROCEDURE getSchedulesByUser (in p_courriel varchar(60))
 BEGIN
     Select * From plagedetravail Where courriel = p_courriel;
 END
+
+$$
+
+DROP PROCEDURE IF EXISTS accepterRemplacement $$
+CREATE PROCEDURE accepterRemplacement(IN `p_newCourriel` VARCHAR(200), IN `p_idQuartTravail` INT(11))
+BEGIN
+	UPDATE plagedetravail
+        SET courriel = p_newCourriel,
+			remplacement = 0
+        WHERE idQuartTravail = p_idQuartTravail;
+
+END
+
+$$
+
+DROP PROCEDURE IF EXISTS afficherRemplacement $$
+CREATE PROCEDURE afficherRemplacement()
+BEGIN
+    Select * From plagedetravail WHERE remplacement = 1;
+END
+
+$$
+
+DROP PROCEDURE IF EXISTS ajouterRemplacement $$
+CREATE PROCEDURE `ajouterRemplacement`(IN `p_idQuartTravail` INT, IN `p_remplacement` TINYINT)
+    NO SQL
+BEGIN
+	UPDATE plagedetravail
+        SET remplacement = p_remplacement
+                WHERE idQuartTravail = p_idQuartTravail;
+
+END$$
