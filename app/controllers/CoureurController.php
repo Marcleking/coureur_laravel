@@ -7,8 +7,9 @@ class CoureurController extends BaseController {
 		return View::make('index')->withMessages($result);
 	}
 
-	public function document() {
-		return View::make('document');
+	public function document($folder = "") {
+		$files = DocumentsModel::getFiles($folder);
+		return View::make('document')->withFiles($files);
 	}
 
 	public function horaire() {

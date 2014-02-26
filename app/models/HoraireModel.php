@@ -14,7 +14,7 @@ class HoraireModel extends Eloquent {
 		$listRatioErreur = array();
 
 
-		Horairemodel::genererRatio();
+		var_dump(Horairemodel::genererRatio());
 
 		//var_dump($listRessource);
 
