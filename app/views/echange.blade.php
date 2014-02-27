@@ -16,13 +16,12 @@
 			display:inline;
 		}
 	</style>
+
 	<script type="text/javascript">
 		window.addEventListener('load',init,false);
 
 		function init(){
 			importerHoraire();
-				
-				
 		}
 		
 		
@@ -34,8 +33,6 @@
 					dataType:"json",
 					error:function (){},
 					success:function(horaire){
-						console.log(horaire);
-						
 						for(var i = 0; i< horaire.length; i++) {
 							var divPrin = document.getElementById('divPrinc');
 							var div = document.createElement('div');
@@ -43,6 +40,12 @@
 							var divCheck = document.createElement('div');
 							var check = document.createElement('input');
 							check.setAttribute("type","checkbox");
+							check.value = horaire[i]["id"];
+							check.addEventListener("change", changeReplacementStatus, false);
+
+							if(horaire[i]["remplacement"] != "0"){
+								check.checked = true;
+							}
 							
 							divHrs.innerHTML = convertJour(horaire[i]["jour"]) + "<br />" + horaire[i]["debut"] + " - " + horaire[i]["fin"] ;
 							divCheck.setAttribute("class","right inline");
@@ -55,6 +58,26 @@
 						}
 					}
 				});
+		}
+
+		function changeReplacementStatus(e){
+			var no = e.target.value;
+			var valeur = 0;
+			// Le checkBox est "checked" -> il vient d'être changé, on fait une demande de changement
+			if(e.target.checked)
+			{
+				valeur = 1;
+			}
+			
+			$.ajax({
+				url:"{{URL::asset('ajax/push_remplacement.php')}}",
+				type:"POST",
+				data:{'id':e.target.value,'valeur':valeur},
+				dataType:"json",
+				error:function(){},
+				success:function(resultat){}
+			});
+
 		}
 		
 		function convertJour(no) {
@@ -83,12 +106,10 @@
 			  jour= "Dimanche";
 			  break;
 			}
-			console.log(no);
 			return jour;
 		}
+
 	</script>
-	
-	<a href="#" class="button small right">Faire la demande</a>
 	
 </div>
 @stop

@@ -34,8 +34,8 @@
 			$json = array();
 
 			foreach ($resultat as $plage) {
-				$json[] = array("jour" => $plage["jour"], "type" => $plage["typeTravail"], 
-					"debut" => $plage["heureDebut"], "fin" => $plage["heureFin"]);
+				$json[] = array("id" => $plage["idQuartTravail"], "jour" => $plage["jour"], "type" => $plage["typeTravail"], 
+					"debut" => $plage["heureDebut"], "fin" => $plage["heureFin"], "remplacement" => $plage["remplacement"]);
 			}
 
 			echo json_encode($json);
