@@ -44,12 +44,45 @@ Route::group(['before' => 'auth'], function() {
     
 
     Route::any(
-        '/document/{all?}',
+        '/document{all?}',
         [
             'as'   => 'document',
             'uses' => 'CoureurController@document'
         ]
     )->where('all', '.*');
+
+
+    Route::any(
+        '/supprimer/document{all?}',
+        [
+            'as'   => 'delete.document',
+            'uses' => 'CoureurController@supprimeDocument'
+        ]
+    )->where('all', '.*');
+
+    Route::any(
+        '/supprimer/fichier{all?}',
+        [
+            'as'   => 'delete.fichier',
+            'uses' => 'CoureurController@supprimeFichier'
+        ]
+    )->where('all', '.*');
+
+    Route::post('cree/document',
+        [
+            'as'   => 'document.create',
+            'uses' => 'CoureurController@creeDocument'
+        ]
+    );
+
+    Route::post('ajout/fichier', 
+        [
+            'as'   => 'add.file',
+            'uses' => 'CoureurController@ajoutFichier'
+        ]
+    );
+
+
 
     Route::get(
         '/horaire',
