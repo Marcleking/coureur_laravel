@@ -30,7 +30,7 @@
 
 			foreach ($resultat as $plage) {
 				$json[] = array("jour" => $plage["jour"], "type" => $plage["typeTravail"], 
-					"debut" => $plage["heureDebut"], "fin" => $plage["heureFin"]);
+					"debut" => $plage["heureDebut"], "fin" => $plage["heureFin"], "courriel" => $plage["courriel"], "typeTravail" => $plage["typeTravail"]);
 			}
 
 			echo json_encode($json);

@@ -37,7 +37,8 @@
 	</div>
 	<div class="medium-12 columns">
 		<h3>Remplacements</h3>
-		<div id="princ" class="panel">
+		<div id="princ" class="panel clearfix">
+		
 		<div>
 	</div>
 	
@@ -57,21 +58,47 @@
 					type:"POST",
 					dataType:"json",
 					error:function (){},
-					success:function(horaire){
-						console.log(horaire);
+					success:function(remplacement){
 						
-						for(var i = 0; i< horaire.length; i++) {
-							var divPrin = document.getElementById('princ');
-							var div = document.createElement('div');
-							var divHrs = document.createElement('div');
-							var divCheck = document.createElement('div');
+						console.log(remplacement.length);
+						for(var i = 0; i< remplacement.length; i++) {
+						
+							var typeFormation;
+							switch (remplacement[i]['typeTravail'])
+							{
+								case "Chaussure":
+								  typeFormation = {{$info->formationChaussure}};
+								  break;
+								case "Vetement":
+								   typeFormation = {{$info->formationVetement}};
+								  break;
+								case "Caissier":
+									typeFormation = {{$info->formationCaissier}};
+								  break;
+							}
+							if(typeFormation == 1) {
 							
-							divHrs.innerHTML = convertJour(horaire[i]["jour"]) + "<br />" + horaire[i]["debut"] + " - " + horaire[i]["fin"] ;
-							divHrs.setAttribute("class","inline");
-							div.appendChild(divHrs);
-							div.appendChild(divCheck);
-							div.setAttribute("class","plage");
-							divPrin.appendChild(div);
+							
+								var divPrin = document.getElementById('princ');
+								var div = document.createElement('div');
+								var divHrs = document.createElement('div');
+								var divDroite = document.createElement('div');
+								var divBtn = document.createElement('div');
+								var leDemandeur = document.createElement('div');
+								divHrs.innerHTML = convertJour(remplacement[i]["jour"]) + "<br />" + remplacement[i]["debut"] + " - " + remplacement[i]["fin"] ;
+								divHrs.setAttribute("class","left");
+								divBtn.innerHTML = "<a href='' class='button small'>Accepter</a>";
+								divBtn.setAttribute("class","right");
+								leDemandeur.innerHTML = remplacement[i]["courriel"];
+								div.appendChild(divHrs);
+								divDroite.appendChild(leDemandeur);
+								divDroite.appendChild(divBtn);
+								divDroite.setAttribute("class","right");
+								div.appendChild(divDroite);
+								div.setAttribute("class","plage panel clearfix"); 
+								divPrin.appendChild(div);		
+
+							}
 						}
 					}
 				});

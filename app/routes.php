@@ -43,13 +43,13 @@ Route::group(['before' => 'auth'], function() {
 
     
 
-    Route::get(
-        '/document',
+    Route::any(
+        '/document/{all?}',
         [
             'as'   => 'document',
             'uses' => 'CoureurController@document'
         ]
-    );
+    )->where('all', '.*');
 
     Route::get(
         '/horaire',
