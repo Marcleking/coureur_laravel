@@ -301,31 +301,7 @@
 	*/
     -- --------------------------------------------------------
 
-    --
-    -- Structure de la table `document`
-    --
-
-    CREATE TABLE IF NOT EXISTS `document` (
-        `idDossier` int(11) NOT NULL AUTO_INCREMENT,
-        `nom` varchar(45) NOT NULL,
-        `DossierParent` int(11) DEFAULT NULL,
-        PRIMARY KEY (`idDossier`),
-        KEY `fk_Document_Document1_idx` (`DossierParent`)
-    ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
-
-    --
-    -- Contenu de la table `document`
-    --
-
-    INSERT INTO `document` (`idDossier`, `nom`, `DossierParent`) VALUES
-    (1, '/', NULL),
-    (2, 'documents', 1),
-    (3, 'documentsImportant', 2),
-    (4, 'documentsRepresentant', 2),
-    (5, 'documentsEquipementHivers', 3),
-    (6, 'documentsEquipementete', 3);
-
-    -- --------------------------------------------------------
+    
 
     --
     -- Structure de la table `employe`
@@ -395,26 +371,9 @@
 ('Lapointe', 'Xavier', '78fae5c8fffb28feb61f7c8250c390bc08c9b087', 'xavier.lapointe@gmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 0, 0, 0, 1, 0, '', '0000-00-00', NULL);
     -- --------------------------------------------------------
 
-    --
-    -- Structure de la table `fichier`
-    --
+   
 
-    CREATE TABLE IF NOT EXISTS `fichier` (
-        `noFichier` int(11) NOT NULL AUTO_INCREMENT,
-        `nomFichier` varchar(100) NOT NULL,
-        `description` varchar(1000) NOT NULL,
-        `idDossier` int(11) NOT NULL,
-        `courriel` varchar(60) NOT NULL,
-        PRIMARY KEY (`noFichier`),
-        KEY `fk_Fichier_Document1_idx` (`idDossier`),
-        KEY `fk_Fichier_Employe1_idx` (`courriel`)
-    ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
 
-    --
-    -- Contenu de la table `fichier`
-    --
-
-    -- ----------------A FAIRE
 
     -- --------------------------------------------------------
 
@@ -426,10 +385,9 @@
         `idConnexion` int(11) NOT NULL AUTO_INCREMENT,
         `date` date NOT NULL,
         `courriel` varchar(60) NOT NULL,
-        `noFichier` int(11) NOT NULL,
-        PRIMARY KEY (`idConnexion`,`courriel`,`noFichier`),
-        KEY `fk_FichierLu_Employe1_idx` (`courriel`),
-        KEY `fk_FichierLu_Fichier1_idx` (`noFichier`)
+        `fichier` varchar(1000) NOT NULL,
+        PRIMARY KEY (`idConnexion`,`courriel`),
+        KEY `fk_FichierLu_Employe1_idx` (`courriel`)
     ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
 
     --
@@ -609,25 +567,10 @@
         ADD CONSTRAINT `fk_DisponibiliteSemaine_Employe1` FOREIGN KEY (`courriel`) REFERENCES `employe` (`courriel`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
     --
-    -- Contraintes pour la table `document`
-    --
-    ALTER TABLE `document`
-        ADD CONSTRAINT `fk_Document_Document1` FOREIGN KEY (`DossierParent`) REFERENCES `document` (`idDossier`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-    --
-    -- Contraintes pour la table `fichier`
-    --
-    ALTER TABLE `fichier`
-        ADD CONSTRAINT `fk_Fichier_Document1` FOREIGN KEY (`idDossier`) REFERENCES `document` (`idDossier`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-        ADD CONSTRAINT `fk_Fichier_Employe1` FOREIGN KEY (`courriel`) REFERENCES `employe` (`courriel`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
-    --
     -- Contraintes pour la table `fichierlu`
     --
     ALTER TABLE `fichierlu`
-        ADD CONSTRAINT `fk_FichierLu_Employe1` FOREIGN KEY (`courriel`) REFERENCES `employe` (`courriel`) ON DELETE CASCADE ON UPDATE NO ACTION,
-        ADD CONSTRAINT `fk_FichierLu_Fichier1` FOREIGN KEY (`noFichier`) REFERENCES `fichier` (`noFichier`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
+        ADD CONSTRAINT `fk_FichierLu_Employe1` FOREIGN KEY (`courriel`) REFERENCES `employe` (`courriel`) ON DELETE CASCADE ON UPDATE NO ACTION;
     --
     -- Contraintes pour la table `message`
     --

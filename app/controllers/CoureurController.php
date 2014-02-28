@@ -50,6 +50,16 @@ class CoureurController extends BaseController {
 		return Redirect::back()->withSuccess("Le fichier à bien été ajouté.");
 	}
 
+	public function fichier($location) {
+		DocumentsModel::downloadFile($location, Auth::User()->id);
+		return View::make('document-download')->withDownload($location);
+	}
+
+	public function infoFichier($location) {
+		$infoDownload = DocumentsModel::getInfoDownloadFile($location);
+		return View::make('info-fichier')->withInfo($infoDownload)->withFichier($location);
+	}
+
 	public function horaire() {
 		return View::make('horaire');
 	}

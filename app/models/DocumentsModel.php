@@ -18,10 +18,13 @@ class DocumentsModel extends Eloquent
         $listFile = [];
 		while ($file = readdir($handler)) {
 			if ($file != ".") {
+				$nbDownload = DB::table('fichierLu')->where('fichier', "{$location}/{$file}")->count();
+
             	$listFile[] = [
             		'name' => $file, 
             		'type' => (is_file($origin.$location.'/'.$file)) ? "file" : "folder",
             		'location' => ($file == "..") ? str_replace(strrchr($location, '/').'/', "", $location.'/') : "{$location}/{$file}",
+            		'nbDownload' => $nbDownload,
             	];
             }
 
@@ -62,6 +65,7 @@ class DocumentsModel extends Eloquent
 		if (is_dir($dir)) {
 			return DocumentsModel::deleteDirectory($dir);
 		} elseif (is_file($dir)) {
+			DB::table('fichierLu')->where('fichier', $location)->delete();
 			unlink($dir);
 			return true;
 		} else {
@@ -77,6 +81,18 @@ class DocumentsModel extends Eloquent
 		$dir = $origin.$location;
 
 		$file->move($dir, $file->getClientOriginalName());
+	}
+
+	public static function downloadFile($location, $user)
+	{
+		var_dump($location);
+		var_dump($user);
+
+		DB::table('fichierLu')->insert(['courriel' => $user, 'fichier' => $location, 'date' => date('Y-m-d')]);
+	}
+
+	public static function getInfoDownloadFile($location) {
+		return DB::table('fichierLu')->where('fichier', $location)->get();
 	}
 
 	private static function deleteDirectory($dir) {

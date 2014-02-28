@@ -41,8 +41,6 @@ Route::group(['before' => 'auth'], function() {
         ]
     );
 
-    
-
     Route::any(
         '/document{all?}',
         [
@@ -51,38 +49,13 @@ Route::group(['before' => 'auth'], function() {
         ]
     )->where('all', '.*');
 
-
     Route::any(
-        '/supprimer/document{all?}',
+        '/fichier{all?}',
         [
-            'as'   => 'delete.document',
-            'uses' => 'CoureurController@supprimeDocument'
+            'as'   => 'fichier',
+            'uses' => 'CoureurController@fichier'
         ]
     )->where('all', '.*');
-
-    Route::any(
-        '/supprimer/fichier{all?}',
-        [
-            'as'   => 'delete.fichier',
-            'uses' => 'CoureurController@supprimeFichier'
-        ]
-    )->where('all', '.*');
-
-    Route::post('cree/document',
-        [
-            'as'   => 'document.create',
-            'uses' => 'CoureurController@creeDocument'
-        ]
-    );
-
-    Route::post('ajout/fichier', 
-        [
-            'as'   => 'add.file',
-            'uses' => 'CoureurController@ajoutFichier'
-        ]
-    );
-
-
 
     Route::get(
         '/horaire',
@@ -231,5 +204,43 @@ Route::group(['before' => 'auth.type:Gestionnaire'], function() {
             'uses' => 'HoraireController@notif'
         ]
     );
+
+    Route::any(
+        '/supprimer/document{all?}',
+        [
+            'as'   => 'delete.document',
+            'uses' => 'CoureurController@supprimeDocument'
+        ]
+    )->where('all', '.*');
+
+    Route::any(
+        '/supprimer/fichier{all?}',
+        [
+            'as'   => 'delete.fichier',
+            'uses' => 'CoureurController@supprimeFichier'
+        ]
+    )->where('all', '.*');
+
+    Route::post('cree/document',
+        [
+            'as'   => 'document.create',
+            'uses' => 'CoureurController@creeDocument'
+        ]
+    );
+
+    Route::post('ajout/fichier', 
+        [
+            'as'   => 'add.file',
+            'uses' => 'CoureurController@ajoutFichier'
+        ]
+    );
+
+    Route::any(
+        '/info/fichier{all?}',
+        [
+            'as'   => 'info.fichier',
+            'uses' => 'CoureurController@infoFichier'
+        ]
+    )->where('all', '.*');
 	
 });

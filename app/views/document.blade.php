@@ -20,17 +20,18 @@
 							<br />
 							{{ $file['name'] }}
 						</a>
-						@if ($file['name'] != "..")
+						@if ($file['name'] != ".." && Auth::User()->type == "Gestionnaire")
 							<a href="{{route('delete.document', $file['location'])}}" class="button">Supprimer</a>
 						@endif
 					@else
-						<a href="" class="medium-11 columns button secondary">
+						<a href="{{route('fichier', $file['location'])}}" class="medium-11 columns button secondary">
 						<i class="fa fa-file-o fa-5x"></i>
 							<br />
 							{{ $file['name'] }}
 						</a>
-						@if ($file['name'] != "..")
+						@if ($file['name'] != ".." && Auth::User()->type == "Gestionnaire")
 							<a href="{{route('delete.fichier', $file['location'])}}" class="button">Supprimer</a>
+                            <a href="{{route('info.fichier', $file['location'])}}">{{ $file['nbDownload'] }} téléchargement </a>
 						@endif
 					@endif
 
@@ -47,22 +48,23 @@
 
 		
 	</div>
+	@if (Auth::User()->type == "Gestionnaire")
+		{{ Form::open(['route' => 'document.create']) }}
 
-	{{ Form::open(['route' => 'document.create']) }}
+			{{ Form::label('name', 'Créé un nouveau dossier') }}
+			{{ Form::text('name') }}
+			{{ Form::hidden('location', $location) }}
+			{{ Form::submit('Créé le dossier', ['class' => 'button']) }}
 
-		{{ Form::label('name', 'Créé un nouveau dossier') }}
-		{{ Form::text('name') }}
-		{{ Form::hidden('location', $location) }}
-		{{ Form::submit('Créé le dossier', ['class' => 'button']) }}
+		{{ Form::close() }}
 
-	{{ Form::close() }}
+		{{ Form::open(['route' => 'add.file', 'files' => true]) }}
+			{{ Form::hidden('location', $location) }}
 
-	{{ Form::open(['route' => 'add.file', 'files' => true]) }}
-		{{ Form::hidden('location', $location) }}
+			{{ Form::label('fichier', 'Ajouter un fichier') }}
+			{{ Form::file('fichier') }}
+			{{ Form::submit('Ajouté le fichier', ['class' => 'button']) }}
 
-		{{ Form::label('fichier', 'Ajouter un fichier') }}
-		{{ Form::file('fichier') }}
-		{{ Form::submit('Ajouté le fichier', ['class' => 'button']) }}
-
-	{{ Form::close() }}
+		{{ Form::close() }}
+	@endif
 @stop
