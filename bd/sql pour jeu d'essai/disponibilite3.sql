@@ -22,6 +22,76 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+
+CREATE TABLE IF NOT EXISTS `employe` (
+  `nom` varchar(30) NOT NULL,
+  `prenom` varchar(30) NOT NULL,
+  `motDePasse` varchar(40) NOT NULL,
+  `courriel` varchar(60) NOT NULL,
+  `numeroCivique` varchar(10) NOT NULL,
+  `rue` varchar(50) NOT NULL,
+  `ville` varchar(45) NOT NULL,
+  `codePostal` varchar(7) NOT NULL,
+  `possesseurCle` tinyint(1) NOT NULL DEFAULT '0',
+  `typeEmploye` varchar(45) NOT NULL,
+  `indPriorite` int(11) NOT NULL,
+  `hrsMin` int(11) NOT NULL,
+  `hrsMax` int(11) NOT NULL,
+  `formationVetement` tinyint(1) NOT NULL DEFAULT '0',
+  `formationChaussure` tinyint(1) NOT NULL DEFAULT '0',
+  `formationCaissier` tinyint(1) NOT NULL DEFAULT '0',
+  `respHoraireConflit` tinyint(1) NOT NULL DEFAULT '0',
+  `notifHoraire` tinyint(1) NOT NULL DEFAULT '1',
+  `notifRemplacement` tinyint(1) NOT NULL DEFAULT '0',
+  `lastIp` varchar(20) NOT NULL,
+  `lastLogon` date NOT NULL,
+  `lienReinit` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`courriel`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `employe`
+--
+
+INSERT INTO `employe` (`nom`, `prenom`, `motDePasse`, `courriel`, `numeroCivique`, `rue`, `ville`, `codePostal`, `possesseurCle`, `typeEmploye`, `indPriorite`, `hrsMin`, `hrsMax`, `formationVetement`, `formationChaussure`, `formationCaissier`, `respHoraireConflit`, `notifHoraire`, `notifRemplacement`, `lastIp`, `lastLogon`, `lienReinit`) VALUES
+('Gagnon', 'Alexis', 'bb5f4ba82976f77330fae6c11f9d5db19a3bfacf', 'alexisgagnon@bell.ca', '', '', '', '', 0, 'Employé', 0, 0, 0, 1, 0, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Demers', 'Antoine', '2c3e74ea735e53f42d5d827d2fa061fbfac6770f', 'Antoine.Demers@gmail.com', '', '', '', '', 0, 'Employe', 6, 0, 0, 0, 0, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Demers', 'Ariane', '50923256fb7cf3952b8768fd5cc1119e29717f8a', 'ari.demers@videotron.ca', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Caron', 'Vincent', '3f09afab65a2bafc4505dcac30c6ab4c1bc0856c', 'caronvincent@hotmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 1, 1, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Pageau', 'Chantal', '2f84daa98308c716f11d18ce15179843c95e18ac', 'chantalp@videotron.ca', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Delmaire', 'Charles', '41aec588a23fb952f922a79c614b781b5668c212', 'Charles.Delmaire@gmail.com', '', '', '', '', 0, 'Gestionnaire', 1, 0, 0, 1, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Leclerc', 'Chloe', '76cbb75300f75cc7bb6b0489f24e3373fca81db1', 'chloeleclerc@gmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 1, 0, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('St-Amour', 'Clara', 'e8b2bfb1110fa3135f31c18030de679611fac941', 'clara-st-amour@gmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Cyr', 'David', '26d44dca374054ee1972d507541fc94dbca6b641', 'dav.cyr@gmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 0, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Ouellet', 'Francis', '0c5225da1e3e96d5b4bd33767425d6909427df6d', 'francouelle93@gmail.com', '', '', '', '', 1, 'Gestionnaire', 2, 0, 0, 1, 1, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Proulx', 'Justine', '896ca8a173228080424adeb99ae8b1a0e29ec68d', 'justproulx@hotmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Bouchard-Marceau', 'Marc-Antoine', '95ff3a032b84ae7ef0457187a6bf9658454bc9a8', 'marcantoine.bouchardm@gmail.com', '', '', '', '', 0, 'Gestionnaire', 1, 0, 0, 1, 0, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Aubin', 'Maxime', '16a7b70151172d54ccce8e3c11d92b41c84745eb', 'maxime.aubin@gmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 1, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Blais', 'Megan', 'ce56935a9c60346c7af564c91473b21731b1f456', 'megan.blais@bell.ca', '', '', '', '', 0, 'Employé', 0, 0, 0, 1, 0, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Mercier', 'Francine', '3f15f51f7f61d9ff24c6167357be44d37106367c', 'mercier45@hotmail.fr', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Côté', 'Nathan', '74a21bab36c559fe0e226f8a329898cb4e5db031', 'nathan.cote@videotron.ca', '', '', '', '', 0, 'Employé', 0, 0, 0, 1, 1, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Tremblay', 'Olivier', '7f4ee8a8a0f385b2c69cb40ae39d696fb71b948d', 'oli.tremblay@gmail.com', '', '', '', '', 1, 'Employe', 5, 0, 0, 1, 1, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Rochette', 'Olivia', '051dd59b5859f4ea6ea6a48dab554546e376557e', 'olivia.rochette@gmail.com', '', '', '', '', 0, 'Employe', 4, 0, 0, 0, 1, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Buteau', 'Patrick', '4cf001430e5a14445a22cf2849478bfe149b53ea', 'pbuteau@gmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Beland', 'Samuel', '38b46982f1dc38f6cc13e3a3c054915d6c51290f', 'samuel.beland@live.ca', '', '', '', '', 0, 'Gestionnaire', 2, 0, 0, 1, 1, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Poirier', 'Sarah', 'd5d6182f03b7608d4d805af7f0c56398ed94231d', 'sarahpoirier@hotmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 0, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Carrier', 'Sebastien', 'a5c89b031eec51cf0196f9d82eb9d7938c80d266', 'sebastien.carrier@gmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 1, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Soucy', 'Hélène', '0c544d2a13eaf1af87b514c10151b6695a14dc9d', 'soucy.h@hotmail.ca', '', '', '', '', 0, 'Employé', 0, 0, 0, 1, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Olivier', 'Suzanne', 'ee711154f42ab3926dd66b6ff1eefb8723fa759a', 'suzanneolivier@hotmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 1, 0, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('St-Pierre', 'Suzie', '9fea8e4fee1a0700448d0b21a9fffa6415ee81fa', 'suzie.stpierre@gmail.com', '', '', '', '', 1, 'Employe', 3, 0, 0, 1, 1, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Lemelin', 'Tristan', '0f49dce0f5a26007f3a5567f9100f291665cac8a', 'tristan.lemelin@gmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Laurier', 'Valerie', '3d9b91ce2d425444677a5b53b3383667c163fc4c', 'vallaurier@gmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 0, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Desjardins', 'Victor', 'da5e761b7bdbb5f182f1abb33045fe56205ca634', 'victor.desjardins@gmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 0, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL),
+('Brazeau', 'William', '30cb772e94f1a161cf5fe25df55fcc5702de60f9', 'willbrazz.hotmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 1, 0, 1, 0, 1, 0, '123', '0000-00-00', NULL),
+('Lapointe', 'Xavier', '78fae5c8fffb28feb61f7c8250c390bc08c9b087', 'xavier.lapointe@gmail.com', '', '', '', '', 0, 'Employé', 0, 0, 0, 1, 1, 0, 0, 1, 0, '123', '0000-00-00', NULL);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+
 --
 -- Structure de la table `disponibilitejours`
 --
