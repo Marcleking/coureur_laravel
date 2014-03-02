@@ -18,7 +18,7 @@ class DocumentsModel extends Eloquent
         $listFile = [];
 		while ($file = readdir($handler)) {
 			if ($file != ".") {
-				$nbDownload = DB::table('fichierLu')->where('fichier', "{$location}/{$file}")->count();
+				$nbDownload = DB::table('fichierlu')->where('fichier', "{$location}/{$file}")->count();
 
             	$listFile[] = [
             		'name' => $file, 
@@ -65,7 +65,7 @@ class DocumentsModel extends Eloquent
 		if (is_dir($dir)) {
 			return DocumentsModel::deleteDirectory($dir);
 		} elseif (is_file($dir)) {
-			DB::table('fichierLu')->where('fichier', $location)->delete();
+			DB::table('fichierlu')->where('fichier', $location)->delete();
 			unlink($dir);
 			return true;
 		} else {
@@ -88,11 +88,11 @@ class DocumentsModel extends Eloquent
 		var_dump($location);
 		var_dump($user);
 
-		DB::table('fichierLu')->insert(['courriel' => $user, 'fichier' => $location, 'date' => date('Y-m-d')]);
+		DB::table('fichierlu')->insert(['courriel' => $user, 'fichier' => $location, 'date' => date('Y-m-d')]);
 	}
 
 	public static function getInfoDownloadFile($location) {
-		return DB::table('fichierLu')->where('fichier', $location)->get();
+		return DB::table('fichierlu')->where('fichier', $location)->get();
 	}
 
 	private static function deleteDirectory($dir) {
