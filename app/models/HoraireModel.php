@@ -47,55 +47,57 @@ class HoraireModel extends Eloquent {
 						// Si l'employé a la formation pour la ressource demander actuel
 						if(HoraireModel::empEstTypeRessource($typeRessource, $users))
 						{
+							if(isset($users['listeDispoSemaine'])) {
 							// Parcours de la liste des disponibilité de l'employé
-							foreach ($users['listeDispoSemaine'] as &$dispo) {
-								
-								//Gestion des clés pour le début
-								if($ressource['heureDebut'] == '09:00:00' && $users['possesseurCle'] == "0" && !$cleDebut) {
-									$cleDebut = true;
-									continue;
-								}
+								foreach ($users['listeDispoSemaine'] as &$dispo) {
+									
+									//Gestion des clés pour le début
+									if($ressource['heureDebut'] == '09:00:00' && $users['possesseurCle'] == "0" && !$cleDebut) {
+										$cleDebut = true;
+										continue;
+									}
 
-								if(($ressource['heureFin'] == '17:00:00' || $ressource['heureFin'] == '21:00:00') && $users['possesseurCle'] == "0" && !$cleFin) {
-									$cleFin = true;
-									continue;
-								}
+									if(($ressource['heureFin'] == '17:00:00' || $ressource['heureFin'] == '21:00:00') && $users['possesseurCle'] == "0" && !$cleFin) {
+										$cleFin = true;
+										continue;
+									}
 
-								// Si l'employé est disponible pour la journée actuelle
-								if(HoraireModel::idEgualJour($ressource['jour'], $dispo['jour'])) {
+									// Si l'employé est disponible pour la journée actuelle
+									if(HoraireModel::idEgualJour($ressource['jour'], $dispo['jour'])) {
 
-									$heuresDebut = HoraireModel::gestionHrs($ressource['heureDebut'], $dispo['heureDebut']);
-									$heuresFin = HoraireModel::gestionHrs($ressource['heureFin'], $dispo['heureFin']);
+										$heuresDebut = HoraireModel::gestionHrs($ressource['heureDebut'], $dispo['heureDebut']);
+										$heuresFin = HoraireModel::gestionHrs($ressource['heureFin'], $dispo['heureFin']);
 
-									// Si l'employé est disponible avant ou en même temps que le début du chiffre demander
-									// et si l'employé peux faire un chiffre le 3 heures minimum
-									if ($heuresDebut[0] >= $heuresDebut[1] && $heuresDebut[0]+3 <= $heuresFin[1]) {
-										// Aide pour le débuguage
-										//var_dump("Ressource");
-										//var_dump($ressource);
-										//var_dump("Dispo");
-										//var_dump($dispo);
-										
-										// On ajoute le chiffre à l'horaire
-										array_push($horaire, array(
-											'courriel' => $users['courriel'],
-											'typeTravail' => array_keys($typeRessource)[0],
-											'jour' => $ressource['jour'],
-											'heureDebut' => $ressource['heureDebut'],
-											'heureFin' => $dispo['heureFin']
-										));
-										// On modifie la dispo de l'employé (s'il est sur l'horaire il est pu dispo ein!)
-										$dispo['heureDebut'] = $dispo['heureFin'];
-										// On modifie la ressource (elle a été complé pour le temps max que l'employé pouvait donnée)
-										$ressource['heureDebut'] = $dispo['heureFin'];
-										// On diminue le nombre de ressource demander pour ce chiffre
-                                        $typeRessource[array_keys($typeRessource)[0]]--;
+										// Si l'employé est disponible avant ou en même temps que le début du chiffre demander
+										// et si l'employé peux faire un chiffre le 3 heures minimum
+										if ($heuresDebut[0] >= $heuresDebut[1] && $heuresDebut[0]+3 <= $heuresFin[1]) {
+											// Aide pour le débuguage
+											//var_dump("Ressource");
+											//var_dump($ressource);
+											//var_dump("Dispo");
+											//var_dump($dispo);
+											
+											// On ajoute le chiffre à l'horaire
+											array_push($horaire, array(
+												'courriel' => $users['courriel'],
+												'typeTravail' => array_keys($typeRessource)[0],
+												'jour' => $ressource['jour'],
+												'heureDebut' => $ressource['heureDebut'],
+												'heureFin' => $dispo['heureFin']
+											));
+											// On modifie la dispo de l'employé (s'il est sur l'horaire il est pu dispo ein!)
+											$dispo['heureDebut'] = $dispo['heureFin'];
+											// On modifie la ressource (elle a été complé pour le temps max que l'employé pouvait donnée)
+											$ressource['heureDebut'] = $dispo['heureFin'];
+											// On diminue le nombre de ressource demander pour ce chiffre
+											$typeRessource[array_keys($typeRessource)[0]]--;
 
-                                        // Aide pour le débuguage
-										//var_dump("Ressource");
-										//var_dump($ressource);
-										//var_dump("Dispo");
-										//var_dump($dispo);
+											// Aide pour le débuguage
+											//var_dump("Ressource");
+											//var_dump($ressource);
+											//var_dump("Dispo");
+											//var_dump($dispo);
+										}
 									}
 								}
 							}
