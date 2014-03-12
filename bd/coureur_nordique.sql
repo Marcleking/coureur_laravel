@@ -1164,4 +1164,17 @@ BEGIN
         SET remplacement = p_remplacement
                 WHERE idQuartTravail = p_idQuartTravail;
 
-END$$
+END
+
+$$
+
+
+DROP PROCEDURE IF EXISTS ajouterPlageHoraire $$
+CREATE PROCEDURE `ajouterPlageHoraire`(IN `jour` INT(2), IN `typeTravail` ENUM('Chaussure','Vetement','Caissier',''), IN `hrsDebut` TIME, IN `hrsDeFin` TIME, IN `courriel` VARCHAR(60))
+	NO SQL
+ BEGIN
+	INSERT INTO plagedetravail (jour, typeTravail, heureDebut, heureFin,courriel)
+	VALUES (jour, typeTravail, hrsDebut, hrsDeFin,courriel);
+END
+
+$$
