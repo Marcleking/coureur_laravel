@@ -378,6 +378,40 @@ INSERT INTO `disponibilitesemaine` (`idDispoSemaine`, `noDispoSemaine`, `annee`,
 (97, 11, 2014, 28, -1, 'willbrazz.hotmail.com'),
 (98, 11, 2014, 32, -1, 'xavier.lapointe@gmail.com');
 
+
+(99, 11, 2014, 20, -1, 'alexisgagnon@bell.ca'),
+(100, 11, 2014, 27, -1, 'Antoine.Demers@gmail.com'),
+(101, 11, 2014, 23, -1, 'ari.demers@videotron.ca'),
+(102, 11, 2014, 21, -1, 'caronvincent@hotmail.com'),
+(103, 11, 2014, 32, -1, 'chantalp@videotron.ca'),
+(104, 11, 2014, 30, -1, 'Charles.Delmaire@gmail.com'),
+(105, 11, 2014, 14, -1, 'chloeleclerc@gmail.com'),
+(106, 11, 2014, 25, -1, 'clara-st-amour@gmail.com'),
+(107, 11, 2014, 18, -1, 'dav.cyr@gmail.com'),
+(108, 11, 2014, 40, -1, 'francouelle93@gmail.com'),
+(109, 11, 2014, 22, -1, 'justproulx@hotmail.com'),
+(110, 11, 2014, 35, -1, 'marcantoine.bouchardm@gmail.com'),
+(111, 11, 2014, 20, -1, 'maxime.aubin@gmail.com'),
+(112, 11, 2014, 28, -1, 'megan.blais@bell.ca'),
+(113, 11, 2014, 12, -1, 'mercier45@hotmail.fr'),
+(114, 11, 2014, 35, -1, 'nathan.cote@videotron.ca'),
+(115, 11, 2014, 28, -1, 'oli.tremblay@gmail.com'),
+(116, 11, 2014, 30, -1, 'olivia.rochette@gmail.com'),
+(117, 11, 2014, 27, -1, 'pbuteau@gmail.com'),
+(118, 11, 2014, 33, -1, 'samuel.beland@live.ca'),
+(119, 11, 2014, 18, -1, 'sarahpoirier@hotmail.com'),
+(120, 11, 2014, 28, -1, 'sebastien.carrier@gmail.com'),
+(121, 11, 2014, 29, -1, 'soucy.h@hotmail.ca'),
+(122, 11, 2014, 32, -1, 'suzanneolivier@hotmail.com'),
+(123, 11, 2014, 34, -1, 'suzie.stpierre@gmail.com'),
+(124, 11, 2014, 24, -1, 'tristan.lemelin@gmail.com'),
+(125, 11, 2014, 26, -1, 'vallaurier@gmail.com'),
+(126, 11, 2014, 26, -1, 'victor.desjardins@gmail.com'),
+(127, 11, 2014, 28, -1, 'willbrazz.hotmail.com'),
+(128, 11, 2014, 32, -1, 'xavier.lapointe@gmail.com');
+
+
+
 --
 -- Contraintes pour les tables exportées
 --
