@@ -14,7 +14,30 @@
 	$dbUser = "user_coureur";
 	$dbPwd = "qweqwe";
 
-	if(isset($_POST['id']) && $_POST['id'] != ""){
+	// Accepter un remplacment
+	if(isset($_POST['courriel']) && $_POST['courriel'] != "" && isset($_POST['id']) && $_POST['id'] != ""){
+
+		try{
+			//Options pour la gestion et messages d'erreur.
+			$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+		
+			//Connexion à la BD.
+			$bdd = new PDO("mysql:host=$dbHote;dbname=$dbNom", $dbUser, $dbPwd, array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES utf8"));
+
+			$sql = "Call accepterRemplacement(?,?)";
+			$req = $bdd->prepare($sql);
+			$req->bindParam(1,$_POST["courriel"]);
+			$req->bindParam(2,$_POST["id"]);
+			$req->execute();
+
+		}
+		catch(PDOException $e){
+			echo "Erreur lors de la recherche des groupes.";
+		}
+
+	}
+	// Changer l'état d'un remplacement
+	else if(isset($_POST['id']) && $_POST['id'] != "" && isset($_POST['valeur']) && $_POST['valeur'] != ""){
 
 		try{
 			//Options pour la gestion et messages d'erreur.
