@@ -164,22 +164,33 @@ function ajouterPlageHoraire($plage) {
 ////////////////////////////////////////////////////////////////
 function trouverPlagePlusGrande($lEmploye) {
 
+	//si on a pas d'employé
 	if($lEmploye["courriel"] != '') {
+	
 		global $arrayDisponibilite, $arrayRessource;
 		$demiHrsDeEmploye = array();
 		$demiHrsDeRessource = array();
 		$i = 0;
+		
+		//pour chaque demihrs d'une journée
 		foreach($arrayDisponibilite[$lEmploye['jour']] as &$uneDemiHrs) {
 			
+			//pour chaque employe d'une demiHrs
 			foreach($uneDemiHrs[$lEmploye["type"]]['listeEmployeDisponible'] as &$unEmploye) {
+				//si l'employe est disponible pour cette demihrs
 				if($unEmploye['courriel'] == $lEmploye['courriel']) {
+					//On ajoute la demiHrs au array des dispos de lemploye
 					array_push($demiHrsDeEmploye, $i);
 				}
 			}
 			$i++;
 		}
 		$i = 0;
+		
+		//pour chaque demiHrs des ressources d'une journée
 		foreach($arrayRessource[$lEmploye['jour']] as &$uneDemiHrsRes) {
+			
+			//si il y a plus que 0 ressource dispo pour ce type
 			if($uneDemiHrsRes[$lEmploye["type"]] > 0) {
 				array_push($demiHrsDeRessource, $i);
 			}
@@ -190,17 +201,24 @@ function trouverPlagePlusGrande($lEmploye) {
 		$arrayLesDispos = array();
 		$arraylaDispo = array();
 		$noDispo= 999999;
+		
+		//Pour chaque demiHrs selectionner 
 		for($i = 0; $i < count($demiHrsDeEmploye); $i++) {
 			
+			//si nous sommes au premier passage
 			if($i == 0) {
 				$dernierChiffre = $demiHrsDeEmploye[$i];
 				array_push($arraylaDispo, $demiHrsDeEmploye[$i]);
+				
+			//si on est au dernier passage
 			} else if ($i == count($demiHrsDeEmploye)-1){
 				array_push($arraylaDispo, $demiHrsDeEmploye[$i]);
 				array_push($arrayLesDispos,$arraylaDispo);
+			//si le chiffre est un nombre suivant de celui avant
 			}else if(($dernierChiffre + 1) == $demiHrsDeEmploye[$i]) {
 				$dernierChiffre = $demiHrsDeEmploye[$i];
 				array_push($arraylaDispo, $demiHrsDeEmploye[$i]);
+			//aussi non on ajoute la plage de dispo (avec les dispos qui sont une après l'autre)
 			}else{
 				array_push($arrayLesDispos,$arraylaDispo);
 				$arraylaDispo = array($demiHrsDeEmploye[$i]);
@@ -208,6 +226,8 @@ function trouverPlagePlusGrande($lEmploye) {
 			}
 			
 		}
+		
+		//on vérifie quel plage de dispo a a l'intérieur le ratio en problème
 		for($i =0; $i < count($arrayLesDispos); $i++) {
 			if(in_array($lEmploye['demiHrs'], $arrayLesDispos[$i])) {
 				$noDispo = $i;
@@ -217,25 +237,36 @@ function trouverPlagePlusGrande($lEmploye) {
 		$arrayLesRessources = array();
 		$arraylaRessource = array();
 
+		//pour tout les demihrs de la plage de dispo critique
 		for($i = 0; $i < count($arrayLesDispos[$noDispo]); $i++) {
+		
+			//on vérifie si la ressource est diponible pour cette demiHrs
 			if(array_search($arrayLesDispos[$noDispo][$i], $demiHrsDeRessource) === false && !empty($arraylaRessource)) {
 				array_push($arrayLesRessources,$arraylaRessource);
 				$arraylaRessource = array();
+			//si on arrive a la dernière demiHrs
 			} else if($i == count($arrayLesDispos[$noDispo]) - 1) {
 				array_push($arraylaRessource, $demiHrsDeRessource[array_search($arrayLesDispos[$noDispo][$i], $demiHrsDeRessource)]);
 				array_push($arrayLesRessources,$arraylaRessource);
+			//si la ressource est dispo pour cette demiHrs donc on l'ajoute à la liste des demiHrs des ressources
 			} else if(array_search($arrayLesDispos[$noDispo][$i], $demiHrsDeRessource) !==false) {
 				array_push($arraylaRessource, $demiHrsDeRessource[array_search($arrayLesDispos[$noDispo][$i], $demiHrsDeRessource)]);
 			}
 		}
-	
+		
+		//si la demiHrs critique est 0 alors on ajoute le premier chiffre car le 0 va se trouver dedans
 		if($lEmploye['demiHrs'] == 0) {
 
 			$lEmploye = $lEmploye + array( "horaire"=>  $arrayLesRessources[0]);
-			
+		
+		//si la demiHrs critique est 23 on ajoure alors le dernier chiffre
 		} else if($lEmploye['demiHrs'] == 23) {
 			$lEmploye = $lEmploye + array( "horaire"=>  $arrayLesRessources[count($arrayLesRessources)-1]);
+		
+		
+		//aussi non on ajoute le chiffre le plus grand
 		} else {
+		
 			$lePlusGrand = 0;
 			$important = 0;
 			foreach($arrayLesRessources as &$uneRessource) {
