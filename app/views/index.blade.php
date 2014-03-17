@@ -59,35 +59,26 @@
 					dataType:"json",
 					error:function (){},
 					success:function(remplacement){
+						// N'affiche pas l'utilisateur connecté dans la liste des remplacements
+						remplacement = excludeUser(remplacement);
 						
-						console.log(remplacement.length);
-						for(var i = 0; i< remplacement.length; i++) {
-						
-							var typeFormation;
-							switch (remplacement[i]['typeTravail'])
-							{
-								case "Chaussure":
-								  typeFormation = {{$info->formationChaussure}};
-								  break;
-								case "Vetement":
-								   typeFormation = {{$info->formationVetement}};
-								  break;
-								case "Caissier":
-									typeFormation = {{$info->formationCaissier}};
-								  break;
-							}
-							if(typeFormation == 1) {
-							
-							
+						if(remplacement.length > 0)
+						{
+							for(var i = 0; i< remplacement.length; i++) {
 								var divPrin = document.getElementById('princ');
 								var div = document.createElement('div');
 								var divHrs = document.createElement('div');
 								var divDroite = document.createElement('div');
 								var divBtn = document.createElement('div');
 								var leDemandeur = document.createElement('div');
-								divHrs.innerHTML = convertJour(remplacement[i]["jour"]) + "<br />" + remplacement[i]["debut"] + " - " + remplacement[i]["fin"] ;
+								var bouton = document.createElement('a');
+								divHrs.innerHTML = convertJour(remplacement[i]["jour"]) + "<br />" + remplacement[i]["debut"] + " - " + remplacement[i]["fin"];
 								divHrs.setAttribute("class","left");
-								divBtn.innerHTML = "<a href='' class='button small'>Accepter</a>";
+								bouton.id = remplacement[i]["id"];
+								bouton.className = "button small";
+								bouton.innerHTML = "Accepter";
+								bouton.addEventListener("click",validerDemande,false);
+								divBtn.appendChild(bouton);
 								divBtn.setAttribute("class","right");
 								leDemandeur.innerHTML = remplacement[i]["courriel"];
 								div.appendChild(divHrs);
@@ -97,13 +88,88 @@
 								div.appendChild(divDroite);
 								div.setAttribute("class","plage panel clearfix"); 
 								divPrin.appendChild(div);		
-
 							}
+						}
+						else
+						{
+							var divPrin = document.getElementById('princ');
+							var p = document.createElement("p");
+							p.innerHTML = "Il n'y a pas de remplacements!";
+							divPrin.appendChild(p);
 						}
 					}
 				});
 		}
+
+		function excludeUser(remplacements){
+			var remplacementsFiltres = new Array();
+			for(var i = 0; i < remplacements.length; i++){
+				if(remplacements[i]["courriel"] != "{{Auth::User()->id}}"){
+					remplacementsFiltres.push(remplacements[i]);
+				}	
+			}
+			return remplacementsFiltres;
+		}
 		
+		function validerDemande(e){
+			var conteneur = e.target.parentNode;
+			var boutonConfirmer = document.createElement("a");
+			boutonConfirmer.className = "button small";
+			boutonConfirmer.innerHTML = "Confirmer";
+			boutonConfirmer.id = e.target.id;
+			boutonConfirmer.addEventListener("click",accepterDemande,false);
+			var boutonAnnuler = document.createElement("a");
+			boutonAnnuler.className = "button small";
+			boutonAnnuler.innerHTML = "Annuler"
+			boutonAnnuler.id = "cancel" + e.target.id;
+			boutonAnnuler.addEventListener("click",annulerDemande,false);
+
+			conteneur.removeChild(e.target);
+			conteneur.appendChild(boutonConfirmer);
+			conteneur.appendChild(boutonAnnuler);
+		}
+
+		function accepterDemande(e){
+			var infos = {};
+			infos.courriel = "{{Auth::User()->id}}";
+			infos.id = e.target.id;
+			$.ajax({
+					url:"{{ URL::asset('ajax/push_remplacement.php')}}",
+					type:"POST",
+					data:infos,
+					error:function (){
+						console.log("Erreur");
+					},
+					success:function(){
+						var conteneur = e.target.parentNode;
+						var message = document.createElement("p");
+						message.innerHTML = "Remplacement effectué!";
+						
+						while(conteneur.hasChildNodes()){
+							conteneur.removeChild(conteneur.lastChild);
+						}
+
+						conteneur.appendChild(message);
+						
+					}
+			});
+		}
+
+		function annulerDemande(e){
+			var conteneur = e.target.parentNode;
+			var boutonAccepter = document.createElement("a");
+			boutonAccepter.id = e.target.id.replace("cancel","");
+			boutonAccepter.className = "button small";
+			boutonAccepter.innerHTML = "Accepter";
+			boutonAccepter.addEventListener("click",validerDemande,false);
+
+			while(conteneur.hasChildNodes()){
+				conteneur.removeChild(conteneur.lastChild);
+			}
+
+			conteneur.appendChild(boutonAccepter);
+		}
+
 		function convertJour(no) {
 			var jour;
 			switch (parseInt(no))
@@ -130,7 +196,6 @@
 			  jour= "Dimanche";
 			  break;
 			}
-			console.log(no);
 			return jour;
 		}
 	</script>
