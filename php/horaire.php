@@ -239,7 +239,7 @@ function trouverPlagePlusGrande($lEmploye) {
 
 		//pour tout les demihrs de la plage de dispo critique
 		for($i = 0; $i < count($arrayLesDispos[$noDispo]); $i++) {
-		
+			
 			//on vérifie si la ressource est diponible pour cette demiHrs
 			if(array_search($arrayLesDispos[$noDispo][$i], $demiHrsDeRessource) === false && !empty($arraylaRessource)) {
 				array_push($arrayLesRessources,$arraylaRessource);

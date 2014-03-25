@@ -3,7 +3,7 @@
 @section('content')
 	<div class="medium-12 columns">
 		<h3>Documents</h3>
-
+		<h4>Emplacement : {{ str_replace(["document/", "document"], "formation/", Request::path()) }}</h4>
 		@include('layout.message')
 
 		<?php $nbFile = 0; ?>
@@ -16,9 +16,13 @@
 				<div class="row">
 					@if ($file['type'] == "folder")
 						<a href="{{route('document', $file['location'])}}" class="medium-11 columns button secondary">
-							<i class="fa fa-folder-o fa-5x"></i>
-							<br />
-							{{ $file['name'] }}
+							@if ($file['name'] == "..")
+								<i class="fa fa-angle-up fa-5x"></i>
+							@else
+								<i class="fa fa-folder-o fa-5x"></i>
+								<br />
+								{{ $file['name'] }}
+							@endif
 						</a>
 						@if ($file['name'] != ".." && Auth::User()->type == "Gestionnaire")
 							<a href="{{route('delete.document', $file['location'])}}" class="button">Supprimer</a>
