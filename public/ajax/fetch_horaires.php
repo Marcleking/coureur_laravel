@@ -1,6 +1,6 @@
 <?php
 	header('Content-Type: application/json');
-	
+
 	// Retourne du contenu en format JSON.
 	header("Content-type: text/html; charset=utf-8");
 
@@ -17,10 +17,10 @@
 	try{
 		//Options pour la gestion et messages d'erreur.
 		$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-	
+
 		//Connexion à la BD.
 		$bdd = new PDO("mysql:host=$dbHote;dbname=$dbNom", $dbUser, $dbPwd, array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES utf8"));
-		
+
 		//echo $_POST['courriel'];
 
 		// GetSchedulesByUser
@@ -34,8 +34,8 @@
 			$json = array();
 
 			foreach ($resultat as $plage) {
-				$json[] = array("id" => $plage["idQuartTravail"], "jour" => $plage["jour"], "type" => $plage["typeTravail"], 
-					"debut" => $plage["heureDebut"], "fin" => $plage["heureFin"], "remplacement" => $plage["remplacement"]);
+				$json[] = array("jour" => $plage["jour"], "type" => $plage["typeTravail"], 
+					"debut" => $plage["heureDebut"], "fin" => $plage["heureFin"]);
 			}
 
 			echo json_encode($json);
@@ -51,13 +51,13 @@
 			$json = array();
 			$user = "";
 			$userNo = -1;
-			
+
 			for ($i = 0 ; $i < count($resultat); $i++) {
 				if ($user != $resultat[$i]['courriel']){
-					
+
 					$user = $resultat[$i]['courriel'];
 					$userNo++;
-					
+
 					$sql = 'Call Utilisateur(?)';
 					$req = $bdd->prepare($sql);
 					$req->bindParam(1,$user);
@@ -65,7 +65,7 @@
 
 					$utilisateur = $req->fetch();
 
-					$json[] = array("courriel" => $resultat[$i]["courriel"],"nom" => $utilisateur['nom'], "prenom" => $utilisateur['prenom'], "cle" => $utilisateur['possesseurCle']);
+					$json[] = array("courriel" => $resultat[$i]["courriel"],"nom" => $utilisateur['nom'], "prenom" => $utilisateur['prenom']);
 
 				}
 
