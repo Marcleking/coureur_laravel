@@ -2,6 +2,7 @@
 
 
 $arrayRessource = genererArrayHoraire('ressource');
+// contien le monde qui peuvent dans une demi heure par exemple
 $arrayDisponibilite = genererArrayHoraire('disponibilite');
 $arrayRatio = genererArrayHoraire('ratio');
 $arrayHoraire = genererArrayHoraire('horaire');
@@ -9,17 +10,19 @@ $arrayHoraire = genererArrayHoraire('horaire');
 $listEmployeDisponibilite = lstEmployeHoraire();
 $listRessource = lstRessource();
 
-
 ajouterRessourceArray();
 ajouterDisponibiliteArray();
 
 
- 
-while(verifierSiDispo() === false || verifierSiRessource()  === false){
+//die();
 
-//for($i =0; $i < 40; $i++) {
+ 
+//while(verifierSiDispo() === false || verifierSiRessource()  === false){
+
+for($i =0; $i < 40; $i++) {
     echo '-------------------';
 	genererRatio();
+
 	$laPlageHoraire = trouverPlagePlusGrande(trouverEmployePlusImportant(trouverRatioPlusPetit()));
 	$hrs = ajouterPlageHoraire($laPlageHoraire);
 
@@ -29,6 +32,9 @@ while(verifierSiDispo() === false || verifierSiRessource()  === false){
 	ajouterHoraire($laPlageHoraire, $hrs);
 	}
 }
+
+
+//fin de la génération
 
 
 ////////////////////////////////////////////////////////////////
