@@ -24,6 +24,14 @@ Route::get(
     ]
 );
 
+Route::get(
+    '/creeHoraireTest',
+    [
+        'as' => 'horaireTest',
+        'uses' => 'HoraireController@genere'
+    ]
+);
+
 Route::group(['before' => 'auth'], function() {
     Route::get(
         '/',

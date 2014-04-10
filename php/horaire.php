@@ -16,20 +16,22 @@ ajouterDisponibiliteArray();
 
 //die();
 
- 
-//while(verifierSiDispo() === false || verifierSiRessource()  === false){
+//while(verifierSiDispo() !== false || verifierSiRessource()  !== false){
 
-for($i =0; $i < 40; $i++) {
+for($i = 0; $i < 2; $i++) {
     echo '-------------------';
+
+    // Actualise le ratio
 	genererRatio();
 
-	$laPlageHoraire = trouverPlagePlusGrande(trouverEmployePlusImportant(trouverRatioPlusPetit()));
+	$laPlageHoraire = trouverPlagePlusGrande(trouverEmployePlusImportant(trouverRatioPlusPetit(), $listEmployeDisponibilite));
+
 	$hrs = ajouterPlageHoraire($laPlageHoraire);
 
 	if($hrs != null) {
-	retirerRessource($laPlageHoraire, $hrs);
-	retirerDisponibilite($laPlageHoraire, $hrs);
-	ajouterHoraire($laPlageHoraire, $hrs);
+		retirerRessource($laPlageHoraire, $hrs);
+		retirerDisponibilite($laPlageHoraire, $hrs);
+		ajouterHoraire($laPlageHoraire, $hrs);
 	}
 }
 
@@ -169,8 +171,24 @@ function ajouterPlageHoraire($plage) {
 
 ////////////////////////////////////////////////////////////////
 function trouverPlagePlusGrande($lEmploye) {
+	
+	if ($lEmploye['courriel'] == "") {
+		return;
+	}
 
+
+	var_dump($lEmploye);
+	// on recoit l'employé
+
+	// si l'employé a pas de dispo 
+
+
+	// die;
+	return null;
+	/*
 	//si on a pas d'employé
+	var_dump($lEmploye);
+
 	if($lEmploye["courriel"] != '') {
 	
 		global $arrayDisponibilite, $arrayRessource;
@@ -233,7 +251,8 @@ function trouverPlagePlusGrande($lEmploye) {
 			
 		}
 		
-		//on vérifie quel plage de dispo a a l'intérieur le ratio en problème
+		//on vérifie quel plage de dispo a l'intérieur le ratio en problème
+		// on vérifie quel ratio est le plus petit
 		for($i =0; $i < count($arrayLesDispos); $i++) {
 			if(in_array($lEmploye['demiHrs'], $arrayLesDispos[$i])) {
 				$noDispo = $i;
@@ -290,13 +309,43 @@ function trouverPlagePlusGrande($lEmploye) {
 		return null;
 	
 	}
-	
+	*/
 }
 
 
 
-function trouverEmployePlusImportant($laPlageCritique) {
+function trouverEmployePlusImportant($laPlageCritique, $listEmployeDisponible) {
 	global $arrayDisponibilite, $arrayHoraire;
+
+	// permet de sortir l'employé qui DOIT travailler la
+	// selon l'indice de priorité et s'il a la clé
+
+
+
+	// on parcours tous les employés
+		// si l'employé a la plage de dispo 
+			// todo : clé
+			// on trouve l'employé le plus important (le plus gentil)
+
+	$minPrio = 9000000000;
+	$minEmploye['indPriorite'] = 9999999999;
+
+	foreach ($arrayDisponibilite[$laPlageCritique['jour']][$laPlageCritique['demiHrs']] as $type) {
+		foreach ($type['listeEmployeDisponible'] as $employe) {
+			if ($employe['indPriorite'] < $minEmploye['indPriorite']) {
+				$minEmploye = $employe;
+			}
+		}
+	}
+
+	//var_dump($minEmploye);
+	//die;
+	$minEmploye["type"] = $laPlageCritique["type"];
+	$minEmploye["jour"] = $laPlageCritique["jour"];
+	$minEmploye["demiHrs"] = $laPlageCritique["demiHrs"];
+	return $minEmploye;
+
+/*
 	$lEmploye = array("courriel"=> "", "indicePriorite" => 9999, "type" => "type", "jour" => 0, "demiHrs" => 0, "ratio" => 99999, "cle" => 0);
 	foreach($arrayDisponibilite[$laPlageCritique["jour"]][$laPlageCritique["demiHrs"]][$laPlageCritique["type"]]['listeEmployeDisponible'] as &$unEmploye) {
 		if($laPlageCritique["ratio"] == 0.00001 && $unEmploye["possesseurCle"] == 1 && $unEmploye["indPriorite"] < $lEmploye["indicePriorite"]) {
@@ -311,13 +360,6 @@ function trouverEmployePlusImportant($laPlageCritique) {
 			$lEmploye["indicePriorite"] = $unEmploye["indPriorite"];
 		}
 	}
-	
-	
-	
-	
-	
-
-	
 			
 	if($laPlageCritique["ratio"] == 0.00001 && $lEmploye["indicePriorite"] == 9999 && $laPlageCritique["type"] != "Caissier") {
 		$laPlageCritique["ratio"] = 999;
@@ -348,6 +390,7 @@ function trouverEmployePlusImportant($laPlageCritique) {
 			$arrayHoraire[$laPlageCritique["jour"]][$laPlageCritique["demiHrs"]]['siCle'] = 4;
 	}
 	return $lEmploye;
+	*/
 }
 
 
@@ -383,7 +426,7 @@ function trouverRatioPlusPetit() {
 		}	
 	}
 		
-	var_dump($leRatio);
+	// var_dump($leRatio);
 	return $leRatio;
 	
 }

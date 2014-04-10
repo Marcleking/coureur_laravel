@@ -25,17 +25,19 @@
 							@endif
 						</a>
 						@if ($file['name'] != ".." && Auth::User()->type == "Gestionnaire")
-							<a href="{{route('delete.document', $file['location'])}}" class="button">Supprimer</a>
+							<a href="{{route('delete.document', $file['location'])}}" class="button alert"><i class="fa fa-trash-o"></i></a>
 						@endif
 					@else
-						<a href="{{route('fichier', $file['location'])}}" class="medium-11 columns button secondary">
-						<i class="fa fa-file-o fa-5x"></i>
+						<a href="{{route('fichier', $file['location'])}}" class="medium-11 columns button success">
+							<i class="fa fa-file-o fa-5x"></i>
 							<br />
 							{{ $file['name'] }}
 						</a>
 						@if ($file['name'] != ".." && Auth::User()->type == "Gestionnaire")
-							<a href="{{route('delete.fichier', $file['location'])}}" class="button">Supprimer</a>
-                            <a href="{{route('info.fichier', $file['location'])}}">{{ $file['nbDownload'] }} téléchargement </a>
+							<ul class="button-group">
+                            	<li><a href="{{route('info.fichier', $file['location'])}}" class="button">{{ $file['nbDownload'] }} <i class="fa fa-download"></i></a></li>
+								<li><a href="{{route('delete.fichier', $file['location'])}}" class="button alert"><i class="fa fa-trash-o"></i></a></li>
+							</ul>
 						@endif
 					@endif
 
@@ -53,22 +55,25 @@
 		
 	</div>
 	@if (Auth::User()->type == "Gestionnaire")
-		{{ Form::open(['route' => 'document.create']) }}
+		<hr>
+		<div class="row panel"> 
+			{{ Form::open(['route' => 'document.create']) }}
 
-			{{ Form::label('name', 'Créé un nouveau dossier') }}
-			{{ Form::text('name') }}
-			{{ Form::hidden('location', $location) }}
-			{{ Form::submit('Créé le dossier', ['class' => 'button']) }}
+				{{ Form::label('name', 'Créé un nouveau dossier') }}
+				{{ Form::text('name') }}
+				{{ Form::hidden('location', $location) }}
+				{{ Form::submit('Créé le dossier', ['class' => 'button']) }}
 
-		{{ Form::close() }}
+			{{ Form::close() }}
 
-		{{ Form::open(['route' => 'add.file', 'files' => true]) }}
-			{{ Form::hidden('location', $location) }}
+			{{ Form::open(['route' => 'add.file', 'files' => true]) }}
+				{{ Form::hidden('location', $location) }}
 
-			{{ Form::label('fichier', 'Ajouter un fichier') }}
-			{{ Form::file('fichier') }}
-			{{ Form::submit('Ajouté le fichier', ['class' => 'button']) }}
+				{{ Form::label('fichier', 'Ajouter un fichier') }}
+				{{ Form::file('fichier') }}
+				{{ Form::submit('Ajouté le fichier', ['class' => 'button']) }}
 
-		{{ Form::close() }}
+			{{ Form::close() }}
+		</div>
 	@endif
 @stop
