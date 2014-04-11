@@ -35,24 +35,24 @@
 			
 			<div class="row">
 				<div class="large-7 columns">
-					{{ Form::label('cle', 'Possesseur d\'une clé')}}
 					{{ Form::checkbox('cle', '1') }}
+					{{ Form::label('cle', 'Possesseur d\'une clé')}}
 					<br />
-					{{ Form::label('conflit', 'Responsable conflit') }}
 					{{ Form::checkbox('conflit', 'oui') }}
+					{{ Form::label('conflit', 'Responsable conflit') }}
 				</div>
 				
 				<div class="large-5 columns">
 					Formation <br />
 
-					{{ Form::label('Vetement', 'Vêtement') }}
 					{{ Form::checkbox('Vetement') }}
+					{{ Form::label('Vetement', 'Vêtement') }}
 					<br />
-					{{ Form::label('Chaussure', 'Chaussure') }}
 					{{ Form::checkbox('Chaussure') }}
+					{{ Form::label('Chaussure', 'Chaussure') }}
 					<br />
-					{{ Form::label('Caissier', 'Caissier') }}
 					{{ Form::checkbox('Caissier') }}
+					{{ Form::label('Caissier', 'Caissier') }}
 				</div>
 			</div>
 

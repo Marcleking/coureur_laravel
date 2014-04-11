@@ -31,7 +31,7 @@
 		        </dl>
 		        {{ $messages->links() }}
 			@else
-				<p class="text-center">Il n'y a pas de message!</p>
+				<p>Il n'y a pas de message!</p>
 			@endif
 		</div>
 	</div>

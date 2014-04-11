@@ -14,16 +14,16 @@
 		<h3>Envoyer un message</h3>
 		{{ Form::open(['route' => 'message.send']) }}
 			<div class="row">
-				<div class="large-6 columns">
-					{{ Form::label('titre', 'Titre(*)') }}
-					{{ Form::text('titre') }}
+				<div class="large-12 columns">
+					{{ Form::label('titre', 'Titre') }}
+					{{ Form::text('titre', null, ['class' => "sdf"]) }}
 				</div>
 			</div>			
 			
 			<div class="row">
 				<div class="large-12 columns">
-					{{ Form::label('message', 'Message(*)') }}
-					{{ Form::textarea('message') }}
+					{{ Form::label('message', 'Message') }}
+					{{ Form::textarea('message', null, ['rows' => "30"]) }}
 				</div>
 			</div>
 			

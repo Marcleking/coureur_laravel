@@ -70,7 +70,7 @@
 				<input id="notifRemplacement" type="checkbox" value="1" name="notifRemplacement" {{ ($info->notifRemplacement == 1) ? "checked" : "" }}><label for="notifRemplacement">Notifications pour tous les remplacements</label>
 			</div>
 		</div>
-			<input type="submit" class="button"/>
+			<input type="submit" class="button right"/>
 		</form>
 
 
@@ -105,7 +105,7 @@
 					"<input type='text' id='tel"+i+"' name='tel"+i+"' placeholder='Votre téléphone' />"+
 				"</div>" +
 				"<div class='large-4 columns left'>" +
-					"<a id='telMoins"+i+"' class='button small' onclick='suppTel("+i+")'><i class='fa fa-minus'></i></a>" +
+					"<a id='telMoins"+i+"' class='button tiny' onclick='suppTel("+i+")'><i class='fa fa-minus'></i></a>" +
 				"</div>");
 			i++;
 		}

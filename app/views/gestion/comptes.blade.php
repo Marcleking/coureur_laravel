@@ -5,7 +5,7 @@
 		<h3>Gestion des comptes</h3>
 		<div class="panel">
 			<div class="row">
-			  	<a href="{{Route('user.add')}}" class="button [radius round]">Ajout d'un utilisateur</a>
+			  	<a href="{{Route('user.add')}}" class="button right">Ajout d'un utilisateur</a>
 				
 
 				@if (Session::has('success'))
@@ -34,7 +34,7 @@
 				                <i class="fa fa-clock-o right"/> </i>
 				            @endif
 		            	</a>
-		           		<div id="panel{{ strtr($employe->courriel, array("." => "", "@" => "")) }}" class="content">'
+		           		<div id="panel{{ strtr($employe->courriel, array("." => "", "@" => "")) }}" class="content">
 		           			<div class="left"> 
 		           				Nom: {{ $employe->prenom ." ". $employe->nom }}
 		           			</div>

@@ -103,7 +103,7 @@ class UserController extends BaseController {
                         "value='".$tels[$i]->noTelephone."' placeholder='Votre téléphone' />";
             $tel .= "</div>";
             $tel .= "<div class='large-4 columns left'>";
-                $tel .= "<a id='telMoins".$i."' class='button small' onClick='suppTel(".$i.")'>".
+                $tel .= "<a id='telMoins".$i."' class='button tiny' onClick='suppTel(".$i.")'>".
                         "<i class='fa fa-minus'></i></a>";
             $tel .= "</div>";
             $tel .= "</div>";

@@ -60,9 +60,16 @@
 			{{ Form::open(['route' => 'document.create']) }}
 
 				{{ Form::label('name', 'Créé un nouveau dossier') }}
-				{{ Form::text('name') }}
-				{{ Form::hidden('location', $location) }}
-				{{ Form::submit('Créé le dossier', ['class' => 'button']) }}
+			
+			  	<div class="row collapse">
+			    	<div class="small-10 columns">
+			      		{{ Form::text('name') }}
+			      		{{ Form::hidden('location', $location) }}
+			    	</div>
+				    <div class="small-2 columns">
+				      	{{ Form::submit('Créé le dossier', ['class' => 'button postfix']) }}
+				    </div>
+				</div>
 
 			{{ Form::close() }}
 
@@ -70,8 +77,18 @@
 				{{ Form::hidden('location', $location) }}
 
 				{{ Form::label('fichier', 'Ajouter un fichier') }}
-				{{ Form::file('fichier') }}
-				{{ Form::submit('Ajouté le fichier', ['class' => 'button']) }}
+				
+				
+
+
+				<div class="row collapse">
+			    	<div class="small-10 columns">
+			      		{{ Form::file('fichier') }}
+			    	</div>
+				    <div class="small-2 columns">
+						{{ Form::submit('Ajouté le fichier', ['class' => 'button postfix']) }}				    
+					</div>
+				</div>
 
 			{{ Form::close() }}
 		</div>
