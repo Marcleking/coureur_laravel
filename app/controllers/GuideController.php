@@ -1,13 +1,12 @@
 <?php
 
 class GuideController extends BaseController {
-	public function employe()
+	public function index()
 	{
-		return View::make('guide.employe');
-	}
-	public function gestionnaire()
-	{
-		return View::make('guide.gestionnaire');
+		if (Auth::User()->type == "Employe")
+			return View::make('guide.employe');
+		else
+			return View::make('guide.gestionnaire');
 	}
 }
 
