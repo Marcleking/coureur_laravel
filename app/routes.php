@@ -42,6 +42,14 @@ Route::group(['before' => 'auth'], function() {
     );
 
     Route::get(
+        '/guide',
+        [
+            'as'   => 'guide-employe',
+            'uses' => 'GuideController@employe',
+        ]
+    );
+
+    Route::get(
         '/message',
         [
             'as'   => 'message',
