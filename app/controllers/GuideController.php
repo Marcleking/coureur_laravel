@@ -5,6 +5,10 @@ class GuideController extends BaseController {
 	{
 		return View::make('guide.employe');
 	}
+	public function gestionnaire()
+	{
+		return View::make('guide.gestionnaire');
+	}
 }
 
 ?>
