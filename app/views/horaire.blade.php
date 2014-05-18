@@ -2,6 +2,7 @@
 
 @section('content')
 	<div class="medium-12 columns">
+		<a class="fa fa-question-circle fa-3x pull-right" href="guide#affichageHoraire" alt="Aide en ligne"></a>
 		@if (Session::has('success'))
 			<div data-alert id="fade" class="alert-box success radius">
 				 {{ Session::get('success') }} 

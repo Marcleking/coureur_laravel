@@ -2,7 +2,9 @@
 
 @section('content')
 	<div class="medium-12 columns">
+		<a class="fa fa-question-circle fa-3x pull-right" href="guide#document" alt="Aide en ligne"></a>
 		<h3>Documents</h3>
+		
 		<h4>Emplacement : {{ str_replace(["document/", "document"], "formation/", Request::path()) }}</h4>
 		@include('layout.message')
 
@@ -40,7 +42,7 @@
 							</ul>
 						@endif
 					@endif
-
+					
 				</div>
 			</div>
 
@@ -51,7 +53,6 @@
 			@endif
 			
 		@endforeach
-
 		
 	</div>
 	@if (Auth::User()->type == "Gestionnaire")
@@ -86,7 +87,7 @@
 			      		{{ Form::file('fichier') }}
 			    	</div>
 				    <div class="small-2 columns">
-						{{ Form::submit('Ajouté le fichier', ['class' => 'button postfix']) }}				    
+						{{ Form::submit('Ajouté le fichier', ['class' => 'button postfix']) }}
 					</div>
 				</div>
 
