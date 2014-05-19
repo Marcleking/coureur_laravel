@@ -148,7 +148,7 @@
 							l'employé ou le gestionnaire sera automatiquement dirigé à l'intérieur du dossier pour pouvoir consulté les fichiers ou autres dossiers qui y sont
 							contenus.</ol>
 						
-						<ol><strong>4.</strong> Les fichiers qui ont été crées sont identifiés par un petit fichier entouré d'un carré cliquable.  Lors du clique sur un des fichiers,
+						<ol><strong>4.</strong> Les fichiers qui ont été créés sont identifiés par un petit fichier entouré d'un carré cliquable.  Lors due clique sur un des fichiers,
 							la personne verra une boite de dialogue apparaitre à l'écran et aura l'option d'ouvrir ou enregistrer le fichier qu'il désire consulté.</ol>
 						
 						<ol><strong>5. Le bouton "Supprimer"</strong> permet de détruire les dossiers et fichiers qui sont présents sur la page.</ol>
@@ -158,13 +158,13 @@
 						<ol><strong>7.</strong> L'hyperlien "téléchargement" vous permet de connaitre le nom d'utilisateur, ainsi que la date de la consultation de la personne
 							qui a téléchargé le fichier.</ol>
 						
-						<ol><strong>8.</strong> Le champ en-dessous de "créer un nouveau dossier" vous permet d'inscrire le nom que vous désirez mettre au dossier que vous voulez
+						<ol><strong>8.</strong> Le champ en dessous de "créer un nouveau dossier" vous permet d'inscrire le nom que vous désirez mettre au dossier que vous voulez
 							ajouter.</ol>
 						
 						<ol><strong>9. Le bouton "Créer un dossier"</strong> ajoute un nouveau dossier dans la page document avec le nom que vous avez entré dans le champ
 							"Créer un nouveau dossier".</ol>
 						
-						<ol><strong>10. Le bouton "Parcourir"</strong>, vous permet d'aller chercher le fichier sur votre ordinateur que vous désirez partager sur la page
+						<ol><strong>10. Le bouton "Parcourir"</strong> vous permet d'aller chercher le fichier sur votre ordinateur que vous désirez partager sur la page
 							document.</ol>
 						
 						<ol><strong>11. Le bouton "Ajouté le fichier"</strong> permet d'importer le fichier dans la page document.</ol>
@@ -175,7 +175,7 @@
 					
 			<h4 id="affichageHoraire">Page affichage d'un horaire</h4>
 				<h5><FONT COLOR="red">Contenus</FONT></h5>
-					<p align="justify">Cette page permet de générer l'horaire.  L'employé où le gestionnaire connecté peut voir selon la journée de la semaine les heures qu'il
+					<p align="justify">Cette page permet de générer l'horaire.  L'employé ou le gestionnaire connecté peut voir selon la journée de la semaine les heures qu'il
 						fera et dans quel secteur du magasin (chaussure, vêtement ou caisse) il fera son quart de travail. 
 					</p>
 				
@@ -190,7 +190,7 @@
 							
 						<ol><strong>3.</strong> Lors due clique sur l'un des sept jours de la semaine, vous pouvez voir, votre plage de travail selon la journée choisit.</ol>
 						
-						<ol><strong>4.</strong> Le nom de l'employé est présent à la gauche complètement du graphique montrant la journée choisit pour montrer que c'est bien lui
+						<ol><strong>4.</strong> Le nom de l'employé est présent à la gauche complètement du graphique montrant la journée choisie pour montrer que c'est bien lui
 							qui travaille durant cette journée.</ol>
 						
 						<ol><strong>5.</strong> L'horaire est affiché sur les sept jours de la semaine, grâce à un graphique qui montre les plages de travail de l'employé, de
@@ -208,7 +208,7 @@
 					</p>
 					
 				<ul>
-						<ol><FONT size="4" COLOR="red">Descriptifs de la page saisie des disponibiliés</FONT></ol>
+						<ol><FONT size="4" COLOR="red">Descriptifs de la page saisie des disponibilités</FONT></ol>
 						
 						<ol><strong>1.</strong> Le calendrier des jours permet à la personne connectée d'inscrire en cliquant ou en laissant son doigt appuyé sur la souris, les
 							heures qu'ils désirent faire selon la journée choisit.</ol>
@@ -269,7 +269,7 @@
 						<ol><strong>1.</strong> Cette page contient les informations vous concernant que l'employeur a besoin, à remarquez que les deux champs qui doivent
 							absolument contenir des informations sont nom et prénom qui sont marqué par une étoile à leur droite.</ol>
 						
-						<ol><strong>2.</strong> Une liste déroulante qui contient cinq choix qui permet d'identifier la manière dont il est possible de rejoindre la personne
+						<ol><strong>2.</strong> Une liste déroulante qui contient cinq choix qui permettent d'identifier la manière dont il est possible de rejoindre la personne
 							et qui comporte les options suivantes: cellulaire, domicile, école, bureau et autre.</ol>
 							
 						<ol><strong>3. Le bouton "-"</strong> permet d'enlever le numéro de téléphone de la personne si pour une raison ou une autre elle ne veut plus qu'on la
@@ -320,7 +320,7 @@
 						
 						<ol><FONT size="4" COLOR="red">Descriptifs de la page gestion des comptes lors due clique sur le bouton "Modifier"</FONT></ol>
 						
-						<ol><strong>7.</strong> Le nom et le prénom de l'employé qui sont obligatoires sont présent sur la page.</ol>
+						<ol><strong>7.</strong> Le nom et le prénom de l'employé qui sont obligatoires sont présents sur la page.</ol>
 						
 						<ol><strong>8.</strong> Il y a une liste déroulante permettant de connaitre le type d'employé. Deux choix s'offrent à vous, soit il est un employé ou soit
 							il est un gestionnaire.</ol>
@@ -369,7 +369,7 @@
 						<ol><FONT size="4" COLOR="red">Descriptifs de la page ressource</FONT></ol>
 						
 						<ol><strong>1.</strong> Une liste déroulante contenant les noms des groupes qui ont les ressources de la semaine est présente sur cette page.  Lors du clic
-							dans la liste déroulante sur le nom d'un groupe, les données qui avait été entré pour ce groupe apparaitront ou pourront être modifié.</ol>
+							dans la liste déroulante sur le nom d'un groupe, les données qui avaient été entrées pour ce groupe apparaitront ou pourront être modifiées.</ol>
 						
 						<ol><strong>2.</strong> Le champ "Nom du groupe" permet de mettre un nom de groupe qui sera associé aux ressources entrées.</ol>
 						
