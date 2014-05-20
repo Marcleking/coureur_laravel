@@ -153,21 +153,19 @@
 						
 						<ol><strong>5. Le bouton "Supprimer"</strong> permet de détruire les dossiers et fichiers qui sont présents sur la page.</ol>
 						
-						<ol><strong>6.</strong> Un chiffre est présent à la gauche du bouton supprimer, il correspond au nombre de fois que le fichier a été consulté.</ol>
+						<ol><strong>6.</strong> Le chiffre qui est présent sur le bouton de téléchargement correspond au nombre de fois que le fichier a été consulté.  Le bouton
+							"téléchargement" vous permet de connaitre le nom d'utilisateur, ainsi que la date de la consultation de la personne qui a téléchargé le fichier. </ol>
 						
-						<ol><strong>7.</strong> L'hyperlien "téléchargement" vous permet de connaitre le nom d'utilisateur, ainsi que la date de la consultation de la personne
-							qui a téléchargé le fichier.</ol>
-						
-						<ol><strong>8.</strong> Le champ en dessous de "créer un nouveau dossier" vous permet d'inscrire le nom que vous désirez mettre au dossier que vous voulez
+						<ol><strong>7.</strong> Le champ en dessous de "créer un nouveau dossier" vous permet d'inscrire le nom que vous désirez mettre au dossier que vous voulez
 							ajouter.</ol>
 						
-						<ol><strong>9. Le bouton "Créer un dossier"</strong> ajoute un nouveau dossier dans la page document avec le nom que vous avez entré dans le champ
+						<ol><strong>8. Le bouton "Créer un dossier"</strong> ajoute un nouveau dossier dans la page document avec le nom que vous avez entré dans le champ
 							"Créer un nouveau dossier".</ol>
 						
-						<ol><strong>10. Le bouton "Parcourir"</strong> vous permet d'aller chercher le fichier sur votre ordinateur que vous désirez partager sur la page
+						<ol><strong>9. Le bouton "Parcourir"</strong> vous permet d'aller chercher le fichier sur votre ordinateur que vous désirez partager sur la page
 							document.</ol>
 						
-						<ol><strong>11. Le bouton "Ajouté le fichier"</strong> permet d'importer le fichier dans la page document.</ol>
+						<ol><strong>10. Le bouton "Ajouté le fichier"</strong> permet d'importer le fichier dans la page document.</ol>
 					</ul>
 					
 			<hr width="790px">
@@ -190,8 +188,9 @@
 							
 						<ol><strong>3.</strong> Lors due clique sur l'un des sept jours de la semaine, vous pouvez voir, votre plage de travail selon la journée choisit.</ol>
 						
-						<ol><strong>4.</strong> Le nom de l'employé est présent à la gauche complètement du graphique montrant la journée choisie pour montrer que c'est bien lui
-							qui travaille durant cette journée.</ol>
+						<ol><strong>4.</strong> La ligne qui est présente au niveau du premier graphique correspond au quart de travail de la personne.  Il est facile de trouver
+							dans quel département travaille l'employé puisque le code de couleur correspond au département dans lequel l'employé travaillera et sur l'horaire de la
+							personne son quart de travail est identifié par cette couleur.</ol>
 						
 						<ol><strong>5.</strong> L'horaire est affiché sur les sept jours de la semaine, grâce à un graphique qui montre les plages de travail de l'employé, de
 							cette manière il est plus facile pour l'employé ou pour le gestionnaire de se situer sur les heures qu'il fera durant la semaine.</ol>
