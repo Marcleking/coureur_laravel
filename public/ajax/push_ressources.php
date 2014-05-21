@@ -68,11 +68,11 @@
 				echo json_encode($json);
 			}
 			else{
-				echo json_encode(array("message" => "Un bloc d'horaire doit avoir une description."));
+				echo json_encode(array("message" => "Un groupe de ressources doit avoir une description."));
 			}
 		}
 		else{
-			echo json_encode(array("message" => "Un bloc d'horaire doit avoir un nom."));
+			echo json_encode(array("message" => "Un groupe de ressources doit avoir un nom."));
 		}
 	}
 	
@@ -175,7 +175,7 @@
 			}
 		}
 		else{
-			echo json_encode(array("message" => "Il faut d'abord créer un groupe de ressources pour enregistrer des blocs de ressource.", "type" => "error"));
+			echo json_encode(array("message" => "Il faut d'abord créer un groupe de ressources pour enregistrer des blocs de ressources.", "type" => "error"));
 		}		
 	}
 	
