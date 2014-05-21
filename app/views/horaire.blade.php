@@ -21,7 +21,7 @@
 		#vetement{
 			background: green;	
 		}
-		#caisse{
+		#Caissier{
 			background: blue;
 		}
 		.first {
@@ -39,7 +39,7 @@
 		<ul id="legende">
 			<li id="chaussure" >Chaussure</li>
 			<li id="vetement">Vêtement</li>
-			<li id="caisse">Caisse</li>
+			<li id="Caissier">Caissier</li>
 		</ul>
 		
 		@if (Auth::User()->type == "Gestionnaire")
@@ -203,7 +203,7 @@
 					case "Vetement":
 						couleur = "green";
 						break;
-					case "Caisse":
+					case "Caissier":
 						couleur = "blue";
 						break;
 				}
@@ -278,7 +278,7 @@
 					case "Vetement":
 						couleur = "green";
 						break;
-					case "Caisse":
+					case "Caissier":
 						couleur = "blue";
 						break;
 				}
