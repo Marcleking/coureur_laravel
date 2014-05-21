@@ -11,6 +11,7 @@
 			</ul>
 		@endif
 
+		<a class="fa fa-question-circle fa-3x pull-right" href="../guide#envoyer" alt="Aide en ligne"></a>
 		<h3>Envoyer un message</h3>
 		{{ Form::open(['route' => 'message.send']) }}
 			<div class="row">

@@ -42,6 +42,14 @@ Route::group(['before' => 'auth'], function() {
     );
 
     Route::get(
+        '/guide',
+        [
+            'as'   => 'guide',
+            'uses' => 'GuideController@index',
+        ]
+    );
+
+    Route::get(
         '/message',
         [
             'as'   => 'message',
@@ -109,6 +117,7 @@ Route::group(['before' => 'auth'], function() {
 });
 
 Route::group(['before' => 'auth.type:Gestionnaire'], function() {
+
     Route::get(
         '/message/{id}/del',
         [

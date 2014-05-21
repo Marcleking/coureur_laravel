@@ -10,6 +10,7 @@
 			</ul>
 		@endif
 
+		<a class="fa fa-question-circle fa-3x pull-right" href="../guide#gestionCompte" alt="Aide en ligne"></a>
 		<h3>Gestion du compte</h3>
 		{{ Form::open(['route' => 'gestion.compte']) }}
 			<div class="row">

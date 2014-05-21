@@ -200,6 +200,7 @@
 			
 		</script>
 
+		<a class="fa fa-question-circle fa-3x pull-right" href="guide#saisieDisponibilite" alt="Aide en ligne"></a>
 		<h2>Saisie des disponibilités</h2>
 		
 		<form id="formDispo">
