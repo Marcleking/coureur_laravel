@@ -4,17 +4,12 @@ class HoraireModel extends Eloquent {
 
 	public static function creeHoraire()
 	{
+
 		//Liste des disponibilités qui reste à combler
 		$listUtilhoraire = HoraireModel::lstUtilHoraire();
 
 		//Liste des ressources qui reste à combler
 		$listRessource = Horairemodel::lstRessource();
-
-		//Liste des demi-heure qui comporte un ratio en dessous de 1
-		$listRatioErreur = array();
-
-
-		Horairemodel::genererRatio();
 
 		//dd($listRessource);
 
@@ -37,6 +32,8 @@ class HoraireModel extends Eloquent {
         if (!isset($listRessource))
         	return "no.ressource";
 
+
+        dd($listRessource);
         // parcours de toute les ressources
 		foreach ($listRessource as &$ressource) {
 			//Parcours de tout les types d'employés
@@ -92,8 +89,9 @@ class HoraireModel extends Eloquent {
 													'heureDebut' => $ressourceACombler['heureDebut'],
 													'heureFin' => $dispo['heureFin']
 												));
-												// On modifie la dispo de l'employé (s'il est sur l'horaire il est pu dispo ein!)
+												// On modifie la dispo de l'employé (s'il est sur l'horaire il est pu dispo hein!)
 												$dispo['heureDebut'] = $dispo['heureFin'];
+
 												// On modifie la ressource (elle a été complé pour le temps max que l'employé pouvait donnée)
 												$ressourceACombler['heureDebut'] = $dispo['heureFin'];
 												// On diminue le nombre de ressource demander pour ce chiffre
@@ -119,14 +117,11 @@ class HoraireModel extends Eloquent {
 			}
 		}
 
-
 		//var_dump($horaire);
 		HoraireModel::ajoutHoraireDansBd($horaire);
-		dd("sdfdsf");
+		
 
 		Horairemodel::lstRatioErreur();
-
-		// var_dump($listRatioErreur);
 
 		$erreur = false;
 		 //Parcours de toute les ressources
@@ -137,7 +132,6 @@ class HoraireModel extends Eloquent {
 				}
 			}
 		}
-		die;
 
 		if ($erreur) {
 			return false;

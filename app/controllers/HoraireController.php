@@ -4,7 +4,7 @@ class HoraireController extends BaseController {
 
 	public function genere() {
 		$creationHoraire = HoraireModel::creeHoraire();
-
+		
 		if ($creationHoraire == "no.ressource") {
 			return Redirect::route('horaire')->withFail("Vous devez ajouter des ressources.");
 		} else if (!$creationHoraire) {
