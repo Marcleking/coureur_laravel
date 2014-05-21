@@ -180,20 +180,17 @@
 				<ul>
 						<ol><FONT size="4" COLOR="red">Descriptifs de la page affichage d'un horaire</FONT></ol>
 						
-						<ol><strong>1.</strong> Bouton "Générer l'horaire" permet de générer l'horaire selon les ressources qui ont été entrées ainsi que les disponibilités qui
-							ont été saisies par les utilisateurs.</ol>
-						
-						<ol><strong>2.</strong> Code de couleur présenter sous le bouton "Générer l'horaire" identifiant les différents secteurs de l'entreprise soit: les
-							chaussures (en rouge), les vêtements (en vert) et la caisse (en bleu).</ol>
+						<ol><strong>1.</strong> Un code de couleur identifiant les différents secteurs de l'entreprise soit: les chaussures (en rouge), les vêtements (en vert) ou
+							la caisse en bleu) est présent.</ol>
 							
-						<ol><strong>3.</strong> Lors due clique sur l'un des sept jours de la semaine, vous pouvez voir, votre plage de travail selon la journée choisit.</ol>
+						<ol><strong>2.</strong> Lors due clique sur l'un des sept jours de la semaine, vous pouvez voir, votre plage de travail selon la journée choisit.</ol>
 						
-						<ol><strong>4.</strong> La ligne qui est présente au niveau du premier graphique correspond au quart de travail de la personne.  Il est facile de trouver
-							dans quel département travaille l'employé puisque le code de couleur correspond au département dans lequel l'employé travaillera et sur l'horaire de la
-							personne son quart de travail est identifié par cette couleur.</ol>
-						
-						<ol><strong>5.</strong> L'horaire est affiché sur les sept jours de la semaine, grâce à un graphique qui montre les plages de travail de l'employé, de
-							cette manière il est plus facile pour l'employé ou pour le gestionnaire de se situer sur les heures qu'il fera durant la semaine.</ol>
+						<ol><strong>3.</strong> La ligne qui est présente au niveau du graphique montrant les 7 boutons identifiant les 7 jours de la semaine correspond au quart
+							de travail de la personne.  Il est facile de trouver dans quel département travaille l'employé puisque le code de couleur correspond au département dans
+							lequel l'employé travaillera et sur l'horaire de la personne son quart de travail est identifié par cette couleur.</ol>
+							
+						<ol><strong>4.</strong> Un graphique vous montrant l'horaire de la personne, montré sur les sept jours de la semaine (du dimanche au samedi).  La personne connectée peut ainsi voir
+							sur toute la semaine dans quel département il va travailler selon le code de couleur qui est montré au point 1 et le quart de travail qu'il fera.</ol>
 				</ul>
 				
 			<hr width="790px">
@@ -379,33 +376,32 @@
 						
 						<ol><strong>5. Le bouton "Ajouter"</strong> permet d'enregistrer une nouvelle ressource (nom du groupe et description) dans la base de données.</ol>
 						
-						<ol><strong>6. Le bouton "Modifier"</strong> permet de changer la description ou le nom qui avait été saisi et ce changement sera aussi fait dans la base de données.</ol>
+						<ol><strong>6. Le bouton "Modifier"</strong> permet de changer la description ou le nom qui avait été saisi et ce changement sera aussi fait dans la base
+							de données.</ol>
 						
-						<ol><strong>7. Le bouton "Supprimer"</strong> permet d'effacer la ressource sur la page et dans la base données.</ol>
+						<ol><strong>7.</strong> Un calendrier qui montre les heures d'ouverture selon les jours où des ressources seront nécessaires pour la semaine en cours.</ol>
 						
-						<ol><strong>8.</strong> Un calendrier qui montre les heures d'ouverture selon les jours où des ressources seront nécessaires pour la semaine en cours.</ol>
+						<ol><strong>8.</strong> Une liste déroulante contenant les sept jours de la semaine.</ol>
 						
-						<ol><strong>9.</strong> Une liste déroulante contenant les sept jours de la semaine.</ol>
+						<ol><strong>9.</strong> Le champ "Heure de début" permet d'entrer l'heure d'ouverture du magasin selon la journée choisie.</ol>
 						
-						<ol><strong>10.</strong> Le champ "Heure de début" permet d'entrer l'heure d'ouverture du magasin selon la journée choisie.</ol>
+						<ol><strong>10.</strong> Le champ "Heure de fin" permet d'entrer l'heure de fermeture du magasin selon la journée choisie.</ol>
 						
-						<ol><strong>11.</strong> Le champ "Heure de fin" permet d'entrer l'heure de fermeture du magasin selon la journée choisie.</ol>
-						
-						<ol><strong>12.</strong> Le champ "Nombre d'employés chaussure" permet d'inscrire le nombre de personnes qui seront nécessaires pour travailler dans les
+						<ol><strong>11.</strong> Le champ "Nombre d'employés chaussure" permet d'inscrire le nombre de personnes qui seront nécessaires pour travailler dans les
 							chaussures pour la journée choisie.</ol>
 						
-						<ol><strong>13.</strong> Le champ "Nombre d'employés vêtements" permet d'inscrire le nombre de personnes qui seront nécessaires pour travailler dans les
+						<ol><strong>12.</strong> Le champ "Nombre d'employés vêtements" permet d'inscrire le nombre de personnes qui seront nécessaires pour travailler dans les
 							chaussures pour la journée choisie.</ol>
 						
-						<ol><strong>14.</strong> Le champ "Nombre d'employés caisse" permet d'inscrire le nombre de personnes qui seront nécessaires pour travailler dans les
+						<ol><strong>13.</strong> Le champ "Nombre d'employés caisse" permet d'inscrire le nombre de personnes qui seront nécessaires pour travailler dans les
 							chaussures pour la journée choisie.</ol>
 						
-						<ol><strong>15. Le bouton "Ajouter"</strong> permet de faire l'ajout de ressources qui ont été inscrites dans les champs: "Heure de début", "Heure de fin",
+						<ol><strong>14. Le bouton "Ajouter"</strong> permet de faire l'ajout de ressources qui ont été inscrites dans les champs: "Heure de début", "Heure de fin",
 							"Nombre d'employés chaussure", "Nombre d'employés vêtements" et "Nombre d'employés caisse" par rapport à la journée qui a été choisi dans la liste
 							déroulante dans le calendrier et dans la base de données, mais il est important de cliquer sur le bouton enregistré si vous désirez que les changements
 							soient effectifs.</ol>
 						
-						<ol><strong>16. Le bouton "Enregistrer"</strong> permet de sauvegarder les changements dans la base de données.</ol>
+						<ol><strong>15. Le bouton "Enregistrer"</strong> permet de sauvegarder les changements dans la base de données.</ol>
 				</ul>			
 		</div>
 	</div>
