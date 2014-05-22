@@ -30,7 +30,7 @@
 			text-align: center;
 			font-weight: bold;
 		}
-		#caisse{
+		#Caissier{
 			color: blue;
 			border:2px solid black;
 			border-radius:10px;
@@ -71,16 +71,16 @@
 
 	<div id="contenu">
 		
-		<!-- Bouton de génération de l'horaire
+		<!-- Bouton de génération de l'horaire -->
 		@if (Auth::User()->type == "Gestionnaire")
 			<a href="{{ route('genere.horaire') }}" class="button">Générer l'horaire</a>
 		@endif
-		-->
+
 		<div class="row">
 			<ul id="legende" class="inline-list large-centered columns">
 				<li class="small-3" id="chaussure">Chaussure</li>
 				<li class="small-3" id="vetement">Vêtement</li>
-				<li class="small-3" id="caisse">Caisse</li>
+				<li class="small-3" id="Caissier">Caisse</li>
 			</ul>
 		</div>
 		
@@ -252,7 +252,7 @@
 					case "Vetement":
 						couleur = "green";
 						break;
-					case "Caisse":
+					case "Caissier":
 						couleur = "blue";
 						break;
 				}
@@ -337,7 +337,7 @@
 					case "Vetement":
 						couleur = "green";
 						break;
-					case "Caisse":
+					case "Caissier":
 						couleur = "blue";
 						break;
 				}

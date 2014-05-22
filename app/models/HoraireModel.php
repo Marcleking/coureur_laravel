@@ -4,17 +4,12 @@ class HoraireModel extends Eloquent {
 
 	public static function creeHoraire()
 	{
+
 		//Liste des disponibilités qui reste à combler
 		$listUtilhoraire = HoraireModel::lstUtilHoraire();
 
 		//Liste des ressources qui reste à combler
 		$listRessource = Horairemodel::lstRessource();
-
-		//Liste des demi-heure qui comporte un ratio en dessous de 1
-		$listRatioErreur = array();
-
-
-		Horairemodel::genererRatio();
 
 		//dd($listRessource);
 
@@ -37,96 +32,514 @@ class HoraireModel extends Eloquent {
         if (!isset($listRessource))
         	return "no.ressource";
 
-        // parcours de toute les ressources
-		foreach ($listRessource as &$ressource) {
-			//Parcours de tout les types d'employés
-			foreach ($ressource['typeEmp'] as $keyRessource => & $typeRessource) {
-				// Si la ressource reste encore à être comblé
-				if (count($typeRessource) > 0) {
-					// Parcours de chaque ressource
-					foreach ($typeRessource as $keyRessourceACombler => &$ressourceACombler) {
-					
-						// Parcours de tout les utilisateurs
-						foreach ($listUtilhoraire as &$users) {
 
-							// Si l'employé a la formation pour la ressource demander actuel
-							if(HoraireModel::empEstTypeRessource($keyRessource, $users))
-							{
-								if(isset($users['listeDispoSemaine'])) {
-								// Parcours de la liste des disponibilité de l'employé
-									foreach ($users['listeDispoSemaine'] as &$dispo) {
+       
 
-										
-										//Gestion des clés pour le début
-										/*
-										if($ressource['heureDebut'] == '09:00:00' && $users['possesseurCle'] == "0" && !$cleDebut) {
-											$cleDebut = true;
-											continue;
-										}
+        // On sépare les blocks en demie heures
+        $listRessourceDiviser = [];
+        foreach ($listRessource as $ressource) {
+        	// dd($ressource);
 
-										if(($ressource['heureFin'] == '17:00:00' || $ressource['heureFin'] == '21:00:00') && $users['possesseurCle'] == "0" && !$cleFin) {
-											$cleFin = true;
-											continue;
-										}
-										*/
+        	// 12 heure dans une journée
+        	$heureDebut = (int)explode(':', $ressource['heureDebut'])[0];
+        	$minuteDebut = (int)explode(':', $ressource['heureDebut'])[1];
+        	
+        	$heureFin = (int)explode(':', $ressource['heureFin'])[0];
+        	$minuteFin = (int)explode(':', $ressource['heureFin'])[1];
 
-										// Si l'employé est disponible pour la journée actuelle
-										if(HoraireModel::idEgualJour($ressource['jour'], $dispo['jour'])) {
-											$heuresDebut = HoraireModel::gestionHrs($ressourceACombler['heureDebut'], $dispo['heureDebut']);
-											$heuresFin = HoraireModel::gestionHrs($ressourceACombler['heureFin'], $dispo['heureFin']);
+        	if ($minuteFin == 30) {
+        		$heureDebut++;
+        	}
 
-											// Si l'employé est disponible avant ou en même temps que le début du chiffre demander
-											// et si l'employé peux faire un chiffre de 3 heures minimum
-											if ($heuresDebut[0] >= $heuresDebut[1] && $heuresDebut[0]+3 <= $heuresFin[1]) {
-												// Aide pour le débuguage
-												var_dump("Ressource--------------------------------------------------------------------------------");
-												var_dump($ressource['typeEmp']);
-												var_dump("Dispo--------------------------------------------------------------------------------");
-												var_dump($dispo);
-												
-												// On ajoute le chiffre à l'horaire
-												array_push($horaire, array(
-													'courriel' => $users['courriel'],
-													'typeTravail' => $keyRessource,
-													'jour' => $ressource['jour'],
-													'heureDebut' => $ressourceACombler['heureDebut'],
-													'heureFin' => $dispo['heureFin']
-												));
-												// On modifie la dispo de l'employé (s'il est sur l'horaire il est pu dispo ein!)
-												$dispo['heureDebut'] = $dispo['heureFin'];
-												// On modifie la ressource (elle a été complé pour le temps max que l'employé pouvait donnée)
-												$ressourceACombler['heureDebut'] = $dispo['heureFin'];
-												// On diminue le nombre de ressource demander pour ce chiffre
-												
+        	for ($i = $heureDebut; $i < $heureFin; $i++) {
+
+        		$heure = $i;
+        		if ($i < 10) {
+        			$heure = "0"+$i;
+        		}
+
+        		$heureUn = $i+1;
+        		if ($i+1 < 10) {
+        			$heureUn = "0"+($i+1);
+        		}
+
+        		if ($minuteDebut == 30) {
+        			$info = [
+	    				'heureDebut' => $heure.':30:00',
+	    				'heureFin' => $heureUn.':00:00',
+	    				'id' => $ressource['id'],
+	    				'noBlocRessource' => $ressource['noBlocRessource'],
+	    				'jour' => $ressource['jour'],
+	    				'nbEmpChaussures' => $ressource['nbEmpChaussures'],
+	    				'employeDisponibleChaussure' => 0,
+	    				'nbEmpVetements' => $ressource['nbEmpVetements'],
+	    				'employeDisponibleVetement' => 0,
+	    				'nbEmpCaissier' => $ressource['nbEmpCaissier'],
+	    				'employeDisponibleCaissier' => 0,
+	    				'heureMin' => $ressource['heureDebut'],
+	    				'heureMax' => $ressource['heureFin'],
+	    				'cleOuverture' => 0,
+	    				'cleFermeture' => 0,
+	    			];
+
+	    			$listRessourceDiviser[] = $info;
+
+	    			$info = [
+	    				'heureDebut' => $heureUn.':00:00',
+	    				'heureFin' => $heureUn.':30:00',
+	    				'id' => $ressource['id'],
+	    				'noBlocRessource' => $ressource['noBlocRessource'],
+	    				'jour' => $ressource['jour'],
+	    				'nbEmpChaussures' => $ressource['nbEmpChaussures'],
+	    				'employeDisponibleChaussure' => 0,
+	    				'nbEmpVetements' => $ressource['nbEmpVetements'],
+	    				'employeDisponibleVetement' => 0,
+	    				'nbEmpCaissier' => $ressource['nbEmpCaissier'],
+	    				'employeDisponibleCaissier' => 0,
+	    				'heureMin' => $ressource['heureDebut'],
+	    				'heureMax' => $ressource['heureFin'],
+	    				'cleOuverture' => 0,
+	    				'cleFermeture' => 0,
+	    			];
+
+	    			if ($i+1 < $heureFin || $minuteFin == 30)
+	    				$listRessourceDiviser[] = $info;
+        		} else {
+        			$info = [
+	    				'heureDebut' => $heureUn.':00:00',
+	    				'heureFin' => $heureUn.':30:00',
+	    				'id' => $ressource['id'],
+	    				'noBlocRessource' => $ressource['noBlocRessource'],
+	    				'jour' => $ressource['jour'],
+	    				'nbEmpChaussures' => $ressource['nbEmpChaussures'],
+	    				'employeDisponibleChaussure' => 0,
+	    				'nbEmpVetements' => $ressource['nbEmpVetements'],
+	    				'employeDisponibleVetement' => 0,
+	    				'nbEmpCaissier' => $ressource['nbEmpCaissier'],
+	    				'employeDisponibleCaissier' => 0,
+	    				'heureMin' => $ressource['heureDebut'],
+	    				'heureMax' => $ressource['heureFin'],
+	    				'cleOuverture' => 0,
+	    				'cleFermeture' => 0,
+	    			];
+
+	    			$listRessourceDiviser[] = $info;
+
+	    			$info = [
+	    				'heureDebut' => $heureUn.':30:00',
+	    				'heureFin' => $heureUn.':00:00',
+	    				'id' => $ressource['id'],
+	    				'noBlocRessource' => $ressource['noBlocRessource'],
+	    				'jour' => $ressource['jour'],
+	    				'nbEmpChaussures' => $ressource['nbEmpChaussures'],
+	    				'employeDisponibleChaussure' => 0,
+	    				'nbEmpVetements' => $ressource['nbEmpVetements'],
+	    				'employeDisponibleVetement' => 0,
+	    				'nbEmpCaissier' => $ressource['nbEmpCaissier'],
+	    				'employeDisponibleCaissier' => 0,
+	    				'heureMin' => $ressource['heureDebut'],
+	    				'heureMax' => $ressource['heureFin'],
+	    				'cleOuverture' => 0,
+	    				'cleFermeture' => 0,
+	    			];
+
+	    			$listRessourceDiviser[] = $info;
+        		}
+        	}
+        }
 
 
-												//$typeRessource[array_keys($typeRessource)[0]]--;
 
-												// Aide pour le débuguage
-												var_dump("Ressource--------------------------------------------------------------------------------");
-												var_dump($ressource['typeEmp']);
-												var_dump("Dispo--------------------------------------------------------------------------------");
-												var_dump($dispo);
+ 		// dd($listRessourceDiviser);
+ 		// On reparcours la liste des ressources pour trouvé les employés disponibles
 
-											}
-										}
-									}
-								}
+        // On parcours toute les ressources
+        foreach ($listRessourceDiviser as &$ressource) {
+	        
+	        $heureDebut = (int)explode(':', $ressource['heureDebut'])[0];
+			$minuteDebut = (int)explode(':', $ressource['heureDebut'])[1];
+
+			$heureFin = (int)explode(':', $ressource['heureFin'])[0];
+			$minuteFin = (int)explode(':', $ressource['heureFin'])[1];
+
+        	// On parcours tout les employés
+        	foreach ($listUtilhoraire as $employe) {
+
+        		if ($employe['possesseurCle'] == 1) {
+        			var_dump($employe);
+        		}
+        		
+        		
+        		// On vérifie si la personne à la formation (chaussure)
+        		if ((int)$ressource['nbEmpChaussures'] > 0 && $employe['formationChaussure'] == "1") {
+
+        			// On verifie si la personne peut à ce moment
+
+        			$disponible = false;
+        			foreach ($employe['listeDispoSemaine'] as $dispoEmploye) {
+        				// On vérifie si l'employé est disponible pour cette journée
+        				if (HoraireModel::idEgualJour($ressource['jour'], $dispoEmploye['jour'])) {
+        					// On vérifie si l'employé est dispo avant ou en même temps que le début de la ressource
+
+        					$heureDebutEmploye = (int)explode(':', $dispoEmploye['heureDebut'])[0];
+		        			$minuteDebutEmploye = (int)explode(':', $dispoEmploye['heureDebut'])[1];
+
+		        			$heureFinEmploye = (int)explode(':', $dispoEmploye['heureFin'])[0];
+		        			$minuteFinEmploye = (int)explode(':', $dispoEmploye['heureFin'])[1];
+
+		        			if (
+		        				$heureDebutEmploye + $minuteDebutEmploye / 60 <= $heureDebut + $minuteDebut / 60 && 
+		        				$heureFinEmploye + $minuteFinEmploye / 60 >= $heureFin + $minuteFin / 60
+		        			) {
+		        				$disponible = true;
+		        			}
+
+        					
+
+        				}
+        			}
+        			// Si l'employé est disponible pour les chaussures on l'ajoute dans la liste des employés
+        			// disponible pour faire les chaussures à ce moment
+        			if ($disponible) {
+        				$ressource['employeDisponibleChaussure']++;
+        			}
+
+        		}
+
+        		// On vérifie si la personne à la formation (chaussure)
+        		if ((int)$ressource['nbEmpVetements'] > 0 && $employe['formationVetement'] == "1") {
+
+        			// On verifie si la personne peut à ce moment
+        			
+        			$disponible = false;
+        			foreach ($employe['listeDispoSemaine'] as $dispoEmploye) {
+        				// On vérifie si l'employé est disponible pour cette journée
+        				if (HoraireModel::idEgualJour($ressource['jour'], $dispoEmploye['jour'])) {
+        					// On vérifie si l'employé est dispo avant ou en même temps que le début de la ressource
+
+        					$heureDebutEmploye = (int)explode(':', $dispoEmploye['heureDebut'])[0];
+		        			$minuteDebutEmploye = (int)explode(':', $dispoEmploye['heureDebut'])[1];
+
+		        			$heureFinEmploye = (int)explode(':', $dispoEmploye['heureFin'])[0];
+		        			$minuteFinEmploye = (int)explode(':', $dispoEmploye['heureFin'])[1];
+
+		        			if (
+		        				$heureDebutEmploye + $minuteDebutEmploye / 60 <= $heureDebut + $minuteDebut / 60 && 
+		        				$heureFinEmploye + $minuteFinEmploye / 60 >= $heureFin + $minuteFin / 60
+		        			) {
+		        				$disponible = true;
+		        			}
+
+        				}
+        			}
+        			// Si l'employé est disponible pour les chaussures on l'ajoute dans la liste des employés
+        			// disponible pour faire les chaussures à ce moment
+        			if ($disponible) {
+        				$ressource['employeDisponibleVetement']++;
+        			}
+
+        		}
+
+        		// On vérifie si la personne à la formation (chaussure)
+        		if ((int)$ressource['nbEmpCaissier'] > 0 && $employe['formationCaissier'] == "1") {
+
+        			// On verifie si la personne peut à ce moment
+
+        			$disponible = false;
+        			foreach ($employe['listeDispoSemaine'] as $dispoEmploye) {
+        				// On vérifie si l'employé est disponible pour cette journée
+        				if (HoraireModel::idEgualJour($ressource['jour'], $dispoEmploye['jour'])) {
+        					// On vérifie si l'employé est dispo avant ou en même temps que le début de la ressource
+
+        					$heureDebutEmploye = (int)explode(':', $dispoEmploye['heureDebut'])[0];
+		        			$minuteDebutEmploye = (int)explode(':', $dispoEmploye['heureDebut'])[1];
+
+		        			$heureFinEmploye = (int)explode(':', $dispoEmploye['heureFin'])[0];
+		        			$minuteFinEmploye = (int)explode(':', $dispoEmploye['heureFin'])[1];
+
+		        			if (
+		        				$heureDebutEmploye + $minuteDebutEmploye / 60 <= $heureDebut + $minuteDebut / 60 && 
+		        				$heureFinEmploye + $minuteFinEmploye / 60 >= $heureFin + $minuteFin / 60
+		        			) {
+		        				$disponible = true;
+		        			}
+        				}
+        			}
+        			// Si l'employé est disponible pour les chaussures on l'ajoute dans la liste des employés
+        			// disponible pour faire les chaussures à ce moment
+        			if ($disponible) {
+        				$ressource['employeDisponibleCaissier']++;
+        			}
+
+        		}
+
+        	}
+        }
+
+        
+
+        // On trie la liste des ressources selon celle qui doive être completé en premier
+
+
+        $listRessourceDiviser = array_values(array_sort($listRessourceDiviser, function($value)
+		{
+			$ratioChaussure = $value['employeDisponibleChaussure'] / (int)$value['nbEmpChaussures'];
+			$ratioVetement = $value['employeDisponibleVetement'] / (int)$value['nbEmpVetements'];
+			$ratioCaissier = $value['employeDisponibleCaissier'] / (int)$value['nbEmpCaissier'];
+
+			$ratioMin = -9999;
+			if ($ratioChaussure > $ratioMin) {
+				$ratioMin = $ratioChaussure;
+			}
+
+			if ($ratioVetement > $ratioMin) {
+				$ratioMin = $ratioVetement;
+			}
+
+			if ($ratioCaissier > $ratioMin) {
+				$ratioMin = $ratioCaissier;
+			}
+
+			return $ratioMin;
+
+		}));
+
+
+
+		// dd($listRessourceDiviser);
+
+		// Maintenant on parcours toute les ressources et on les assignes à des employés
+		foreach ($listRessourceDiviser as &$ressource) {
+			
+			// On parcours tout les employés
+			
+			foreach ($listUtilhoraire as &$employe) {
+
+				// var_dump($ressource);
+				// dd($employe);
+
+				if ($ressource['nbEmpChaussures'] == 0) {
+					$ratio = 1000;
+				} else {
+					$ratio = $ressource['employeDisponibleChaussure'] / $ressource['nbEmpChaussures'];
+				}
+				$ratioEmploye = [];
+
+				$ratioEmploye[] = [
+					'nbEmpLabel' => 'nbEmpChaussures',
+					'formation' => 'formationChaussure',
+					'ratio' => $ratio,
+					'typeTravail' => 'Chaussure',
+				];
+
+				if ($ressource['nbEmpVetements'] == 0) {
+					$ratio = 1000;
+				} else {
+					$ratio = $ressource['employeDisponibleChaussure'] / $ressource['nbEmpVetements'];
+				}
+
+				$ratioEmploye[] = [
+					'nbEmpLabel' => 'nbEmpVetements',
+					'formation' => 'formationVetement',
+					'ratio' => $ratio,
+					'typeTravail' => 'Vetement',
+				];
+
+				if ($ressource['nbEmpCaissier'] == 0) {
+					$ratio = 1000;
+				} else {
+					$ratio = $ressource['employeDisponibleChaussure'] / $ressource['nbEmpCaissier'];
+				}
+
+				$ratioEmploye[] = [
+					'nbEmpLabel' => 'nbEmpCaissier',
+					'formation' => 'formationCaissier',
+					'ratio' => $ratio,
+					'typeTravail' => 'Caissier',
+				];
+
+				// dd($ressource);
+
+				// on fait la ressource avec le ratio le plus bas en premier
+				$ratioEmploye = array_values(array_sort($ratioEmploye, function($value)
+				{
+					return $value['ratio'];
+				}));
+
+				
+				foreach ($ratioEmploye as $unType) {
+
+					// Si l'employé peut faire la ressource de chaussure
+					if ((int)$ressource[$unType['nbEmpLabel']] > 0 && $employe[$unType['formation']] == "1") {
+						// on lui assigne tout de suite
+						
+
+						// On parcours les horaires pour voir s'il faut agrandir un horaire déjà existant
+						
+						
+						// On lui retire sa dispo
+
+						foreach ($employe['listeDispoSemaine'] as &$dispo) {
+							
+
+							if (HoraireModel::idEgualJour($ressource['jour'], $dispo['jour'])) {
+								
+								// Si c'est une dispo valable
+								$heureDebut = (int)explode(':', $ressource['heureDebut'])[0];
+								$minuteDebut = (int)explode(':', $ressource['heureDebut'])[1];
+
+								$heureFin = (int)explode(':', $ressource['heureFin'])[0];
+								$minuteFin = (int)explode(':', $ressource['heureFin'])[1];
+
+								$heureDebutEmploye = (int)explode(':', $dispo['heureDebut'])[0];
+			        			$minuteDebutEmploye = (int)explode(':', $dispo['heureDebut'])[1];
+
+			        			$heureFinEmploye = (int)explode(':', $dispo['heureFin'])[0];
+			        			$minuteFinEmploye = (int)explode(':', $dispo['heureFin'])[1];
+
+			        			if (
+			        				$heureDebutEmploye + $minuteDebutEmploye / 60 <= $heureDebut + $minuteDebut / 60 && 
+			        				$heureFinEmploye + $minuteFinEmploye / 60 >= $heureFin + $minuteFin / 60
+			        			) {
+			        				//var_dump($ressource);
+									//var_dump($employe['listeDispoSemaine']);
+
+									// On modifie le chiffre
+									$avant = [
+										'idDispoJours' => $dispo['idDispoJours'],
+										'jour' => $dispo['jour'],
+										'idDispoSemaine' => $dispo['idDispoSemaine'],
+										'heureDebut' => $dispo['heureDebut'],
+										'heureFin' => $ressource['heureDebut'],
+									];
+
+									$apres = [
+										'idDispoJours' => $dispo['idDispoJours'],
+										'jour' => $dispo['jour'],
+										'idDispoSemaine' => $dispo['idDispoSemaine'],
+										'heureDebut' => $ressource['heureFin'],
+										'heureFin' => $dispo['heureFin'],
+									];
+
+
+									$dispo = $avant;
+									
+									array_push($employe['listeDispoSemaine'], $apres);
+
+									$ressource[$unType['nbEmpLabel']] = (int)$ressource[$unType['nbEmpLabel']]-1;
+									$valCritique = true;
+
+									array_push($horaire, array(
+										'courriel' => $employe['courriel'],
+										'typeTravail' => $unType['typeTravail'],
+										'jour' => $ressource['jour'],
+										'heureDebut' => $ressource['heureDebut'],
+										'heureFin' => $ressource['heureFin']
+									));
+			        			}
+
 							}
 						}
+
+
 					}
 				}
+				
+				
+				
 			}
+
+			
+		}
+		// var_dump("SDDF");
+		// dd($horaire);
+		$horaireTempo = $horaire;
+		$amelioration = true;
+		while ($amelioration) {
+			$amelioration = false;
+			foreach ($horaireTempo as $keyTempo => &$momentTempo) {
+				foreach ($horaire as $key => $moment) {
+					// Si on trouve un moment avant on modifie le tempo
+					if ($momentTempo['courriel'] == $moment['courriel'] && $momentTempo['typeTravail'] == 'Chaussure' && $momentTempo['jour'] == $moment['jour']) {
+						
+
+						if ($momentTempo['heureDebut'] == $moment['heureFin']) {
+
+							$momentTempo['heureDebut'] = $moment['heureDebut'];
+							
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						} else if ($momentTempo['heureFin'] == $moment['heureDebut']) {
+							$momentTempo['heureFin'] = $moment['heureFin'];
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						}
+					}
+
+					// Si on trouve un moment avant on modifie le tempo
+					if ($momentTempo['courriel'] == $moment['courriel'] && $momentTempo['typeTravail'] == 'Vetement' && $momentTempo['jour'] == $moment['jour']) {
+												
+						if ($momentTempo['heureDebut'] == $moment['heureFin']) {
+
+							$momentTempo['heureDebut'] = $moment['heureDebut'];
+							
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						} else if ($momentTempo['heureFin'] == $moment['heureDebut']) {
+							$momentTempo['heureFin'] = $moment['heureFin'];
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						}
+					}
+
+					// Si on trouve un moment avant on modifie le tempo
+					if ($momentTempo['courriel'] == $moment['courriel'] && $momentTempo['typeTravail'] == 'Caissier' && $momentTempo['jour'] == $moment['jour']) {
+												
+						if ($momentTempo['heureDebut'] == $moment['heureFin']) {
+
+							$momentTempo['heureDebut'] = $moment['heureDebut'];
+							
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						} else if ($momentTempo['heureFin'] == $moment['heureDebut']) {
+							$momentTempo['heureFin'] = $moment['heureFin'];
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						}
+					}
+
+
+				}
+			}
+		
+			$horaire = $horaireTempo;
 		}
 
 
+		
+			
+
+
+		
+
+       
+
 		//var_dump($horaire);
 		HoraireModel::ajoutHoraireDansBd($horaire);
-		dd("sdfdsf");
+		
 
-		Horairemodel::lstRatioErreur();
-
-		// var_dump($listRatioErreur);
 
 		$erreur = false;
 		 //Parcours de toute les ressources
@@ -137,7 +550,6 @@ class HoraireModel extends Eloquent {
 				}
 			}
 		}
-		die;
 
 		if ($erreur) {
 			return false;
