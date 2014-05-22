@@ -164,10 +164,6 @@ class HoraireModel extends Eloquent {
 
         	// On parcours tout les employés
         	foreach ($listUtilhoraire as $employe) {
-
-        		if ($employe['possesseurCle'] == 1) {
-        			var_dump($employe);
-        		}
         		
         		
         		// On vérifie si la personne à la formation (chaussure)
@@ -528,19 +524,101 @@ class HoraireModel extends Eloquent {
 		}
 
 
+
+		// on fusionne si ya juste 30 min entre
+		$horaireTempo = $horaire;
+		$amelioration = true;
+		while ($amelioration) {
+			$amelioration = false;
+			foreach ($horaireTempo as $keyTempo => &$momentTempo) {
+				foreach ($horaire as $key => $moment) {
+					// Si on trouve un moment avant on modifie le tempo
+					if ($momentTempo['courriel'] == $moment['courriel'] && $momentTempo['typeTravail'] == 'Chaussure' && $momentTempo['jour'] == $moment['jour']) {
+						
+
+						if (explode(':', $momentTempo['heureDebut'])[0] == explode(':', $moment['heureFin'])[1]) {
+
+							$momentTempo['heureDebut'] = $moment['heureDebut'];
+							
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						} else if (explode(':', $momentTempo['heureFin'])[0] == explode(':', $moment['heureDebut'])[0]) {
+							$momentTempo['heureFin'] = $moment['heureFin'];
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						}
+					}
+
+					// Si on trouve un moment avant on modifie le tempo
+					if ($momentTempo['courriel'] == $moment['courriel'] && $momentTempo['typeTravail'] == 'Vetement' && $momentTempo['jour'] == $moment['jour']) {
+												
+						if (explode(':', $momentTempo['heureDebut'])[0] == explode(':', $moment['heureFin'])[1]) {
+
+							$momentTempo['heureDebut'] = $moment['heureDebut'];
+							
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						} else if (explode(':', $momentTempo['heureFin'])[0] == explode(':', $moment['heureDebut'])[0]) {
+							$momentTempo['heureFin'] = $moment['heureFin'];
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						}
+					}
+
+					// Si on trouve un moment avant on modifie le tempo
+					if ($momentTempo['courriel'] == $moment['courriel'] && $momentTempo['typeTravail'] == 'Caissier' && $momentTempo['jour'] == $moment['jour']) {
+							
+						
+
+						if (explode(':', $momentTempo['heureDebut'])[0] == explode(':', $moment['heureFin'])[1]) {
+
+							$momentTempo['heureDebut'] = $moment['heureDebut'];
+							
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						} else if (explode(':', $momentTempo['heureFin'])[0] == explode(':', $moment['heureDebut'])[0]) {
+							$momentTempo['heureFin'] = $moment['heureFin'];
+							unset($horaireTempo[$key]);
+							unset($horaire[$key]);
+							$amelioration = true;
+
+						}
+					}
+
+
+				}
+			}
 		
-			
+			$horaire = $horaireTempo;
+		}
 
 
-		
+		// On clean les moments de moins de 3 heure
+		foreach ($horaire as $key => $moment) {
+			$heureDebut = (int)explode(':', $moment['heureDebut'])[0];
+			$minuteDebut = (int)explode(':', $moment['heureDebut'])[1];
 
-       
+			$heureFin = (int)explode(':', $moment['heureFin'])[0];
+			$minuteFin = (int)explode(':', $moment['heureFin'])[1];
+
+			if ($heureDebut + 3 + $minuteDebut / 60 > $heureFin + $minuteFin / 60) {
+				unset($horaire[$key]);
+			}
+		}
 
 		//var_dump($horaire);
 		HoraireModel::ajoutHoraireDansBd($horaire);
 		
-
-
 		$erreur = false;
 		 //Parcours de toute les ressources
 		foreach ($listRessource as $ressource) {
