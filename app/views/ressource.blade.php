@@ -405,6 +405,7 @@
 						btnSupp.type = 'button';
 						btnSupp.value = 'Supprimer';
 						btnSupp.className = "button";
+						btnSupp.style.margin = "4px";
 						btnSupp.addEventListener('click', suppGroupe);
 						document.getElementById('ressourcesMere').appendChild(btnSupp);
 					}

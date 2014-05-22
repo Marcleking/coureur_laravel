@@ -1941,7 +1941,7 @@ CREATE TABLE IF NOT EXISTS `ressourcemere` (
 --
 
 INSERT INTO `ressourcemere` (`idBlocRessource`, `nomBloc`, `description`, `used`) VALUES
-(14, 'Ressources du mois de Mars', 'Toutes les ressources nécessaires pour le mois de mars', 1),
+(14, 'Ressources du mois de mai', 'Toutes les ressources nécessaires pour le mois de mars', 0),
 (15, 'Ressources du mois de Mars 16 ', 'Ressources pour la semaine du 16 mars au 22 mars 2014.', 1),
 (16, 'Ressources du mois de Mars 23 ', 'Ressources pour la semaine du 23 mars au 29 mars 2014.', 1),
 (17, 'Ressources du mois de mars 30 ', 'Ressources pour la semaine du 30 mars au 5 avril 2014.', 1),
