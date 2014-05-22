@@ -120,7 +120,9 @@
 						</div>
 					</div>
 				</div>
-			</div>		
+			</div>
+		@else
+			<div id="panel-moi"></div>
 		@endif
 
 
