@@ -2,6 +2,7 @@
 
 @section('content')
 	<div class="medium-12 columns">	
+		<a class="fa fa-question-circle fa-3x pull-right" href="../guide#comptes" alt="Aide en ligne"></a>
 		<h3>Gestion des comptes</h3>
 		<div class="panel">
 			<div class="row">

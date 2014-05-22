@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/timePicker.css') }}" />
 
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-        
+
 
         <style>
             #feedback { font-size: 1.4em; }
@@ -55,6 +55,8 @@
         <script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/jquery-ui-1.10.3.custom.min.js') }}"></script>
         <script src="{{ URL::asset('js/jquery.timePicker.js') }}"></script>
+        <script src="{{ URL::asset('js/jquery-validation/dist/jquery.validate.js') }}"></script>
+
 
     </head>
     <body>

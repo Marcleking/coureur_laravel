@@ -200,6 +200,7 @@
 			
 		</script>
 
+		<a class="fa fa-question-circle fa-3x pull-right" href="guide#saisieDisponibilite" alt="Aide en ligne"></a>
 		<h2>Saisie des disponibilités</h2>
 		
 		<form id="formDispo">
@@ -437,34 +438,66 @@
 				genererTableau();
 				remplirListeDate();
 				
+				var div = document.createElement("div");
+				div.id = "heuresDesirees";
+				div.className = "row";
+
+				document.getElementById("formDispo").appendChild(div);
+
+				div = document.createElement("div");
+				div.id = "heuresDesireesContainer1";
+				div.className = "medium-3 columns left";
+				document.getElementById("heuresDesirees").appendChild(div);
+
 				var label = document.createElement("label");
 				label.htmlFor = "nbDesire";
 				label.innerHTML = "Nombre d'heures désirées : ";
-				document.getElementById("formDispo").appendChild(label);
+				document.getElementById("heuresDesireesContainer1").appendChild(label);
 				
+				div = document.createElement("div");
+				div.id = "heuresDesireesContainer2";
+				div.className = "medium-2 columns left";
+				document.getElementById("heuresDesirees").appendChild(div);
+
 				var input = document.createElement("input");
 				input.type = "number";
 				input.id = "nbDesire";
-				input.name = "nbDesire"
-				document.getElementById("formDispo").appendChild(input);
+				input.name = "nbDesire";
+				input.setAttribute("required","");
+				document.getElementById("heuresDesireesContainer2").appendChild(input);
+
+				div = document.createElement("div");
+				div.id = "repetitionsContainer3";
+				div.className = "medium-2 columns right";
+				document.getElementById("heuresDesirees").appendChild(div);
+
+				var label3 = document.createElement("label");
+				label3.htmlFor = "repetition"
+				label3.innerHTML = "semaines"
+				document.getElementById("repetitionsContainer3").appendChild(label3);
 				
-				var label2 = document.createElement("label");
-				label2.htmlFor = "repetition";
-				label2.innerHTML = "Répéter pour";
-				document.getElementById("formDispo").appendChild(label2);
-				
+				div = document.createElement("div");
+				div.id = "repetitionsContainer2";
+				div.className = "medium-2 columns right";
+				document.getElementById("heuresDesirees").appendChild(div);
+
 				var input2 = document.createElement("input");
 				input2.type = "number";
 				input2.id = "repetition";
 				input2.name = "repetition";
 				input2.value = "0";
-				document.getElementById("formDispo").appendChild(input2);
+				input2.setAttribute("required","");
+				document.getElementById("repetitionsContainer2").appendChild(input2);
 				
-				var label3 = document.createElement("label");
-				label3.htmlFor = "repetition"
-				label3.innerHTML = "semaines"
-				document.getElementById("formDispo").appendChild(label3);
+				div = document.createElement("div");
+				div.id = "repetitionsContainer1";
+				div.className = "medium-2 columns right";
+				document.getElementById("heuresDesirees").appendChild(div);
 				
+				var label2 = document.createElement("label");
+				label2.htmlFor = "repetition";
+				label2.innerHTML = "Répéter pour";
+				document.getElementById("repetitionsContainer1").appendChild(label2);
 				
 				var input3 = document.createElement("input");
 				input3.type = "button";
@@ -478,11 +511,13 @@
 				input3.type = "submit";
 				input3.id = "btnSubmit";
 				input3.value = "Envoyer";
+				input3.style.marginRight = "25px";
 				input3.className = "button right radius";
 				document.getElementById("formDispo").appendChild(input3);
 			}
 			
 			genererForm();
+			$("formDispo").validate();
 			recuperationDisponibilite();
 		</script>
 	</div>

@@ -2,6 +2,7 @@
 
 @section('content')
 	<div id="contenu" class="medium-12 columns">
+	<a class="fa fa-question-circle fa-3x pull-right" href="guide#ressource" alt="Aide en ligne"></a>
 	<h2>Ressources</h2>
 	<!--<div class="row panel">-->
 		
@@ -15,15 +16,37 @@
 		</style>
 		
 		<div class="row panel">
+			<h3>Sélection du groupe de ressources</h3>
 			<form id="ressourcesMere">
 				<select id="groupes"></select>
-				<label for="nom">Nom du groupe : </label>
-				<input type="text" id="nom" name="nom" /> 
-				<label for="description">Description</label>
-				<input type="text" id="description" name="description" />
-				<label for="actif">Actif : </label>
-				<input type="checkbox" id="actif" name="actif" />
-				<input type="button" id="ajouterGroupe" value="Ajouter" />
+				<div class="row">
+					<div class="columns medium-2">
+						<label for="nom">Nom du groupe : </label>
+					</div>
+					<div class="columns medium-10">
+						<input type="text" id="nom" name="nom" required="required" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="columns medium-2">
+						<label for="description">Description :</label>
+					</div>
+					<div class="columns medium-10">
+						<input type="text" id="description" name="description" required="required" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="columns medium-1 left">
+						<label for="actif">Actif : </label>
+					</div>
+					<div class="columns medium-1 left">
+						<input type="checkbox" id="actif" name="actif" />
+					</div>
+				</div>
+
+				<input type="button" id="ajouterGroupe" value="Ajouter" class="button" />
+				
 			</form>
 		</div>
 		<br />
@@ -38,28 +61,56 @@
 				<option value="samedi">Samedi</option>
 			</select>
 			
-			<label for="debut">Heure de début</label>
-			<input type="text" id="debut" class="time" name="debut" />
-			
-			<label for="fin">Heure de fin</label>
-			<input type="text" id="fin" class="time" name="fin" />
-			
+			<div class="row">
+				<div class="columns medium-2">
+					<label for="debut">Heure de début</label>
+				</div>
+				<div class="columns medium-10">
+					<input type="text" id="debut" class="time" name="debut" required />
+				</div>
+				<div class="columns medium-2">
+					<label for="fin">Heure de fin</label>
+				</div>
+				<div class="columns medium-10">
+					<input type="text" id="fin" class="time" name="fin" required />
+				</div>
+			</div>
+
 			<br />
 			
-			<label for="nbChaussures">Nombre d'employés "chaussure"</label>
-			<input type="number" id="nbChaussures" name="nbChaussures" min="0" />
+
+			<div class="row">
+				<div class="columns medium-4">
+					<label for="nbChaussures">Nombre d'employés "chaussure"</label>
+				</div>
+				<div class="columns medium-8">
+					<input type="number" id="nbChaussures" name="nbChaussures" min="0" required />
+				</div>
+			</div>			
 			<br />
 			
-			<label for="nbVetements">Nombre d'employés "vêtements"</label>
-			<input type="number" id="nbVetements" name="nbVetements" min="0" />
+			<div class="row">
+				<div class="columns medium-4">
+					<label for="nbVetements">Nombre d'employés "vêtements"</label>
+				</div>
+				<div class="columns medium-8">
+					<input type="number" id="nbVetements" name="nbVetements" min="0" required />
+				</div>
+			</div>
 			<br />
 			
-			<label for="nbCaisses">Nombre d'employés "caisse"</label>
-			<input type="number" id="nbCaisses" name="nbCaisses" min="0" />
+			<div class="row">
+				<div class="columns medium-4">
+					<label for="nbCaisses">Nombre d'employés "caisse"</label>
+				</div>	
+				<div class="columns medium-8">
+					<input type="number" id="nbCaisses" name="nbCaisses" min="0" required />
+				</div>
+			</div>
 			<br />
 			
-			<input type="submit" id="ajouterBloc" value="Ajouter" />
-			<input type="submit" id="enregistrer" value="Enregistrer" />
+			<input type="submit" id="ajouterBloc" value="Ajouter" class="button" />
+			<input type="submit" id="enregistrer" value="Enregistrer" class="button" />
 		</form>
 		
 		<script type="text/javascript">
@@ -139,6 +190,8 @@
 			
 			//document.getElementById('tableau').appendChild(table);
 			document.getElementById('ajoutBloc').insertBefore(table,document.getElementById('jour'));
+			$('ressourcesMere').validate();
+			$('ajoutBloc').validate();
 			
 		</script>
 		
@@ -176,7 +229,6 @@
 				document.getElementById('actif').addEventListener('change',changeActif);
 				
 				loadGroups();
-				
 				$(".time").timePicker({
 					startTime: "09:00",
 					endTime:"21:00",
@@ -343,6 +395,7 @@
 					btnModif.id = 'modifierGroupe';
 					btnModif.type = 'button';
 					btnModif.value = 'Modifier';
+					btnModif.className = "button";
 					btnModif.addEventListener('click',modifGroupe);
 					document.getElementById('ressourcesMere').appendChild(btnModif);
 
@@ -351,6 +404,7 @@
 						btnSupp.id = 'supprimerGroupe';
 						btnSupp.type = 'button';
 						btnSupp.value = 'Supprimer';
+						btnSupp.className = "button";
 						btnSupp.addEventListener('click', suppGroupe);
 						document.getElementById('ressourcesMere').appendChild(btnSupp);
 					}
@@ -384,7 +438,7 @@
 									row.childNodes[j].addEventListener('click', selectionBloc);
 								}
 							}
-							noAutoBloc = parseInt(lesBlocs[lesBlocs.length - 1].id) + 1;
+							noAutoBloc = parseInt(lesBlocs[lesBlocs.length - 1].id) + 10;
 						}
 						else
 						{	
@@ -527,6 +581,13 @@
 					row.childNodes[i].addEventListener('click', selectionBloc);
 				}
 				
+				if(document.getElementById('supprimer') != null){
+					document.getElementById('ajoutBloc').removeChild(document.getElementById('supprimer'));
+					changeTdArrayClass(document.getElementsByClassName(blocSelected()), 'blocSelected', 'bloc');
+					console.log(blocSelected());
+				}	
+				document.getElementById('ajouterBloc').value = "Ajouter";
+
 				noAutoBloc++;
 			}
 			
@@ -560,6 +621,7 @@
 				changeTdArrayClass(document.getElementsByClassName(noBloc),'blocSelected ', '');
 				changeFormValues(0,'','','','','');
 				document.getElementById('ajoutBloc').removeChild(document.getElementById('supprimer'));
+				document.getElementById('ajouterBloc').value = "Ajouter";
 			}
 			
 			function selectionBloc(e){
@@ -597,6 +659,7 @@
 						btnSupp.type = 'button';
 						btnSupp.addEventListener('click', function(){supprimerBloc(noBloc);});
 						btnSupp.id = 'supprimer';
+						btnSupp.className = "button";
 						document.getElementById('ajoutBloc').appendChild(btnSupp);
 					}
 					// Désélectionne le bloc

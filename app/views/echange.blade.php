@@ -2,6 +2,7 @@
 
 @section('content')
 <div id="contenu" class="medium-12 columns">
+	<a class="fa fa-question-circle fa-3x pull-right" href="guide#echange" alt="Aide en ligne"></a>
 	<h3>Gestion des échanges</h3>
 	<div id="divPrinc" class="panel">
 	</div>
@@ -110,6 +111,5 @@
 		}
 
 	</script>
-	
 </div>
 @stop

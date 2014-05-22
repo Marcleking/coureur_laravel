@@ -2,6 +2,7 @@
 
 @section('content')
 	<div class="medium-12 columns">
+		<a class="fa fa-question-circle fa-3x pull-right" href="guide#accueilMenu" alt="Aide en ligne"></a>
 		<h3>Messages</h3>
 		
 		<div class="panel">
@@ -27,7 +28,7 @@
 			            	</div>
 			            </dd>
 		            @endforeach
-
+					
 		        </dl>
 		        {{ $messages->links() }}
 			@else
